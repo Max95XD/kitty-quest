@@ -37,7 +37,6 @@
             position: relative;
         }
 
-        /* Background Particle Canvas */
         #fx-canvas {
             position: absolute;
             top: 0;
@@ -48,17 +47,17 @@
             pointer-events: none;
         }
 
-        /* --- THE FREAKY GIANT PERSISTENT BACKGROUND CAT THEATERS --- */
+        /* --- MAXIMIZED FREAKY ANIMATING SIDE STAGES --- */
         .giant-cat-stage {
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 22vw;
+            width: 24vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 2; /* Sits behind the cabinet, running forever */
+            z-index: 2;
             pointer-events: none;
             overflow: hidden;
         }
@@ -67,19 +66,20 @@
 
         .freaky-cat-screen {
             font-family: monospace;
-            font-size: 13px;
-            line-height: 1.1;
+            font-size: 15px; /* Boosted scale size */
+            line-height: 1.2;
             color: #d946ef;
             white-space: pre;
-            text-shadow: 0 0 8px #d946ef;
-            background: rgba(11, 7, 30, 0.7);
-            padding: 20px 10px;
-            border-radius: 8px;
-            border: 2px dashed var(--accent-lavender);
+            text-shadow: 0 0 12px #d946ef;
+            background: rgba(11, 7, 30, 0.85);
+            padding: 25px 15px;
+            border-radius: 12px;
+            border: 3px dashed var(--accent-lavender);
             text-align: center;
+            transition: transform 0.1s ease-out;
         }
 
-        /* --- IMMERSIVE SCREEN OVERLAY FOR TRUE SCREEN CENTERING --- */
+        /* --- TRUE CENTER OVERLAY LAYER --- */
         .global-overlay-container {
             position: fixed;
             top: 0;
@@ -89,7 +89,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 999999; /* Forced above absolutely everything else */
+            z-index: 999999;
             pointer-events: none;
         }
 
@@ -98,9 +98,9 @@
             border: 6px double #ffffff;
             color: #ffffff;
             font-weight: bold;
-            font-size: 2rem;
+            font-size: 2.2rem;
             text-align: center;
-            padding: 35px 50px;
+            padding: 35px 55px;
             box-shadow: 0 0 0 10px #701a75, 0 0 60px #d946ef, 0 30px 90px rgba(0,0,0,0.9);
             animation: popCenterTrue 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             pointer-events: auto;
@@ -112,12 +112,12 @@
             100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
 
-        /* --- CENTERED ARCADE CABINET --- */
+        /* --- ARCADE PLATFORM INTERFACE --- */
         .arcade-cabinet {
             position: relative;
-            z-index: 10; /* Keeps cabinet above background cats */
-            width: 54%;
-            max-width: 650px;
+            z-index: 10;
+            width: 50%;
+            max-width: 620px;
             min-width: 380px;
             min-height: 560px;
             background: var(--arcade-panel);
@@ -152,7 +152,6 @@
             line-height: 1.5;
         }
 
-        /* --- LUCKY MINI SLOTS --- */
         .slots-machine {
             width: 100%;
             background: #120b2e;
@@ -193,10 +192,10 @@
             100% { transform: translateY(-8px); opacity: 0.6; }
         }
 
-        /* --- EXTENDED END CINEMATIC MOVIE SCENE --- */
+        /* --- CINEMATIC REVERSED DOWN-SCROLL FILM ROLL --- */
         .movie-credits-container {
             width: 100%;
-            height: 340px;
+            height: 350px;
             overflow: hidden;
             position: relative;
             border: 2px dashed var(--accent-lavender);
@@ -207,34 +206,36 @@
         .credits-scroll-track {
             position: absolute;
             width: 100%;
-            animation: scrollMovieCredits 42s infinite linear;
+            /* Modified to slide fluidly from TOP to BOTTOM */
+            animation: scrollMovieStory 45s infinite linear;
             text-align: center;
             display: flex;
             flex-direction: column;
             gap: 25px;
         }
 
-        @keyframes scrollMovieCredits {
-            0% { transform: translateY(340px); }
-            100% { transform: translateY(-2600px); }
+        @keyframes scrollMovieStory {
+            0% { transform: translateY(-2400px); }
+            100% { transform: translateY(350px); }
         }
 
-        .credit-title {
+        .story-chapter {
             font-size: 0.8rem;
             color: var(--border-pixel);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        .credit-name {
-            font-size: 1.15rem;
+        .story-line {
+            font-size: 1.1rem;
             color: #ffffff;
             font-weight: bold;
-            margin-top: -12px;
+            margin-top: -10px;
             text-shadow: 0 0 8px var(--accent-lavender);
+            padding: 0 10px;
         }
 
-        /* --- QUESTION WORKSPACE CONFIG --- */
+        /* --- WORKSPACE CORE CONTROLS --- */
         .level-badge {
             font-size: 1rem;
             color: var(--border-pixel);
@@ -313,34 +314,28 @@
 </head>
 <body>
 
-    <!-- Main Dynamic FX Particles Layer -->
     <canvas id="fx-canvas"></canvas>
 
-    <!-- LEFT FOREVER-ANIMATING FREAKY GIANT CAT WALL -->
+    <!-- LEFT CONTINUOUS DYNAMIC FREAKY CAT -->
     <div class="giant-cat-stage left-stage">
-        <div class="freaky-cat-screen" id="left-freak-cat">
-<!-- Live Render Engine Built Below -->
-        </div>
+        <div class="freaky-cat-screen" id="left-freak-cat"></div>
     </div>
 
-    <!-- RIGHT FOREVER-ANIMATING FREAKY GIANT CAT WALL -->
+    <!-- RIGHT CONTINUOUS DYNAMIC FREAKY CAT -->
     <div class="giant-cat-stage right-stage">
-        <div class="freaky-cat-screen" id="right-freak-cat">
-<!-- Live Render Engine Built Below -->
-        </div>
+        <div class="freaky-cat-screen" id="right-freak-cat"></div>
     </div>
 
-    <!-- PURE GLOBAL LAYER MASK FOR FULL CENTERED BANNER CONTROL -->
     <div id="global-alert-mask" class="global-overlay-container hidden"></div>
 
     <div class="arcade-cabinet" id="main-cabinet">
         
-        <!-- INTRO BOOT MODULE -->
+        <!-- INTRO INIT LOG VIEW -->
         <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:20px; width: 100%;">
             <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 85%; text-align: left; background: #090518; padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
-                > INITIALIZING PERPETUAL SIDE-STAGE FREAKY TEXT CARS...<br>
-                > LOCKING MULTI-GRID VIEWPORT CENTER OBJECT AT Z-INDEX 999999...<br>
-                > CALIBRATION SUCCESSFUL. RUNNING QUEST STAGE.
+                > DEPLOYING EXTRA LARGE SIDE STAGE CAR MATRIX...<br>
+                > INVERTING CREDITS ENGINE TO TOP-DOWN SCROLL VECTOR...<br>
+                > HARDWARE RUNNING FLUIDLY. READY TO PROCEED.
             </div>
             <div class="glitch-title" id="intro-main-msg" style="opacity: 0;">
                 PLAYER 1 ONLINE !<br>
@@ -349,13 +344,13 @@
             <button class="action-btn hidden" id="start-quest-btn">START QUEST 🕹️</button>
         </div>
 
-        <!-- ARCADE SELECTION LEVEL SCREEN -->
+        <!-- ARCADE LEVEL SELECTION HUB -->
         <div id="game-screen" class="hidden" style="width:100%;">
             <div class="level-badge" id="lvl-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 5</div>
             
             <div class="slots-machine">
-                <div class="sys-alert">🎰 Unlocking next data array sequence path...</div>
+                <div class="sys-alert">🎰 Accessing upcoming text vector modules...</div>
                 <div class="slots-window">
                     <div class="slot-reel" id="reel-1">🐱</div>
                     <div class="slot-reel" id="reel-2">💜</div>
@@ -365,7 +360,7 @@
             </div>
         </div>
 
-        <!-- RESPONSE DIALOGUE PANEL -->
+        <!-- DIALOGUE ENTRY ELEMENT -->
         <div id="dialogue-screen" class="hidden" style="width:100%; display: flex; flex-direction: column;">
             <div class="level-badge" id="lvl-diag-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="dialogue-progress">Data Node 1 of 5 Unlocked</div>
@@ -374,9 +369,9 @@
             <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
         </div>
 
-        <!-- CINEMATIC CREDIT END OVERLAY -->
+        <!-- TOP-DOWN SCROLLING STORYBOARD THEATER -->
         <div id="end-screen" class="hidden" style="width: 100%;">
-            <h1 style="font-size: 1.3rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 5px;">🏆 QUEST CLEAR: FOREVER MATRIX ENGAGED 🏆</h1>
+            <h1 style="font-size: 1.1rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 5px;">🏆 THE COZY ARCADE CHRONICLES: SUCCESS! 🏆</h1>
             <div class="movie-credits-container">
                 <div class="credits-scroll-track" id="credits-loop-element"></div>
             </div>
@@ -399,67 +394,70 @@
         let finalEndStateActive = false;
         const compiledData = {};
 
-        // Frame Tracking for Left/Right Freaky Cats Animation
         let freakyFrameCounter = 0;
         const leftCatElement = document.getElementById('left-freak-cat');
         const rightCatElement = document.getElementById('right-freak-cat');
 
-        // Bizarre dynamic text-cat array poses that switch continuously
+        // Big, energetic structural poses
         const freakyCatPosesLeft = [
-`  (づ｡◕‿‿◕｡)づ  ✨
-  /\━━━━/\  💖
- <  (  o.o  )  >
-    \   Y   /
-    (  "|"  )
-   (___|_|___)
-[FREAKY VALUE: MAX]`
+`    (っ◕‿‿◕)っ ✨
+   /\\━━━━━━/\\ 💖
+  <  (  O.O  )  >
+     \\   V   /
+      (  "|"  )
+     /___|_|___\\
+ [BOUNCING ENERGY: 200%]`
 ,
-`   (つ✧ω✧)つ   ✨
-  /\━━━━/\  💜
- <  (  O.O  )  >
-    /   V   \\
-    (  "|"  )
-   (___|_|___)
-[THROWING VALENTINES]`
+`    (つ✧益✧)つ ✨
+   /\\━━━━━━/\\ 💜
+  <  (  o.o  )  >
+     /   Y   \\
+      (  "|"  )
+     \\___|_|___/
+ [FREAKY MODE ACTIVE]`
 ];
 
         const freakyCatPosesRight = [
-`      💖  /\_/\   
-    ✨   ( >.< ) 
-   (つ━〇━━〇━つ)
-    |          |
-    |   ♥  ♥   |
-    |____  ____|
-        ||||
-    [INFINITE LOVE BOT]`
+`       💖   /\\_/\\  
+     ✨    ( >.< ) 
+   (つ━━〇━━━〇━━つ)
+     |           |
+     |   ♥   ♥   |
+     |_____  ____|
+         |||||
+   [THE ULTRA LOVE BOT]`
 ,
-`      💜  /\_/\   
-    ✨   ( ʘ.ʘ ) 
-   (つ━〇━━〇━つ)
-    |    ⚡    |
-    |   ♥  ♥   |
-    |____  ____|
-        \\\\\\\\
-    [DANCING UNTIL END]`
+`       💜   /\\_/\\  
+     ✨    ( ʘ.ʘ ) 
+   (つ━━〇━━━〇━━つ)
+     |    💥     |
+     |   ♥   ♥   |
+     |_____  ____|
+         \\\\\\\\\\
+   [DANCING FOREVER]`
 ];
 
-        // Perpetual Render Loop for the Side Channels
+        // Running uninterrupted from start to finish
         function runFreakyCatsEngine() {
             freakyFrameCounter++;
-            let poseIndex = Math.floor(freakyFrameCounter / 25) % 2; // Switches every ~400ms smoothly
+            let poseIndex = Math.floor(freakyFrameCounter / 18) % 2; 
             
             leftCatElement.innerHTML = freakyCatPosesLeft[poseIndex];
             rightCatElement.innerHTML = freakyCatPosesRight[poseIndex];
             
-            // Apply slight random structural wobble matrix effects
-            leftCatElement.style.transform = `scale(${1 + Math.sin(freakyFrameCounter*0.15)*0.03}) rotate(${Math.cos(freakyFrameCounter*0.1)*3}deg)`;
-            rightCatElement.style.transform = `scale(${1 + Math.cos(freakyFrameCounter*0.15)*0.03}) rotate(${Math.sin(freakyFrameCounter*0.1)*3}deg)`;
+            // Expanded swinging physics movement modifiers
+            let scaleVal = 1 + Math.sin(freakyFrameCounter * 0.12) * 0.05;
+            let rotateVal = Math.cos(freakyFrameCounter * 0.08) * 6;
+            let slideVal = Math.sin(freakyFrameCounter * 0.05) * 10;
+            
+            leftCatElement.style.transform = `translateY(${slideVal}px) scale(${scaleVal}) rotate(${rotateVal}deg)`;
+            rightCatElement.style.transform = `translateY(${-slideVal}px) scale(${scaleVal}) rotate(${-rotateVal}deg)`;
             
             requestAnimationFrame(runFreakyCatsEngine);
         }
         runFreakyCatsEngine();
 
-        // DOM Element Mapping
+        // Element Selectors
         const cabinet = document.getElementById('main-cabinet');
         const introDiv = document.getElementById('intro-screen');
         const gameDiv = document.getElementById('game-screen');
@@ -482,7 +480,6 @@
             return "LEVEL 3: ULTIMATE CLARITY";
         }
 
-        // --- AUDIO SYNTH LAYER ---
         let audioCtx = null;
         function playHighVolumeRetroMeow() {
             try {
@@ -491,9 +488,9 @@
                 let osc = audioCtx.createOscillator();
                 let gain = audioCtx.createGain();
                 osc.type = 'triangle';
-                osc.frequency.setValueAtTime(600, now);
-                osc.frequency.exponentialRampToValueAtTime(1100, now + 0.15);
-                gain.gain.setValueAtTime(0.3, now);
+                osc.frequency.setValueAtTime(580, now);
+                osc.frequency.exponentialRampToValueAtTime(1150, now + 0.15);
+                gain.gain.setValueAtTime(0.25, now);
                 gain.gain.linearRampToValueAtTime(0.001, now + 0.2);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
@@ -502,7 +499,6 @@
             } catch (err) {}
         }
 
-        // --- CANVAS RENDER FX PARTICLES ---
         const fxCanvas = document.getElementById('fx-canvas');
         const ctx = fxCanvas.getContext('2d');
         let elementsArray = [];
@@ -558,7 +554,7 @@
         function engineLoop() {
             ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
             if (finalEndStateActive && Math.random() < 0.15) {
-                spawnBurst(10, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.6), 'firework');
+                spawnBurst(8, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.6), 'firework');
             }
             for(let i = 0; i < elementsArray.length; i++) {
                 elementsArray[i].update();
@@ -572,9 +568,8 @@
         }
         engineLoop();
 
-        // INITIAL LIFE TIMEOUT LOGS
         window.addEventListener('load', () => {
-            setTimeout(() => { document.getElementById('boot-logs').innerHTML += "<br>> PERPETUAL BACKGROUND CARS ACTIVE."; playHighVolumeRetroMeow(); }, 600);
+            setTimeout(() => { document.getElementById('boot-logs').innerHTML += "<br>> SIDE-STAGE STAGE MECHANICS LOCKED."; playHighVolumeRetroMeow(); }, 600);
             setTimeout(() => {
                 document.getElementById('intro-main-msg').style.opacity = "1";
                 document.getElementById('start-quest-btn').classList.remove('hidden');
@@ -587,7 +582,6 @@
             initiateGameTurn();
         });
 
-        // --- FIXED ESCAPE GRID FOR DEAD CENTER "I LOVE YOU" DEPLOYMENT ---
         function triggerTrueCenterLoveCelebration() {
             alertMask.innerHTML = `<div class="true-center-banner">I LOVE YOU SO MUCH! 🤍</div>`;
             alertMask.classList.remove('hidden');
@@ -595,10 +589,9 @@
             const w = window.innerWidth;
             const h = window.innerHeight;
             
-            // Send massive visual shockwaves to background canvas layers
             for(let f=0; f<5; f++) {
                 setTimeout(() => {
-                    spawnBurst(20, w/2 + (Math.random()*200 - 100), h/2 + (Math.random()*200 - 100), 'firework');
+                    spawnBurst(20, w/2, h/2, 'firework');
                     spawnBurst(15, w/2, h/2, 'heart');
                 }, f * 100);
             }
@@ -606,7 +599,7 @@
             setTimeout(() => {
                 alertMask.classList.add('hidden');
                 alertMask.innerHTML = '';
-            }, 1400);
+            }, 1300);
         }
 
         function initiateGameTurn() {
@@ -659,8 +652,6 @@
             }
 
             compiledData[`[${getLevelName()}] Q${currentStep + 1}: ${questionsList[currentStep]}`] = answerStr;
-            
-            // Pop the banner dead-center immediately on answer submission
             triggerTrueCenterLoveCelebration();
 
             currentStep++;
@@ -670,7 +661,7 @@
                 } else {
                     dispatchResults();
                 }
-            }, 1400);
+            }, 1300);
         });
 
         async function dispatchResults() {
@@ -690,7 +681,7 @@
                     dialogDiv.classList.add('hidden');
                     endDiv.classList.remove('hidden');
                     finalEndStateActive = true;
-                    setup50LineCredits();
+                    setup50LineCreditsStory();
                 } else {
                     alert("Pipeline error. Recheck network.");
                     nextButton.disabled = false;
@@ -701,35 +692,47 @@
             }
         }
 
-        // --- FULL CINEMATIC OVER 50+ LINE CREDIT ARRAY GENERATION LOOP ---
-        function setup50LineCredits() {
+        // --- CUTE & FUNNY ARCADE STORY SCROLL (TOP-TO-BOTTOM COMPREHENSIVE TEXT BLOCK) ---
+        function setup50LineCreditsStory() {
             const container = document.getElementById('credits-loop-element');
-            const massiveCreditsText = `
-                <div class="credit-title">QUEST CLEAR COMPLETION STATUS</div><div class="credit-name">SUCCESS 100%</div>
-                <div class="credit-title">TOTAL DATA TRANSLATIONS COMPREHENDED</div><div class="credit-name">5 / 5 SYSTEM BLOCKS</div>
-                <div class="credit-title">EXPLICIT PRINCIPLE DIRECTIVE</div><div class="credit-name">I LOVE YOU SO MUCH</div>
-                <div class="credit-title">EXPLICIT RUNTIME DECLARATION</div><div class="credit-name">YOU MEAN EVERYTHING TO ME</div>
-                <div class="credit-title">EXPLICIT EMOTIONAL CORE</div><div class="credit-name">MY WHOLE ENTIRE UNIVERSE</div>
-                <div class="credit-title">CHIEF EXECUTIVE OFFICER OF LOVING YOU</div><div class="credit-name">YOUR NO. 1 ADMIRER</div>
-                <div class="credit-title">GLOBAL ADMINISTRATIVE DEVOTION LEAD</div><div class="credit-name">ME, MYSELF & I</div>
-                <div class="credit-title">HEAD OF CUTE CAT ANIMATIONS PRODUCTION</div><div class="credit-name">THE FREAKY DANCING CATS</div>
-                <div class="credit-title">PRODUCTION DESIGN DIRECTIVE</div><div class="credit-name">INFINITE PIXEL HEARTS CO.</div>
-                <div class="credit-title">SENIOR FIREWORKS SUPERVISOR</div><div class="credit-name">PINK & PURPLE SPARK MATRICES</div>
-                <div class="credit-title">LEVER HANDLING & SLOT HARDWARE MANAGER</div><div class="credit-name">LUCKY CAT ARCADE SYSTEMS</div>
-                <div class="credit-title">TOTAL HEART METRICS RATING</div><div class="credit-name">OVER ONE MILLION POINTS</div>
-                <div class="credit-title">EXPIRY TIMEOUT DURATION LOG</div><div class="credit-name">FOREVER AND ALWAYS</div>
-                <div class="credit-title">SPECIAL SYSTEM REWARD ACKNOWLEDGEMENT</div><div class="credit-name">THANK YOU FOR SHARING YOUR HEART</div>
-                <div class="credit-title">CORE MATRIX VALUE STRINGS</div><div class="credit-name">I LOVE YOU I LOVE YOU I LOVE YOU</div>
-                <div class="credit-title">CORE MATRIX VALUE STRINGS CONTINUED</div><div class="credit-name">I LOVE YOU I LOVE YOU I LOVE YOU</div>
-                <div class="credit-title">CORE MATRIX VALUE STRINGS EXTENDED</div><div class="credit-name">I LOVE YOU I LOVE YOU I LOVE YOU</div>
-                <div class="credit-title">DATA CONFIDENTIALITY LOG LEVEL</div><div class="credit-name">PERMANENTLY SEALED WITH LOVE</div>
-                <div class="credit-title">SCROLL RUNTIME INTERVAL LIMIT</div><div class="credit-name">WITHOUT END IN SIGHT</div>
-                <div class="credit-title">ULTIMATE REWARD UNLOCKED STATE</div><div class="credit-name">MY UNDIVIDED FOREVER DEVOTION</div>
-                <div class="credit-title">SPECIAL THANKS AND COMPLIMENTS</div><div class="credit-name">TO YOUR BEAUTIFUL AMAZING MIND</div>
-                <div class="credit-title">FINAL VERDICT STATUS CODE</div><div class="credit-name">YOU ARE MY FAVORITE PERSON PERSONALLY</div>
-                <div class="credit-title">ADDITIONAL SUBSET NOTES</div><div class="credit-name">I CHOOSE YOU EVERY SINGLE DAY</div>
+            const funnyLoveStoryText = `
+                <div class="story-chapter">CHAPTER 1: THE DISCOVERY</div>
+                <div class="story-line">Once upon a time, in a neon pixelated world...</div>
+                <div class="story-line">Player 1 met Player 2 near a buggy arcade machine.</div>
+                <div class="story-line">Player 1 tried to look cool but accidentally dropped their coffee.</div>
+                <div class="story-line">Player 2 just laughed and offered to share theirs.</div>
+                <div class="story-line">It was a critical hit directly to the feelings!</div>
+
+                <div class="story-chapter">CHAPTER 2: THE GLITCHY JOURNEY</div>
+                <div class="story-line">They decided to team up for co-op mode.</div>
+                <div class="story-line">Player 1 wasn't very good at jumping over obstacles...</div>
+                <div class="story-line">And Player 2 kept accidentally throwing shields at walls instead of bad guys.</div>
+                <div class="story-line">But somehow, they kept winning anyway!</div>
+                <div class="story-line">Because team dynamics were perfectly synced.</div>
+
+                <div class="story-chapter">CHAPTER 3: THE CONFESSION MODULATION</div>
+                <div class="story-line">One night under a low-res digital starry sky...</div>
+                <div class="story-line">Player 1 typed: "I think my code has a bug."</div>
+                <div class="story-line">Player 2 panicked and checked the system logs.</div>
+                <div class="story-line">Player 1 smiled and said: "Yeah, it keeps looping 'I love you'."</div>
+                <div class="story-line">The system completely overheated with cuteness.</div>
+
+                <div class="story-chapter">CHAPTER 4: INFINITE HIGH SCORES</div>
+                <div class="story-line">Now, they have cleared every single hidden boss level.</div>
+                <div class="story-line">No matter how many weird glitches or monsters appear...</div>
+                <div class="story-line">They have the ultimate cheat code: Forever Trust.</div>
+                <div class="story-line">And they lived happily, collecting hearts until the end of time.</div>
+
+                <div class="story-chapter">APPENDIX LOG: CORE DECREES</div>
+                <div class="story-line">I LOVE YOU SO MUCH 🤍</div>
+                <div class="story-line">I LOVE YOU I LOVE YOU I LOVE YOU</div>
+                <div class="story-line">YOU ARE MY WORLD AND MY ENTIRE HIGH SCORE</div>
+                <div class="story-line">THANK YOU FOR FINISHING THIS RETRO QUEST WITH ME!</div>
+                <div class="story-line">GAME STATUS: PERFECTLY SEALED WITH FOREVER DEVOTION</div>
+                <div class="story-line">❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤</div>
             `;
-            container.innerHTML = massiveCreditsText + massiveCreditsText;
+            // Loop array duplication to support flawless seamless cycle boundaries
+            container.innerHTML = funnyLoveStoryText + funnyLoveStoryText;
         }
     </script>
 </body>
