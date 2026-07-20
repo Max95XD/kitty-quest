@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Hearts: Level Select ♡</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #030712;         
+            --text-color: #f8fafc;       
+            --arcade-panel: rgba(15, 23, 42, 0.9);          
+            --border-pixel: #ff758f;      
+            --btn-color: #ff4d6d;         
+            --btn-text: #ffffff;       
+            --font-retro: 'Courier Prime', monospace; 
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: var(--font-retro);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Particle Vector Overlay Canvas */
+        #fx-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Screen Shake Impact Animation */
+        @keyframes shake {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-8px, 5px); }
+            40% { transform: translate(6px, -6px); }
+            60% { transform: translate(-5px, 4px); }
+            80% { transform: translate(4px, -3px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .shake-effect {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        .arcade-cabinet {
+            position: relative;
+            z-index: 2;
+            width: 92%;
+            max-width: 720px;
+            min-height: 580px;
+            background: var(--arcade-panel);
+            border: 4px solid var(--border-pixel);
+            border-radius: 4px; /* Crisp retro borders */
+            padding: 35px;
+            box-shadow: 0 0 0 4px #0f172a, 0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(255, 117, 143, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* --- PIXEL CAT WELCOME ANIMATION --- */
+        #intro-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            gap: 20px;
+        }
+
+        .pixel-cat-container {
+            font-size: 14px;
+            line-height: 1.2;
+            color: var(--border-pixel);
+            font-weight: bold;
+            text-align: left;
+            white-space: pre;
+            filter: drop-shadow(0 0 10px var(--border-pixel));
+            animation: floatCat 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatCat {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-10px); }
+        }
+
+        /* --- THE ARCADE MINI-GAME RADAR --- */
+        #game-arena {
+            width: 100%;
+            height: 190px;
+            background: #090d16;
+            border: 3px double var(--border-pixel);
+            cursor: none;
+            margin-bottom: 20px;
+        }
+
+        /* --- LEVEL UI STYLING --- */
+        .level-badge {
+            font-size: 1rem;
+            color: #f43f5e;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 8px rgba(244, 63, 94, 0.4);
+        }
+
+        .step-counter {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .prompt-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 25px;
+            min-height: 4em;
+            line-height: 1.6;
+        }
+
+        .input-box {
+            width: 100%;
+            background: #020617;
+            border: 2px solid #334155;
+            color: #fff;
+            padding: 15px;
+            font-family: var(--font-retro);
+            font-size: 1.05rem;
+            resize: none;
+            min-height: 120px;
+            margin-bottom: 25px;
+        }
+
+        .input-box:focus {
+            outline: none;
+            border-color: var(--border-pixel);
+            box-shadow: 0 0 12px rgba(255, 117, 143, 0.3);
+        }
+
+        .action-btn {
+            background: var(--btn-color);
+            color: var(--btn-text);
+            border: none;
+            font-family: var(--font-retro);
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 14px 45px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #9d0208;
+            transition: all 0.1s;
+        }
+
+        .action-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #9d0208;
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .hidden { display: none !important; opacity: 0; }
+        
+        .sys-alert {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            background: #1e293b;
+            padding: 6px 14px;
+            border-radius: 2px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--border-pixel);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- RETRO FX PARTICLE BACKGROUND -->
+    <canvas id="fx-canvas"></canvas>
+
+    <!-- CORE INTERFACE CABINET -->
+    <div class="arcade-cabinet" id="main-cabinet">
+        
+        <!-- LEVEL STARTER SCREEN -->
+        <div id="intro-screen">
+            <div class="pixel-cat-container" id="pixel-cat">
+ /\_/\  
+( o.o ) 
+ > ^ <  
+[ Zzz... Click Me ]
+            </div>
+            <h2 style="letter-spacing: 3px; color: var(--border-pixel); text-shadow: 0 0 10px var(--border-pixel)">HEART QUEST v1.0</h2>
+            <p style="color: #64748b; font-size: 0.85rem;">INSERT HEART TO INITIALIZE</p>
+        </div>
+
+        <!-- ARCADE PLAY FIELD -->
+        <div id="game-screen" class="hidden" style="width:100%;">
+            <div class="level-badge" id="lvl-title">LEVEL 1: THE BLANK CANVAS</div>
+            <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 50</div>
+            <div class="sys-alert">🕹️ Drag your heart avatar into the pulsing kitty paw zone!</div>
+            <canvas id="game-arena"></canvas>
+        </div>
+
+        <!-- DIALOGUE SCREEN -->
+        <div id="dialogue-screen" class="hidden" style="width:100%; display: flex; flex-direction: column;">
+            <div class="level-badge" id="lvl-diag-title">LEVEL 1: THE BLANK CANVAS</div>
+            <div class="step-counter" id="dialogue-progress">Data Node 1 of 50 Unlocked</div>
+            <div class="prompt-text" id="active-question">Loading database matrix...</div>
+            <textarea class="input-box" id="response-field" placeholder="Input honest response string... 🤍"></textarea>
+            <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
+        </div>
+
+        <!-- VICTORY FINAL SHOWCASE -->
+        <div id="end-screen" class="hidden">
+            <div class="pixel-cat-container" style="animation: none; text-align: center;">
+ /\_/\  
+( =.=. ) 
+ > ♡ <  
+[ QUEST COMPLETE ]
+            </div>
+            <h1 style="font-size: 1.6rem; color: var(--border-pixel); margin-top:20px; margin-bottom: 15px;">ALL LEVELS CLEAR</h1>
+            <p style="color: #cbd5e1; font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.8;">
+                Your honest transmission was compiled completely. Every answer is officially safely locked away into my source code forever. I love you. 🤍
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // --- QUEST LEVELS DATA MATRIX ---
+        const questionsList = [
+            // LEVEL 1: THE FOUNDATION (1-10)
+            "Do you promise to answer these questions completely honestly, directly from your heart? I want to know the real, raw you.",
+            "Just so you know... once you click next, you can't go back to edit or change your answer. Ready for this?",
+            "Before we start, I need you to know how deeply I love you. None of this is to catch you out—it's just to understand your beautiful mind better. Okay?",
+            "What is something I do that secretly makes you fall in love with me all over again?",
+            "Is there anything I do, even a small habit, that accidentally hurts your feelings or bothers you but you haven't told me?",
+            "If you could ask me anything right now with a 100% guarantee that I will answer honestly, what would it be?",
+            "Is there ever a time where you feel like you can't fully trust me, even for a split second?",
+            "What is a dream or goal you have for us that you've been too shy or hesitant to talk about?",
+            "If there was one single habit or thing I do that you wish I would completely stop doing, what is it?",
+            "Do you ever get tired or annoyed when I get protective, insecure, or look for reassurance?",
+            
+            // LEVEL 2: EMOTIONAL DEPTHS (11-20)
+            "Have you ever felt overwhelmed by how much I love you or ask from you, like your best isn't enough for me?",
+            "Do you ever feel like I'm slacking off or not putting my absolute best effort into us?",
+            "What is something specific I could do more often to make you feel completely secure and cherished?",
+            "Has there ever been a moment during our rough patches where you genuinely thought I was losing feelings for you?",
+            "Do you honestly think I am too insecure, or do you understand where my worries come from?",
+            "Have you ever felt like I was hiding something important from you, even if you couldn't prove it?",
+            "Deep down, do you know with absolute certainty that I would never, ever cheat on or betray you?",
+            "What is the most painful thing I have ever said to you during an argument that still stings when you think about it?",
+            "Do you truly feel like you are my absolute number one priority in life, or do I make you feel secondary sometimes?",
+            "Am I truly your top priority when it comes to your future and the life you want to build?",
+
+            // LEVEL 3: THE TRUST BARRIER (21-30)
+            "If I asked you to make a massive, difficult sacrifice for our relationship's future, would you trust me enough to do it?",
+            "What does 'trusting me completely' mean to you? Do you feel we are 100% there yet?",
+            "Does it secretly bother or worry you when I mention or interact with any of my female friends or acquaintances?",
+            "Do you believe that clear, strict boundaries are essential between us and our friends of the opposite sex?",
+            "Have I ever crossed a line with someone else that made you feel uncomfortable or disrespected, even if you didn't say it?",
+            "The next set of questions gets a little more specific and intense. Are you okay with opening up completely for me?",
+            "Remember, you promised to keep things completely transparent between us. No holding back, okay?",
+            "No matter what you answer to these, my love for you isn't going anywhere. You have my heart forever. Do you fully trust that?",
+            "Have you ever developed even a tiny, fleeting crush on anyone else since we became official?",
+            "Have you ever flirted, even playfully or as a joke, with another guy while we've been together?",
+
+            // LEVEL 4: CROSSED ROADS (31-40)
+            "Have you ever used cute or couple-like nicknames with any of your guy friends or online friends?",
+            "Have you ever hidden or deleted messages or chats because you knew how I would react if I saw them?",
+            "Is there any past relationship detail or interaction that you deliberately kept hidden from me to 'protect' my feelings?",
+            "Have you ever felt a strong emotional dependence on another guy friend when things were rocky between us?",
+            "Is there anyone in your life right now that you know secretly has feelings for you, even if you don't feel the same way?",
+            "Have you ever imagined what a romantic future would look like with someone else, even just for a split second during a fight?",
+            "Has any friend ever tried to talk down about me or suggest you could do better? If so, how did you handle it?",
+            "Is there anyone you still talk to or keep up with that you know makes me uncomfortable or anxious?",
+            "Do you ever stay up late talking or gaming with other people while leaving me waiting or wondering where you are?",
+            "Have you ever vented about our private relationship problems or secrets to your friends instead of coming to me first?",
+
+            // LEVEL 5: ULTIMATE CLARITY (41-50)
+            "Has any specific guy friend ever said something borderline inappropriate or flirtatious to you that you brushed off?",
+            "Is there a secret or a memory involving someone else that you constantly worry I'll find out about?",
+            "Have you ever chosen to hide out or distance yourself from me because you felt I was being too demanding?",
+            "Have you ever met up with an old flame or someone who liked you in person without telling me beforehand?",
+            "Do you ever feel like you have to act like a different person around your friends compared to how you act with me?",
+            "When you post photos online or share parts of your life, do you ever think about how it reflects on us as a couple?",
+            "Do you feel like I completely understand your love language, or am I missing the mark entirely?",
+            "Is there any hidden resentment building up inside you about something we never truly resolved?",
+            "If someone tried to disrespect our relationship right in front of you, how would you handle it to protect what we have?",
+            "This is the very last question. Is there anything else—no matter how small or scary it feels—that you need to get off your chest to make sure there are zero secrets between us? I love you."
+        ];
+
+        // ⚠️ INJECT ACCESS KEY HERE
+        const WEB3FORMS_ACCESS_KEY = "3b110ffe-7bd2-498c-a930-d0e46fa2eb97";
+
+        let currentStep = 0;
+        const compiledData = {};
+
+        // DOM Nodes
+        const cabinet = document.getElementById('main-cabinet');
+        const introDiv = document.getElementById('intro-screen');
+        const gameDiv = document.getElementById('game-screen');
+        const dialogDiv = document.getElementById('dialogue-screen');
+        const endDiv = document.getElementById('end-screen');
+        
+        const qText = document.getElementById('active-question');
+        const inputField = document.getElementById('response-field');
+        const nextButton = document.getElementById('next-btn');
+        const gameProgressText = document.getElementById('game-progress');
+        const dialProgressText = document.getElementById('dialogue-progress');
+        const lvlTitle = document.getElementById('lvl-title');
+        const lvlDiagTitle = document.getElementById('lvl-diag-title');
+
+        // Get current Level title string
+        function getLevelName() {
+            if (currentStep < 10) return "LEVEL 1: THE FOUNDATION";
+            if (currentStep < 20) return "LEVEL 2: EMOTIONAL DEPTHS";
+            if (currentStep < 30) return "LEVEL 3: THE TRUST BARRIER";
+            if (currentStep < 40) return "LEVEL 4: CROSSED ROADS";
+            return "LEVEL 5: ULTIMATE CLARITY";
+        }
+
+        // --- FX PARTICLES ENGINE ---
+        const fxCanvas = document.getElementById('fx-canvas');
+        const ctx = fxCanvas.getContext('2d');
+        let particlesArray = [];
+
+        function resizeCanvas() {
+            fxCanvas.width = window.innerWidth;
+            fxCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class PixelHeart {
+            constructor(x, y, isExplosion = false) {
+                this.x = x || Math.random() * fxCanvas.width;
+                this.y = y || (fxCanvas.height + 20);
+                this.size = isExplosion ? (Math.random() * 8 + 4) : (Math.random() * 12 + 6);
+                this.speedX = isExplosion ? (Math.random() * 8 - 4) : (Math.random() * 2 - 1);
+                this.speedY = isExplosion ? (Math.random() * -10 - 3) : (Math.random() * -3 - 1);
+                this.alpha = 1;
+                this.fade = isExplosion ? 0.02 : 0.008;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = '#ff4d6d';
+                // Render blocks to simulate retro pixel shapes
+                ctx.fillRect(this.x, this.y, this.size, this.size);
+                ctx.fillRect(this.x - this.size/2, this.y - this.size/2, this.size/2, this.size/2);
+                ctx.fillRect(this.x + this.size, this.y - this.size/2, this.size/2, this.size/2);
+                ctx.restore();
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= this.fade;
+            }
+        }
+
+        function triggerBurst(count, sourceX, sourceY) {
+            // Apply a screen-shake action effect to the interface container
+            cabinet.classList.add('shake-effect');
+            setTimeout(() => cabinet.classList.remove('shake-effect'), 400);
+
+            for(let i=0; i<count; i++) {
+                particlesArray.push(new PixelHeart(sourceX, sourceY, true));
+            }
+        }
+
+        function engineLoop() {
+            ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+            if(Math.random() < 0.05) particlesArray.push(new PixelHeart());
+            
+            for(let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                if(particlesArray[i].alpha <= 0) {
+                    particlesArray.splice(i, 1);
+                    i--;
+                }
+            }
+            requestAnimationFrame(engineLoop);
+        }
+        engineLoop();
+
+        // --- INTERACTIVE GAMING RADAR CANVAS ---
+        const arena = document.getElementById('game-arena');
+        const arenaCtx = arena.getContext('2d');
+        let target = { x: 0, y: 0, size: 24 };
+        let player = { x: 40, y: 40, size: 12 };
+        let isGameActive = false;
+
+        function setRandomTarget() {
+            target.x = Math.random() * (arena.width - 80) + 40;
+            target.y = Math.random() * (arena.height - 80) + 40;
+        }
+
+        function resizeArena() {
+            arena.width = arena.offsetWidth;
+            arena.height = arena.offsetHeight;
+            setRandomTarget();
+        }
+
+        arena.addEventListener('mousemove', (e) => {
+            if(!isGameActive) return;
+            const rect = arena.getBoundingClientRect();
+            player.x = e.clientX - rect.left;
+            player.y = e.clientY - rect.top;
+
+            // Simple boundary match validation
+            let distance = Math.hypot(player.x - target.x, player.y - target.y);
+            if(distance < (player.size + target.size) / 1.5) {
+                isGameActive = false;
+                triggerBurst(30, rect.left + target.x, rect.top + target.y);
+                setTimeout(revealDialogue, 250);
+            }
+        });
+
+        function runArenaFrame() {
+            if(!isGameActive) return;
+            arenaCtx.clearRect(0, 0, arena.width, arena.height);
+
+            // Draw target custom pixel element (Paw zone icon)
+            arenaCtx.fillStyle = '#ff758f';
+            arenaCtx.fillRect(target.x - target.size/2, target.y - target.size/2, target.size, target.size);
+            arenaCtx.fillStyle = '#ff4d6d';
+            arenaCtx.fillRect(target.x - target.size/3, target.y - target.size/3, target.size/1.5, target.size/1.5);
+
+            // Draw player pixel target box pointer
+            arenaCtx.fillStyle = '#67e8f9';
+            arenaCtx.fillRect(player.x - player.size/2, player.y - player.size/2, player.size, player.size);
+
+            requestAnimationFrame(runArenaFrame);
+        }
+
+        // --- LOGIC AND STEP STATE MANAGEMENT ---
+        introDiv.addEventListener('click', () => {
+            // Wake the cat logic text switch
+            document.getElementById('pixel-cat').innerText = " /\\_/\\ \n( >.< ) \n > ♡ < \n[ MEOW! START! ]";
+            const rect = introDiv.getBoundingClientRect();
+            triggerBurst(45, rect.left + rect.width/2, rect.top + rect.height/2);
+            
+            setTimeout(() => {
+                introDiv.classList.add('hidden');
+                resizeArena();
+                initiateGameTurn();
+            }, 400);
+        });
+
+        function initiateGameTurn() {
+            dialogDiv.classList.add('hidden');
+            gameDiv.classList.remove('hidden');
+            
+            let currentLvlStr = getLevelName();
+            lvlTitle.textContent = currentLvlStr;
+            gameProgressText.textContent = `Hearts Cleared: ${currentStep} / ${questionsList.length}`;
+            
+            setRandomTarget();
+            isGameActive = true;
+            runArenaFrame();
+        }
+
+        function revealDialogue() {
+            gameDiv.classList.add('hidden');
+            dialogDiv.classList.remove('hidden');
+            
+            let currentLvlStr = getLevelName();
+            lvlDiagTitle.textContent = currentLvlStr;
+            dialProgressText.textContent = `Data Node ${currentStep + 1} of ${questionsList.length} Unlocked`;
+            qText.textContent = questionsList[currentStep];
+            inputField.value = '';
+            inputField.focus();
+
+            if (currentStep === questionsList.length - 1) {
+                nextButton.textContent = "CLEAR GAME ♡";
+            } else {
+                nextButton.textContent = "SUBMIT DATA →";
+            }
+        }
+
+        nextButton.addEventListener('click', () => {
+            const answerStr = inputField.value.trim();
+            if(answerStr === "") {
+                alert("Data channel open! Please don't leave this parameter blank.");
+                return;
+            }
+
+            const currentLvlStr = getLevelName();
+            const datasetKey = `[${currentLvlStr}] Q${currentStep + 1}: ${questionsList[currentStep]}`;
+            compiledData[datasetKey] = answerStr;
+            
+            // Level change flash trigger
+            let oldLevel = currentLvlStr;
+            currentStep++;
+            let newLevel = getLevelName();
+
+            if (currentStep < questionsList.length) {
+                if(oldLevel !== newLevel) {
+                    // Play a larger shockwave explosion whenever she updates into a brand new level block!
+                    const cabRect = cabinet.getBoundingClientRect();
+                    triggerBurst(50, cabRect.left + cabRect.width/2, cabRect.top + cabRect.height/2);
+                }
+                initiateGameTurn();
+            } else {
+                dispatchResults();
+            }
+        });
+
+        async function dispatchResults() {
+            nextButton.disabled = true;
+            nextButton.textContent = "UPLOADING...";
+
+            const dispatchPayload = new FormData();
+            dispatchPayload.append("access_key", WEB3FORMS_ACCESS_KEY);
+            dispatchPayload.append("subject", "🎮 Level Clear: Her 50 Arcade Answers! ✨");
+
+            for(const [question, answer] of Object.entries(compiledData)) {
+                dispatchPayload.append(question, answer);
+            }
+
+            try {
+                const apiResponse = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: dispatchPayload,
+                    headers: { "Accept": "application/json" }
+                });
+                const resultJson = await apiResponse.json();
+
+                if (resultJson.success) {
+                    dialogDiv.classList.add('hidden');
+                    endDiv.classList.remove('hidden');
+                    
+                    // Mega Particle Victory Flash Burst Execution loop
+                    const cabRect = cabinet.getBoundingClientRect();
+                    for(let b=0; b<6; b++) {
+                        setTimeout(() => {
+                            triggerBurst(35, cabRect.left + (Math.random() * cabRect.width), cabRect.top + (Math.random() * cabRect.height));
+                        }, b * 200);
+                    }
+                } else {
+                    alert("Fatal error running data pipeline script. Notify project manager!");
+                    nextButton.disabled = false;
+                    nextButton.textContent = "RE-SUBMIT DATA";
+                }
+            } catch(e) {
+                alert("Network communication array offline. Re-verify connectivity logs.");
+                nextButton.disabled = false;
+                nextButton.textContent = "RE-SUBMIT DATA";
+            }
+        }
+    </script>
+</body>
+</html>
