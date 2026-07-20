@@ -8,12 +8,13 @@
     
     <style>
         :root {
-            --bg-color: #030712;         
-            --text-color: #f8fafc;       
-            --arcade-panel: rgba(15, 23, 42, 0.95);          
-            --border-pixel: #ff758f;      
-            --btn-color: #ff4d6d;         
-            --btn-text: #ffffff;       
+            --bg-color: #0b071e;         
+            --text-color: #fae8ff;       
+            --arcade-panel: rgba(29, 17, 56, 0.95);          
+            --border-pixel: #f472b6;      
+            --btn-color: #d946ef;         
+            --btn-text: #ffffff;
+            --accent-lavender: #c084fc;       
             --font-retro: 'Courier Prime', monospace; 
         }
 
@@ -36,7 +37,7 @@
             position: relative;
         }
 
-        /* Ambient Floating Vector Canvas */
+        /* Ambient Vector Canvas for Fireworks & Floating Cats */
         #fx-canvas {
             position: absolute;
             top: 0;
@@ -49,15 +50,15 @@
 
         @keyframes shake {
             0% { transform: translate(0, 0); }
-            20% { transform: translate(-8px, 5px); }
-            40% { transform: translate(6px, -6px); }
-            60% { transform: translate(-5px, 4px); }
-            80% { transform: translate(4px, -3px); }
+            20% { transform: translate(-6px, 4px); }
+            40% { transform: translate(5px, -5px); }
+            60% { transform: translate(-4px, 3px); }
+            80% { transform: translate(4px, -2px); }
             100% { transform: translate(0, 0); }
         }
 
         .shake-effect {
-            animation: shake 0.4s ease-in-out;
+            animation: shake 0.3s ease-in-out;
         }
 
         .arcade-cabinet {
@@ -70,33 +71,30 @@
             border: 4px solid var(--border-pixel);
             border-radius: 4px; 
             padding: 35px;
-            box-shadow: 0 0 0 4px #0f172a, 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(255, 117, 143, 0.3);
+            box-shadow: 0 0 0 4px #1e1b4b, 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(192, 132, 252, 0.3);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: all 0.3s ease-in-out;
         }
 
-        /* INTRO HEADER EFFECTS */
         .glitch-title {
-            font-size: 1.8rem;
-            letter-spacing: 4px; 
-            color: #ff4d6d; 
-            text-shadow: 0 0 15px #ff4d6d;
+            font-size: 1.6rem;
+            letter-spacing: 3px; 
+            color: var(--border-pixel); 
+            text-shadow: 0 0 15px var(--border-pixel);
             text-align: center;
-            line-height: 1.4;
-            margin-top: 10px;
+            line-height: 1.5;
         }
 
         .pixel-cat-container {
             font-size: 13px;
             line-height: 1.2;
-            color: var(--border-pixel);
+            color: var(--accent-lavender);
             font-weight: bold;
             text-align: center;
             white-space: pre;
-            filter: drop-shadow(0 0 10px var(--border-pixel));
+            filter: drop-shadow(0 0 8px var(--accent-lavender));
         }
 
         .float-cat-anim {
@@ -108,37 +106,36 @@
             100% { transform: translateY(-12px); }
         }
 
-        /* --- MINI GAME: LUCKY CAT SLOTS --- */
+        /* --- PURE MINI GAME: LUCKY CAT SLOTS --- */
         .slots-machine {
             width: 100%;
-            background: #090d16;
-            border: 3px double var(--border-pixel);
-            padding: 20px;
-            margin-bottom: 20px;
+            background: #120b2e;
+            border: 3px double var(--accent-lavender);
+            padding: 25px;
+            margin-bottom: 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
         .slots-window {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
             margin: 10px 0;
         }
 
         .slot-reel {
-            width: 70px;
-            height: 70px;
-            background: #020617;
-            border: 2px solid #334155;
+            width: 80px;
+            height: 80px;
+            background: #090518;
+            border: 2px solid var(--border-pixel);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2rem;
-            color: #fff;
-            text-shadow: 0 0 8px rgba(255,255,255,0.5);
+            font-size: 2.2rem;
+            box-shadow: inset 0 0 10px rgba(244, 114, 182, 0.2);
         }
 
         .slot-reel.spinning {
@@ -146,26 +143,26 @@
         }
 
         @keyframes reelSpin {
-            0% { transform: translateY(-5px); opacity: 0.7; }
-            50% { transform: translateY(5px); opacity: 0.4; }
-            100% { transform: translateY(-5px); opacity: 0.7; }
+            0% { transform: translateY(-8px); opacity: 0.6; }
+            50% { transform: translateY(8px); opacity: 0.3; }
+            100% { transform: translateY(-8px); opacity: 0.6; }
         }
 
-        /* --- POPUP INTERSTITIAL CAT --- */
+        /* --- POPUP INTENSITY CATS --- */
         .popup-cat-overlay {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: #1e1b4b;
-            border: 2px solid #67e8f9;
-            padding: 10px;
+            bottom: 25px;
+            right: 25px;
+            background: #2e1065;
+            border: 2px solid var(--border-pixel);
+            padding: 12px;
             border-radius: 4px;
             z-index: 100;
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: 0 0 15px rgba(103, 232, 249, 0.4);
-            animation: slideInUp 0.3s ease-out;
+            box-shadow: 0 0 15px rgba(244, 114, 182, 0.4);
+            animation: slideInUp 0.25s ease-out;
         }
 
         @keyframes slideInUp {
@@ -174,69 +171,110 @@
         }
 
         .meow-bubble {
-            background: white;
-            color: black;
+            background: #fae8ff;
+            color: #4a044e;
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 0.75rem;
             font-weight: bold;
             margin-bottom: 5px;
-            position: relative;
         }
 
-        /* --- CELEBRATION OVERLAY --- */
+        /* --- FLASHING CELEBRATION OVERLAY --- */
         .love-banner {
             position: absolute;
-            top: 25%;
-            width: 90%;
-            background: rgba(244, 63, 94, 0.95);
-            border: 3px solid #fff;
+            top: 30%;
+            width: 85%;
+            background: rgba(217, 70, 239, 0.95);
+            border: 3px solid #fae8ff;
             color: #fff;
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             text-align: center;
             padding: 20px;
             z-index: 200;
-            box-shadow: 0 0 30px #f43f5e;
-            animation: popScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 30px var(--btn-color);
+            animation: popScale 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes popScale {
-            from { transform: scale(0.5); opacity: 0; }
+            from { transform: scale(0.6); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* --- GENERAL TYPING SCREEN LAYOUTS --- */
+        /* --- INFINITE MOVIE ENDING CREDITS LOOP --- */
+        .movie-credits-container {
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+            border: 2px dashed var(--accent-lavender);
+            background: #090518;
+            margin-top: 15px;
+        }
+
+        .credits-scroll-track {
+            position: absolute;
+            width: 100%;
+            animation: scrollCredits 14s infinite linear;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        @keyframes scrollCredits {
+            0% { transform: translateY(320px); }
+            100% { transform: translateY(-550px); }
+        }
+
+        .credit-title {
+            font-size: 0.8rem;
+            color: var(--border-pixel);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .credit-name {
+            font-size: 1.2rem;
+            color: #ffffff;
+            font-weight: bold;
+            margin-top: -15px;
+            text-shadow: 0 0 8px var(--accent-lavender);
+        }
+
+        /* --- QUESTIONNAIRE INTERFACE --- */
         .level-badge {
             font-size: 1rem;
-            color: #f43f5e;
+            color: var(--border-pixel);
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 3px;
             margin-bottom: 5px;
-            text-shadow: 0 0 8px rgba(244, 63, 94, 0.4);
+            text-shadow: 0 0 8px rgba(244, 114, 182, 0.4);
         }
 
         .step-counter {
             font-size: 0.85rem;
-            color: #64748b;
+            color: var(--accent-lavender);
             margin-bottom: 15px;
             letter-spacing: 1px;
         }
 
         .prompt-text {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: bold;
             text-align: center;
             margin-bottom: 25px;
             min-height: 4em;
             line-height: 1.6;
+            color: #ffffff;
         }
 
         .input-box {
             width: 100%;
-            background: #020617;
-            border: 2px solid #334155;
+            background: #090518;
+            border: 2px solid #4c1d95;
             color: #fff;
             padding: 15px;
             font-family: var(--font-retro);
@@ -244,14 +282,12 @@
             resize: none;
             min-height: 120px;
             margin-bottom: 25px;
-            position: relative;
-            z-index: 10;
         }
 
         .input-box:focus {
             outline: none;
             border-color: var(--border-pixel);
-            box-shadow: 0 0 12px rgba(255, 117, 143, 0.3);
+            box-shadow: 0 0 12px rgba(244, 114, 182, 0.4);
         }
 
         .action-btn {
@@ -263,13 +299,13 @@
             font-size: 1.1rem;
             padding: 14px 45px;
             cursor: pointer;
-            box-shadow: 4px 4px 0px #9d0208;
+            box-shadow: 4px 4px 0px #701a75;
             transition: all 0.1s;
         }
 
         .action-btn:hover {
             transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px #9d0208;
+            box-shadow: 2px 2px 0px #701a75;
         }
 
         .action-btn:disabled {
@@ -281,9 +317,9 @@
         
         .sys-alert {
             font-size: 0.8rem;
-            color: #94a3b8;
-            background: #1e293b;
-            padding: 6px 14px;
+            color: var(--accent-lavender);
+            background: #2e1065;
+            padding: 8px 14px;
             border-radius: 2px;
             margin-bottom: 10px;
             border-left: 3px solid var(--border-pixel);
@@ -293,139 +329,91 @@
 </head>
 <body>
 
-    <!-- Floating Background Matrix and Particle Layer -->
     <canvas id="fx-canvas"></canvas>
-
-    <!-- Mid game Jump Scare Meow Cats -->
     <div id="popup-cat-zone"></div>
-
-    <!-- Flashing Love Banner Layer -->
     <div id="love-celebration-zone"></div>
 
     <div class="arcade-cabinet" id="main-cabinet">
         
-        <!-- LEVEL STARTER SCREEN -->
-        <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:25px; cursor:pointer;">
+        <!-- INTRO SCREEN WITH RETRO SYSTEM WORDING -->
+        <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:20px; width: 100%;">
             <div class="pixel-cat-container float-cat-anim">
  /\_/\  
 ( o.o ) 
  > ^ <  
-[ CLICK CONTROLLER TO INITIALIZE ]
             </div>
-            <div class="glitch-title">PLAYER 1 SELECTED<br><span style="font-size:1.1rem; color:#67e8f9; text-shadow:0 0 8px #67e8f9;">START HEART QUEST?</span></div>
-            <p style="color: #64748b; font-size: 0.85rem; letter-spacing:1px;">INSERT COIN OR CLICK ANYWHERE</p>
+            <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 80%; text-align: left; background: #090518; padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
+                > STAGE INITIALIZING...<br>
+                > ACCESS GRANTED.<br>
+                > LOADING LOVE MATRIX ENGINE...
+            </div>
+            <div class="glitch-title" id="intro-main-msg" style="opacity: 0;">
+                PLAYER 1 SELECTED !<br>
+                <span style="font-size:1.1rem; color: var(--accent-lavender);">READY TO START HEART QUEST?</span>
+            </div>
+            <button class="action-btn hidden" id="start-quest-btn">START QUEST 🕹️</button>
         </div>
 
-        <!-- ARCADE PLAY FIELD (SLOT MACHINE METHOD) -->
+        <!-- ARCADE PLAY FIELD: PURE SLOTS MINI-GAME -->
         <div id="game-screen" class="hidden" style="width:100%;">
             <div class="level-badge" id="lvl-title">LEVEL 1: THE FOUNDATION</div>
-            <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 50</div>
+            <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 5</div>
             
             <div class="slots-machine">
-                <div class="sys-alert">🎰 Match 3 items to extract the next database questionnaire module!</div>
+                <div class="sys-alert">🎰 Pull the Lever to spin the slots and unlock the module data!</div>
                 <div class="slots-window">
                     <div class="slot-reel" id="reel-1">🐱</div>
-                    <div class="slot-reel" id="reel-2">🤍</div>
+                    <div class="slot-reel" id="reel-2">💜</div>
                     <div class="slot-reel" id="reel-3">🐱</div>
                 </div>
                 <button class="action-btn" id="spin-btn">PULL LEVER 🕹️</button>
             </div>
         </div>
 
-        <!-- DIALOGUE SCREEN -->
+        <!-- DIALOGUE DATA CAPTURE NODE -->
         <div id="dialogue-screen" class="hidden" style="width:100%; display: flex; flex-direction: column;">
             <div class="level-badge" id="lvl-diag-title">LEVEL 1: THE FOUNDATION</div>
-            <div class="step-counter" id="dialogue-progress">Data Node 1 of 50 Unlocked</div>
+            <div class="step-counter" id="dialogue-progress">Data Node 1 of 5 Unlocked</div>
             <div class="prompt-text" id="active-question">Loading database matrix...</div>
             <textarea class="input-box" id="response-field" placeholder="Input honest response string... 🤍"></textarea>
             <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
         </div>
 
-        <!-- VICTORY FINAL SHOWCASE -->
-        <div id="end-screen" class="hidden">
-            <div class="pixel-cat-container" style="text-align: center; font-size:16px;">
+        <!-- END SHOWCASE: MOVIE ENDING CREDITS LOOP -->
+        <div id="end-screen" class="hidden" style="width: 100%;">
+            <div class="pixel-cat-container" style="text-align: center; font-size:15px; margin-bottom: 10px;">
  /\_/\  
 ( =.=. ) 
  > ♡ <  
-[ QUEST COMPLETE ]
             </div>
-            <h1 style="font-size: 1.6rem; color: var(--border-pixel); margin-top:20px; margin-bottom: 15px; text-align:center;">ALL LEVELS CLEAR</h1>
-            <p style="color: #cbd5e1; font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.8; text-align:center;">
-                Your honest transmission was compiled completely. Every answer is officially safely locked away into my source code forever. I love you. 🤍
-            </p>
+            <h1 style="font-size: 1.4rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px;">QUEST COMPLETE</h1>
+            
+            <div class="movie-credits-container">
+                <div class="credits-scroll-track" id="credits-loop-element">
+                    <!-- Dynamic Loop Inject via Script -->
+                </div>
+            </div>
         </div>
 
     </div>
 
     <script>
+        // SHORTENED TO 5 TEST QUESTIONS
         const questionsList = [
-            // LEVEL 1: THE FOUNDATION (1-10)
             "Do you promise to answer these questions completely honestly, directly from your heart? I want to know the real, raw you.",
             "Just so you know... once you click next, you can't go back to edit or change your answer. Ready for this?",
             "Before we start, I need you to know how deeply I love you. None of this is to catch you out—it's just to understand your beautiful mind better. Okay?",
             "What is something I do that secretly makes you fall in love with me all over again?",
-            "Is there anything I do, even a small habit, that accidentally hurts your feelings or bothers you but you haven't told me?",
-            "If you could ask me anything right now with a 100% guarantee that I will answer honestly, what would it be?",
-            "Is there ever a time where you feel like you can't fully trust me, even for a split second?",
-            "What is a dream or goal you have for us that you've been too shy or hesitant to talk about?",
-            "If there was one single habit or thing I do that you wish I would completely stop doing, what is it?",
-            "Do you ever get tired or annoyed when I get protective, insecure, or look for reassurance?",
-            
-            // LEVEL 2: EMOTIONAL DEPTHS (11-20)
-            "Have you ever felt overwhelmed by how much I love you or ask from you, like your best isn't enough for me?",
-            "Do you ever feel like I'm slacking off or not putting my absolute best effort into us?",
-            "What is something specific I could do more often to make you feel completely secure and cherished?",
-            "Has there ever been a moment during our rough patches where you genuinely thought I was losing feelings for you?",
-            "Do you honestly think I am too insecure, or do you understand where my worries come from?",
-            "Have you ever felt like I was hiding something important from you, even if you couldn't prove it?",
-            "Deep down, do you know with absolute certainty that I would never, ever cheat on or betray you?",
-            "What is the most painful thing I have ever said to you during an argument that still stings when you think about it?",
-            "Do you truly feel like you are my absolute number one priority in life, or do I make you feel secondary sometimes?",
-            "Am I truly your top priority when it comes to your future and the life you want to build?",
-
-            // LEVEL 3: THE TRUST BARRIER (21-30)
-            "If I asked you to make a massive, difficult sacrifice for our relationship's future, would you trust me enough to do it?",
-            "What does 'trusting me completely' mean to you? Do you feel we are 100% there yet?",
-            "Does it secretly bother or worry you when I mention or interact with any of my female friends or acquaintances?",
-            "Do you believe that clear, strict boundaries are essential between us and our friends of the opposite sex?",
-            "Have I ever crossed a line with someone else that made you feel uncomfortable or disrespected, even if you didn't say it?",
-            "The next set of questions gets a little more specific and intense. Are you okay with opening up completely for me?",
-            "Remember, you promised to keep things completely transparent between us. No holding back, okay?",
-            "No matter what you answer to these, my love for you isn't going anywhere. You have my heart forever. Do you fully trust that?",
-            "Have you ever developed even a tiny, fleeting crush on anyone else since we became official?",
-            "Have you ever flirted, even playfully or as a joke, with another guy while we've been together?",
-
-            // LEVEL 4: CROSSED ROADS (31-40)
-            "Have you ever used cute or couple-like nicknames with any of your guy friends or online friends?",
-            "Have you ever hidden or deleted messages or chats because you knew how I would react if I saw them?",
-            "Is there any past relationship detail or interaction that you deliberately kept hidden from me to 'protect' my feelings?",
-            "Have you ever felt a strong emotional dependence on another guy friend when things were rocky between us?",
-            "Is there anyone in your life right now that you know secretly has feelings for you, even if you don't feel the same way?",
-            "Have you ever imagined what a romantic future would look like with someone else, even just for a split second during a fight?",
-            "Has any friend ever tried to talk down about me or suggest you could do better? If so, how did you handle it?",
-            "Is there anyone you still talk to or keep up with that you know makes me uncomfortable or anxious?",
-            "Do you ever stay up late talking or gaming with other people while leaving me waiting or wondering where you are?",
-            "Have you ever vented about our private relationship problems or secrets to your friends instead of coming to me first?",
-
-            // LEVEL 5: ULTIMATE CLARITY (41-50)
-            "Has any specific guy friend ever said something borderline inappropriate or flirtatious to you that you brushed off?",
-            "Is there a secret or a memory involving someone else that you constantly worry I'll find out about?",
-            "Have you ever chosen to hide out or distance yourself from me because you felt I was being too demanding?",
-            "Have you ever met up with an old flame or someone who liked you in person without telling me beforehand?",
-            "Do you ever feel like you have to act like a different person around your friends compared to how you act with me?",
-            "When you post photos online or share parts of your life, do you ever think about how it reflects on us as a couple?",
-            "Do you feel like I completely understand your love language, or am I missing the mark entirely?",
-            "Is there any hidden resentment building up inside you about something we never truly resolved?",
-            "If someone tried to disrespect our relationship right in front of you, how would you handle it to protect what we have?",
-            "This is the very last question. Is there anything else—no matter how small or scary it feels—that you need to get off your chest to make sure there are zero secrets between us? I love you."
+            "Is there anything I do, even a small habit, that accidentally hurts your feelings or bothers you but you haven't told me?"
         ];
 
         const WEB3FORMS_ACCESS_KEY = "2e120831-8dcc-42cf-b1ca-904ad12ea316";
 
         let currentStep = 0;
+        let finalEndStateActive = false;
         const compiledData = {};
 
-        // DOM Nodes
+        // DOM Element Definitions
         const cabinet = document.getElementById('main-cabinet');
         const introDiv = document.getElementById('intro-screen');
         const gameDiv = document.getElementById('game-screen');
@@ -442,62 +430,57 @@
         const spinBtn = document.getElementById('spin-btn');
 
         function getLevelName() {
-            if (currentStep < 10) return "LEVEL 1: THE FOUNDATION";
-            if (currentStep < 20) return "LEVEL 2: EMOTIONAL DEPTHS";
-            if (currentStep < 30) return "LEVEL 3: THE TRUST BARRIER";
-            if (currentStep < 40) return "LEVEL 4: CROSSED ROADS";
-            return "LEVEL 5: ULTIMATE CLARITY";
+            if (currentStep < 2) return "LEVEL 1: THE FOUNDATION";
+            if (currentStep < 4) return "LEVEL 2: EMOTIONAL DEPTHS";
+            return "LEVEL 3: ULTIMATE CLARITY";
         }
 
-        // --- WEB AUDIO SYNTHESIZER FOR 8-BIT MEOWS ---
+        // --- WEB AUDIO API HIGH VOLUME CHIME SYNTHESIZER ---
         let audioCtx = null;
-        function playRetroMeow() {
+        function playHighVolumeRetroMeow() {
             try {
                 if (!audioCtx) {
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 }
-                
                 const now = audioCtx.currentTime;
                 
-                // First pitch node (low part of meow)
                 let osc1 = audioCtx.createOscillator();
                 let gain1 = audioCtx.createGain();
                 osc1.type = 'triangle';
-                osc1.frequency.setValueAtTime(550, now);
-                osc1.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+                osc1.frequency.setValueAtTime(620, now);
+                osc1.frequency.exponentialRampToValueAtTime(950, now + 0.08);
                 
-                gain1.gain.setValueAtTime(0.15, now);
-                gain1.gain.linearRampToValueAtTime(0.15, now + 0.05);
-                gain1.gain.linearRampToValueAtTime(0.01, now + 0.2);
+                gain1.gain.setValueAtTime(0.4, now);
+                gain1.gain.linearRampToValueAtTime(0.4, now + 0.06);
+                gain1.gain.linearRampToValueAtTime(0.001, now + 0.22);
                 
                 osc1.connect(gain1);
                 gain1.connect(audioCtx.destination);
                 osc1.start(now);
-                osc1.stop(now + 0.2);
+                osc1.stop(now + 0.22);
 
-                // Second pitch node (high tail part of meow)
                 setTimeout(() => {
                     let osc2 = audioCtx.createOscillator();
                     let gain2 = audioCtx.createGain();
                     osc2.type = 'sine';
-                    osc2.frequency.setValueAtTime(880, audioCtx.currentTime);
-                    osc2.frequency.exponentialRampToValueAtTime(1100, audioCtx.currentTime + 0.12);
+                    osc2.frequency.setValueAtTime(950, audioCtx.currentTime);
+                    osc2.frequency.exponentialRampToValueAtTime(1250, audioCtx.currentTime + 0.12);
                     
-                    gain2.gain.setValueAtTime(0.12, audioCtx.currentTime);
-                    gain2.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                    gain2.gain.setValueAtTime(0.35, audioCtx.currentTime);
+                    gain2.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.18);
                     
                     osc2.connect(gain2);
                     gain2.connect(audioCtx.destination);
                     osc2.start(audioCtx.currentTime);
-                    osc2.stop(audioCtx.currentTime + 0.16);
-                }, 60);
+                    osc2.stop(audioCtx.currentTime + 0.18);
+                }, 50);
 
             } catch (err) {
-                console.log("Audio couldn't initialize", err);
+                console.log("Audio pipeline blocked", err);
             }
         }
 
-        // --- FX SYSTEMS CANVAS MANAGEMENT ---
+        // --- DYNAMIC GRAPHICS FX LAYER ENGINE ---
         const fxCanvas = document.getElementById('fx-canvas');
         const ctx = fxCanvas.getContext('2d');
         let elementsArray = [];
@@ -509,29 +492,26 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Object classes handling fireworks, hearts, background cats
         class MatrixElement {
-            constructor(x, y, type = 'heart', speedMultiplier = 1) {
+            constructor(x, y, type = 'heart') {
                 this.x = x || Math.random() * fxCanvas.width;
                 this.y = y || (fxCanvas.height + 30);
-                this.type = type; // 'heart', 'bgcat', 'firework'
+                this.type = type;
                 this.size = Math.random() * 12 + 8;
-                this.speedX = (Math.random() * 2 - 1) * speedMultiplier;
-                this.speedY = (Math.random() * -2 - 1) * speedMultiplier;
+                this.speedX = (Math.random() * 3 - 1.5);
+                this.speedY = (Math.random() * -2.5 - 1);
                 this.alpha = 1;
                 this.fade = 0.004 + (Math.random() * 0.004);
-                this.color = type === 'heart' ? '#ff4d6d' : (type === 'firework' ? this.getRandomColor() : '#1e293b');
                 
-                if(type === 'firework') {
-                    this.fade = 0.02;
-                    this.size = Math.random() * 6 + 4;
-                    this.speedX = (Math.random() * 8 - 4);
-                    this.speedY = (Math.random() * 8 - 4);
+                const pinkPurples = ['#f472b6', '#d946ef', '#c084fc', '#e879f9', '#f472b6', '#fae8ff'];
+                this.color = pinkPurples[Math.floor(Math.random() * pinkPurples.length)];
+                
+                if (type === 'firework') {
+                    this.fade = 0.018;
+                    this.size = Math.random() * 7 + 4;
+                    this.speedX = (Math.random() * 10 - 5);
+                    this.speedY = (Math.random() * 10 - 5);
                 }
-            }
-            getRandomColor() {
-                const colors = ['#ff4d6d', '#67e8f9', '#f43f5e', '#a855f7', '#facc15'];
-                return colors[Math.floor(Math.random() * colors.length)];
             }
             draw() {
                 ctx.save();
@@ -543,8 +523,8 @@
                     ctx.fillRect(this.x - this.size/2, this.y - this.size/2, this.size/2, this.size/2);
                     ctx.fillRect(this.x + this.size, this.y - this.size/2, this.size/2, this.size/2);
                 } else if (this.type === 'bgcat') {
-                    ctx.font = '11px monospace';
-                    ctx.fillStyle = 'rgba(255, 117, 143, 0.15)';
+                    ctx.font = '12px monospace';
+                    ctx.fillStyle = 'rgba(192, 132, 252, 0.2)';
                     ctx.fillText('🐱', this.x, this.y);
                 }
                 ctx.restore();
@@ -558,19 +538,23 @@
 
         function spawnBurst(count, sourceX, sourceY, mode = 'heart') {
             cabinet.classList.add('shake-effect');
-            setTimeout(() => cabinet.classList.remove('shake-effect'), 400);
+            setTimeout(() => cabinet.classList.remove('shake-effect'), 300);
 
             for(let i=0; i<count; i++) {
-                elementsArray.push(new MatrixElement(sourceX, sourceY, mode, 3));
+                elementsArray.push(new MatrixElement(sourceX, sourceY, mode));
             }
         }
 
         function engineLoop() {
             ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
             
-            // Random ambient backgrounds cats floating up
-            if(Math.random() < 0.03) {
+            if (Math.random() < 0.04) {
                 elementsArray.push(new MatrixElement(null, null, 'bgcat'));
+            }
+
+            if (finalEndStateActive && Math.random() < 0.08) {
+                spawnBurst(15, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.7), 'firework');
+                spawnBurst(10, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.7), 'heart');
             }
             
             for(let i = 0; i < elementsArray.length; i++) {
@@ -585,21 +569,46 @@
         }
         engineLoop();
 
-        // --- INTERSTITIAL MID-STAGE CATS POPS ---
+        // --- RETRO COOL BOOT SYSTEM SEQUENCE ---
+        window.addEventListener('load', () => {
+            const logs = document.getElementById('boot-logs');
+            setTimeout(() => {
+                logs.innerHTML += "<br>> MATCH FOUND: CHOSEN PLAYER VALIDATED.";
+                playHighVolumeRetroMeow();
+            }, 800);
+            setTimeout(() => {
+                logs.innerHTML += "<br>> STATUS: ALL SYSTEM MODULES ONLINE.";
+            }, 1500);
+            setTimeout(() => {
+                document.getElementById('intro-main-msg').style.opacity = "1";
+                const btn = document.getElementById('start-quest-btn');
+                btn.classList.remove('hidden');
+                
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+                spawnBurst(40, w/2, h/2, 'heart');
+            }, 2200);
+        });
+
+        document.getElementById('start-quest-btn').addEventListener('click', () => {
+            playHighVolumeRetroMeow();
+            introDiv.classList.add('hidden');
+            initiateGameTurn();
+        });
+
         function triggerPopUpCat() {
-            playRetroMeow();
+            playHighVolumeRetroMeow();
             const zone = document.getElementById('popup-cat-zone');
             const popup = document.createElement('div');
             popup.className = 'popup-cat-overlay';
             popup.innerHTML = `
                 <div class="meow-bubble">MEOW! 🐾</div>
-                <div style="font-size:10px; line-height:1; color:#67e8f9; white-space:pre; font-weight:bold;">/\\_/\\ \n( o.o )</div>
+                <div style="font-size:10px; line-height:1; color: var(--border-pixel); white-space:pre; font-weight:bold;">/\\_/\\ \n( o.o )</div>
             `;
             zone.appendChild(popup);
-            setTimeout(() => popup.remove(), 1200);
+            setTimeout(() => popup.remove(), 1100);
         }
 
-        // --- LOVE BANNERS AND CELEBRATION DISPLAYS ---
         function triggerLoveCelebration() {
             const zone = document.getElementById('love-celebration-zone');
             const banner = document.createElement('div');
@@ -607,35 +616,16 @@
             banner.innerHTML = `I LOVE YOU SO MUCH! 🤍`;
             zone.appendChild(banner);
 
-            // Blast dynamic fireworks array everywhere
             const w = window.innerWidth;
             const h = window.innerHeight;
-            for(let f=0; f<5; f++) {
+            for(let f=0; f<4; f++) {
                 setTimeout(() => {
-                    spawnBurst(25, Math.random() * w, Math.random() * (h * 0.6), 'firework');
+                    spawnBurst(20, Math.random() * w, Math.random() * (h * 0.6), 'firework');
                     spawnBurst(15, Math.random() * w, Math.random() * (h * 0.6), 'heart');
-                }, f * 180);
+                }, f * 150);
             }
-
-            setTimeout(() => banner.remove(), 1400);
+            setTimeout(() => banner.remove(), 1300);
         }
-
-        // --- FLOW STATE SYSTEM OPERATIONS ---
-        introDiv.addEventListener('click', () => {
-            triggerPopUpCat();
-            const rect = introDiv.getBoundingClientRect();
-            // Blast massive initial entrance hearts
-            for(let k=0; k<3; k++) {
-                setTimeout(() => {
-                    spawnBurst(35, rect.left + rect.width/2, rect.top + rect.height/2, 'heart');
-                }, k * 100);
-            }
-            
-            setTimeout(() => {
-                introDiv.classList.add('hidden');
-                initiateGameTurn();
-            }, 500);
-        });
 
         function initiateGameTurn() {
             dialogDiv.classList.add('hidden');
@@ -645,15 +635,13 @@
             lvlTitle.textContent = currentLvlStr;
             gameProgressText.textContent = `Hearts Cleared: ${currentStep} / ${questionsList.length}`;
             
-            // Reset slots visuals
             document.getElementById('reel-1').textContent = "🐱";
-            document.getElementById('reel-2').textContent = "🤍";
+            document.getElementById('reel-2').textContent = "💜";
             document.getElementById('reel-3').textContent = "🐱";
             spinBtn.disabled = false;
             spinBtn.textContent = "PULL LEVER 🕹️";
         }
 
-        // Slots Engine Logic Execution
         spinBtn.addEventListener('click', () => {
             spinBtn.disabled = true;
             spinBtn.textContent = "SPINNING...";
@@ -666,35 +654,19 @@
             r2.classList.add('spinning');
             r3.classList.add('spinning');
 
-            const items = ["🐱", "🤍", "💖", "🐾"];
-
-            setTimeout(() => {
-                r1.classList.remove('spinning');
-                r1.textContent = items[Math.floor(Math.random() * items.length)];
-            }, 400);
-
-            setTimeout(() => {
-                r2.classList.remove('spinning');
-                r2.textContent = items[Math.floor(Math.random() * items.length)];
-            }, 700);
-
+            setTimeout(() => { r1.classList.remove('spinning'); r1.textContent = "💖"; }, 300);
+            setTimeout(() => { r2.classList.remove('spinning'); r2.textContent = "🐱"; }, 600);
+            
             setTimeout(() => {
                 r3.classList.remove('spinning');
-                // Force win condition for smooth progression loop
-                r1.textContent = "💖";
-                r2.textContent = "🐱";
                 r3.textContent = "💖";
                 
-                r3.classList.remove('spinning');
-                
-                // Trigger mid level cat chime meow sound logic
                 triggerPopUpCat();
-                
                 const rect = spinBtn.getBoundingClientRect();
                 spawnBurst(25, rect.left + rect.width/2, rect.top, 'heart');
 
-                setTimeout(revealDialogue, 600);
-            }, 1000);
+                setTimeout(revealDialogue, 500);
+            }, 900);
         });
 
         function revealDialogue() {
@@ -727,7 +699,6 @@
             const datasetKey = `[${currentLvlStr}] Q${currentStep + 1}: ${questionsList[currentStep]}`;
             compiledData[datasetKey] = answerStr;
             
-            // Trigger Love explosion after answer submissions
             triggerLoveCelebration();
 
             let oldLevel = currentLvlStr;
@@ -738,13 +709,13 @@
                 if (currentStep < questionsList.length) {
                     if(oldLevel !== newLevel) {
                         const cabRect = cabinet.getBoundingClientRect();
-                        spawnBurst(50, cabRect.left + cabRect.width/2, cabRect.top + cabRect.height/2, 'heart');
+                        spawnBurst(45, cabRect.left + cabRect.width/2, cabRect.top + cabRect.height/2, 'heart');
                     }
                     initiateGameTurn();
                 } else {
                     dispatchResults();
                 }
-            }, 1400); // Allow fireworks celebration display space to play out
+            }, 1300);
         });
 
         async function dispatchResults() {
@@ -753,7 +724,7 @@
 
             const dispatchPayload = new FormData();
             dispatchPayload.append("access_key", WEB3FORMS_ACCESS_KEY);
-            dispatchPayload.append("subject", "🎮 Level Clear: Her 50 Arcade Answers! ✨");
+            dispatchPayload.append("subject", "🎮 Test Run Clear: Her 5 Arcade Answers! ✨");
 
             for(const [question, answer] of Object.entries(compiledData)) {
                 dispatchPayload.append(question, answer);
@@ -771,13 +742,8 @@
                     dialogDiv.classList.add('hidden');
                     endDiv.classList.remove('hidden');
                     
-                    const cabRect = cabinet.getBoundingClientRect();
-                    for(let b=0; b<8; b++) {
-                        setTimeout(() => {
-                            spawnBurst(35, cabRect.left + (Math.random() * cabRect.width), cabRect.top + (Math.random() * cabRect.height), 'firework');
-                            spawnBurst(25, cabRect.left + (Math.random() * cabRect.width), cabRect.top + (Math.random() * cabRect.height), 'heart');
-                        }, b * 200);
-                    }
+                    finalEndStateActive = true;
+                    setupInfiniteCredits();
                 } else {
                     alert("Fatal error running data pipeline script. Notify project manager!");
                     nextButton.disabled = false;
@@ -788,6 +754,33 @@
                 nextButton.disabled = false;
                 nextButton.textContent = "RE-SUBMIT DATA";
             }
+        }
+
+        function setupInfiniteCredits() {
+            const container = document.getElementById('credits-loop-element');
+            const blocks = `
+                <div class="credit-title">THANK YOU FOR PLAYING</div>
+                <div class="credit-name">MY WHOLE HEART</div>
+                
+                <div class="credit-title">DIRECTED BY</div>
+                <div class="credit-name">YOUR NUMBER ONE FAN</div>
+
+                <div class="credit-title">DATA MANAGEMENT</div>
+                <div class="credit-name">SECURELY COMPILED</div>
+
+                <div class="credit-title">TOTAL TRANSMISSIONS</div>
+                <div class="credit-name">5 / 5 TEST NODES UNLOCKED</div>
+
+                <div class="credit-title">CORE MESSAGE SYSTEM</div>
+                <div class="credit-name">I LOVE YOU SO MUCH</div>
+
+                <div class="credit-title">EXPIRY TIMEOUT STATUS</div>
+                <div class="credit-name">FOREVER & EVER</div>
+
+                <div class="credit-title">SPECIAL THANKS</div>
+                <div class="credit-name">FOR BEING HONEST ♡</div>
+            `;
+            container.innerHTML = blocks + blocks;
         }
     </script>
 </body>
