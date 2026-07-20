@@ -68,7 +68,7 @@
             min-height: 580px;
             background: var(--arcade-panel);
             border: 4px solid var(--border-pixel);
-            border-radius: 4px; /* Crisp retro borders */
+            border-radius: 4px; 
             padding: 35px;
             box-shadow: 0 0 0 4px #0f172a, 0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(255, 117, 143, 0.2);
             display: flex;
@@ -109,7 +109,6 @@
             height: 190px;
             background: #090d16;
             border: 3px double var(--border-pixel);
-            cursor: none;
             margin-bottom: 20px;
         }
 
@@ -151,6 +150,8 @@
             resize: none;
             min-height: 120px;
             margin-bottom: 25px;
+            position: relative;
+            z-index: 10;
         }
 
         .input-box:focus {
@@ -197,10 +198,8 @@
 </head>
 <body>
 
-    <!-- RETRO FX PARTICLE BACKGROUND -->
     <canvas id="fx-canvas"></canvas>
 
-    <!-- CORE INTERFACE CABINET -->
     <div class="arcade-cabinet" id="main-cabinet">
         
         <!-- LEVEL STARTER SCREEN -->
@@ -219,7 +218,7 @@
         <div id="game-screen" class="hidden" style="width:100%;">
             <div class="level-badge" id="lvl-title">LEVEL 1: THE BLANK CANVAS</div>
             <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 50</div>
-            <div class="sys-alert">🕹️ Drag your heart avatar into the pulsing kitty paw zone!</div>
+            <div class="sys-alert">🕹️ Move your mouse into the arena to catch the pulsing target box!</div>
             <canvas id="game-arena"></canvas>
         </div>
 
@@ -249,7 +248,6 @@
     </div>
 
     <script>
-        // --- QUEST LEVELS DATA MATRIX ---
         const questionsList = [
             // LEVEL 1: THE FOUNDATION (1-10)
             "Do you promise to answer these questions completely honestly, directly from your heart? I want to know the real, raw you.",
@@ -312,8 +310,8 @@
             "This is the very last question. Is there anything else—no matter how small or scary it feels—that you need to get off your chest to make sure there are zero secrets between us? I love you."
         ];
 
-        // ⚠️ INJECT ACCESS KEY HERE
-        const WEB3FORMS_ACCESS_KEY = "3b110ffe-7bd2-498c-a930-d0e46fa2eb97";
+        // Updated access key injected perfectly
+        const WEB3FORMS_ACCESS_KEY = "2e120831-8dcc-42cf-b1ca-904ad12ea316";
 
         let currentStep = 0;
         const compiledData = {};
@@ -333,7 +331,6 @@
         const lvlTitle = document.getElementById('lvl-title');
         const lvlDiagTitle = document.getElementById('lvl-diag-title');
 
-        // Get current Level title string
         function getLevelName() {
             if (currentStep < 10) return "LEVEL 1: THE FOUNDATION";
             if (currentStep < 20) return "LEVEL 2: EMOTIONAL DEPTHS";
@@ -368,7 +365,6 @@
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
                 ctx.fillStyle = '#ff4d6d';
-                // Render blocks to simulate retro pixel shapes
                 ctx.fillRect(this.x, this.y, this.size, this.size);
                 ctx.fillRect(this.x - this.size/2, this.y - this.size/2, this.size/2, this.size/2);
                 ctx.fillRect(this.x + this.size, this.y - this.size/2, this.size/2, this.size/2);
@@ -382,7 +378,6 @@
         }
 
         function triggerBurst(count, sourceX, sourceY) {
-            // Apply a screen-shake action effect to the interface container
             cabinet.classList.add('shake-effect');
             setTimeout(() => cabinet.classList.remove('shake-effect'), 400);
 
@@ -431,10 +426,11 @@
             player.x = e.clientX - rect.left;
             player.y = e.clientY - rect.top;
 
-            // Simple boundary match validation
             let distance = Math.hypot(player.x - target.x, player.y - target.y);
             if(distance < (player.size + target.size) / 1.5) {
                 isGameActive = false;
+                // Reset user alignment parameters so arena cursor styling drops instantly
+                arena.style.cursor = 'default';
                 triggerBurst(30, rect.left + target.x, rect.top + target.y);
                 setTimeout(revealDialogue, 250);
             }
@@ -444,22 +440,21 @@
             if(!isGameActive) return;
             arenaCtx.clearRect(0, 0, arena.width, arena.height);
 
-            // Draw target custom pixel element (Paw zone icon)
+            // Paw zone icon
             arenaCtx.fillStyle = '#ff758f';
             arenaCtx.fillRect(target.x - target.size/2, target.y - target.size/2, target.size, target.size);
             arenaCtx.fillStyle = '#ff4d6d';
             arenaCtx.fillRect(target.x - target.size/3, target.y - target.size/3, target.size/1.5, target.size/1.5);
 
-            // Draw player pixel target box pointer
+            // Player pixel target box pointer
             arenaCtx.fillStyle = '#67e8f9';
             arenaCtx.fillRect(player.x - player.size/2, player.y - player.size/2, player.size, player.size);
 
             requestAnimationFrame(runArenaFrame);
         }
 
-        // --- LOGIC AND STEP STATE MANAGEMENT ---
+        // --- FLOW CONTROL STATE MANAGEMENT ---
         introDiv.addEventListener('click', () => {
-            // Wake the cat logic text switch
             document.getElementById('pixel-cat').innerText = " /\\_/\\ \n( >.< ) \n > ♡ < \n[ MEOW! START! ]";
             const rect = introDiv.getBoundingClientRect();
             triggerBurst(45, rect.left + rect.width/2, rect.top + rect.height/2);
@@ -480,6 +475,7 @@
             gameProgressText.textContent = `Hearts Cleared: ${currentStep} / ${questionsList.length}`;
             
             setRandomTarget();
+            arena.style.cursor = 'none'; // Lock regular cursor ONLY during active micro game runtime
             isGameActive = true;
             runArenaFrame();
         }
@@ -492,8 +488,12 @@
             lvlDiagTitle.textContent = currentLvlStr;
             dialProgressText.textContent = `Data Node ${currentStep + 1} of ${questionsList.length} Unlocked`;
             qText.textContent = questionsList[currentStep];
+            
             inputField.value = '';
-            inputField.focus();
+            // Force keyboard focus state directly into the interactive DOM element
+            setTimeout(() => {
+                inputField.focus();
+            }, 50);
 
             if (currentStep === questionsList.length - 1) {
                 nextButton.textContent = "CLEAR GAME ♡";
@@ -513,14 +513,12 @@
             const datasetKey = `[${currentLvlStr}] Q${currentStep + 1}: ${questionsList[currentStep]}`;
             compiledData[datasetKey] = answerStr;
             
-            // Level change flash trigger
             let oldLevel = currentLvlStr;
             currentStep++;
             let newLevel = getLevelName();
 
             if (currentStep < questionsList.length) {
                 if(oldLevel !== newLevel) {
-                    // Play a larger shockwave explosion whenever she updates into a brand new level block!
                     const cabRect = cabinet.getBoundingClientRect();
                     triggerBurst(50, cabRect.left + cabRect.width/2, cabRect.top + cabRect.height/2);
                 }
@@ -554,7 +552,6 @@
                     dialogDiv.classList.add('hidden');
                     endDiv.classList.remove('hidden');
                     
-                    // Mega Particle Victory Flash Burst Execution loop
                     const cabRect = cabinet.getBoundingClientRect();
                     for(let b=0; b<6; b++) {
                         setTimeout(() => {
