@@ -37,7 +37,7 @@
             position: relative;
         }
 
-        /* Ambient Vector Canvas for Fireworks & Floating Cats */
+        /* Ambient Layer for Particle Fireworks */
         #fx-canvas {
             position: absolute;
             top: 0;
@@ -48,34 +48,90 @@
             pointer-events: none;
         }
 
-        @keyframes shake {
-            0% { transform: translate(0, 0); }
-            20% { transform: translate(-6px, 4px); }
-            40% { transform: translate(5px, -5px); }
-            60% { transform: translate(-4px, 3px); }
-            80% { transform: translate(4px, -2px); }
-            100% { transform: translate(0, 0); }
+        /* --- DECORATIVE SIDE CAT LOBBY SYSTEM --- */
+        .side-cat-guardian {
+            position: absolute;
+            bottom: 10%;
+            font-size: 13px;
+            line-height: 1.2;
+            color: var(--border-pixel);
+            font-family: monospace;
+            white-space: pre;
+            z-index: 2;
+            animation: coffeeBob 2s infinite alternate ease-in-out;
+            pointer-events: none;
+            background: rgba(11, 7, 30, 0.6);
+            padding: 10px;
+            border: 1px dashed var(--accent-lavender);
+        }
+        .side-cat-guardian.left-side { left: 2%; }
+        .side-cat-guardian.right-side { right: 2%; }
+
+        @keyframes coffeeBob {
+            0% { transform: translateY(0px) scaleX(1); }
+            50% { transform: translateY(-10px) scaleX(1.05); }
+            100% { transform: translateY(0px) scaleX(1); }
+        }
+
+        /* --- PARALLAX MOVING OBJECT TRAFFIC LINES --- */
+        .traffic-lane {
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            z-index: 1;
+            pointer-events: none;
+            font-size: 1.6rem;
+        }
+        .lane-1 { top: 12%; animation: driveRight 18s infinite linear; }
+        .lane-2 { top: 28%; animation: driveLeft 22s infinite linear; }
+        .lane-3 { bottom: 28%; animation: driveRight 20s infinite linear; }
+        .lane-4 { bottom: 12%; animation: driveLeft 16s infinite linear; }
+
+        @keyframes driveRight {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+        @keyframes driveLeft {
+            0% { transform: translateX(calc(100vw + 100px)); }
+            100% { transform: translateX(-100px); }
+        }
+
+        .traffic-object {
+            margin-right: 180px;
+            display: inline-block;
+            filter: drop-shadow(0 0 8px var(--accent-lavender));
+        }
+
+        /* --- MAIN CABINET LAYER --- */
+        .arcade-cabinet {
+            position: relative;
+            z-index: 5;
+            width: 90%;
+            max-width: 650px;
+            min-height: 570px;
+            background: var(--arcade-panel);
+            border: 4px solid var(--border-pixel);
+            border-radius: 4px; 
+            padding: 30px;
+            box-shadow: 0 0 0 4px #1e1b4b, 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(192, 132, 252, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .shake-effect {
             animation: shake 0.3s ease-in-out;
         }
 
-        .arcade-cabinet {
-            position: relative;
-            z-index: 2;
-            width: 92%;
-            max-width: 720px;
-            min-height: 590px;
-            background: var(--arcade-panel);
-            border: 4px solid var(--border-pixel);
-            border-radius: 4px; 
-            padding: 35px;
-            box-shadow: 0 0 0 4px #1e1b4b, 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(192, 132, 252, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        @keyframes shake {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-6px, 4px); }
+            40% { transform: translate(5px, -5px); }
+            60% { transform: translate(-4px, 3px); }
+            100% { transform: translate(0, 0); }
         }
 
         .glitch-title {
@@ -87,26 +143,7 @@
             line-height: 1.5;
         }
 
-        .pixel-cat-container {
-            font-size: 13px;
-            line-height: 1.2;
-            color: var(--accent-lavender);
-            font-weight: bold;
-            text-align: center;
-            white-space: pre;
-            filter: drop-shadow(0 0 8px var(--accent-lavender));
-        }
-
-        .float-cat-anim {
-            animation: floatCat 1.5s infinite alternate ease-in-out;
-        }
-
-        @keyframes floatCat {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-12px); }
-        }
-
-        /* --- PURE MINI GAME: LUCKY CAT SLOTS --- */
+        /* --- PURE SLOTS MINI-GAME --- */
         .slots-machine {
             width: 100%;
             background: #120b2e;
@@ -135,7 +172,6 @@
             justify-content: center;
             align-items: center;
             font-size: 2.2rem;
-            box-shadow: inset 0 0 10px rgba(244, 114, 182, 0.2);
         }
 
         .slot-reel.spinning {
@@ -148,7 +184,7 @@
             100% { transform: translateY(-8px); opacity: 0.6; }
         }
 
-        /* --- POPUP INTENSITY CATS --- */
+        /* --- POPUP INTERSTITIAL MIDSTAGE CATS --- */
         .popup-cat-overlay {
             position: absolute;
             bottom: 25px;
@@ -180,32 +216,35 @@
             margin-bottom: 5px;
         }
 
-        /* --- FLASHING CELEBRATION OVERLAY --- */
+        /* --- ABSOLUTE DEAD-CENTER CELEBRATION BANNER --- */
         .love-banner {
-            position: absolute;
-            top: 30%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
             width: 85%;
-            background: rgba(217, 70, 239, 0.95);
-            border: 3px solid #fae8ff;
+            max-width: 500px;
+            background: rgba(217, 70, 239, 0.98);
+            border: 4px solid #fae8ff;
             color: #fff;
             font-weight: bold;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             text-align: center;
-            padding: 20px;
-            z-index: 200;
-            box-shadow: 0 0 30px var(--btn-color);
-            animation: popScale 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 25px;
+            z-index: 999;
+            box-shadow: 0 0 40px var(--btn-color), 0 0 100px rgba(0,0,0,0.6);
+            animation: popCenterScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes popScale {
-            from { transform: scale(0.6); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        @keyframes popCenterScale {
+            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
-        /* --- INFINITE MOVIE ENDING CREDITS LOOP --- */
+        /* --- MOVIE STYLE SYSTEM CREDIT ROLL (BOTTOM TO TOP) --- */
         .movie-credits-container {
             width: 100%;
-            height: 320px;
+            height: 300px;
             overflow: hidden;
             position: relative;
             border: 2px dashed var(--accent-lavender);
@@ -216,34 +255,34 @@
         .credits-scroll-track {
             position: absolute;
             width: 100%;
-            animation: scrollCredits 14s infinite linear;
+            animation: scrollCreditsMovie 16s infinite linear;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 30px;
         }
 
-        @keyframes scrollCredits {
-            0% { transform: translateY(320px); }
-            100% { transform: translateY(-550px); }
+        @keyframes scrollCreditsMovie {
+            0% { transform: translateY(300px); }
+            100% { transform: translateY(-620px); }
         }
 
         .credit-title {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--border-pixel);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
         .credit-name {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: #ffffff;
             font-weight: bold;
             margin-top: -15px;
             text-shadow: 0 0 8px var(--accent-lavender);
         }
 
-        /* --- QUESTIONNAIRE INTERFACE --- */
+        /* --- WORKFIELD QUESTION DETAILS --- */
         .level-badge {
             font-size: 1rem;
             color: var(--border-pixel);
@@ -251,7 +290,6 @@
             text-transform: uppercase;
             letter-spacing: 3px;
             margin-bottom: 5px;
-            text-shadow: 0 0 8px rgba(244, 114, 182, 0.4);
         }
 
         .step-counter {
@@ -287,7 +325,6 @@
         .input-box:focus {
             outline: none;
             border-color: var(--border-pixel);
-            box-shadow: 0 0 12px rgba(244, 114, 182, 0.4);
         }
 
         .action-btn {
@@ -308,11 +345,7 @@
             box-shadow: 2px 2px 0px #701a75;
         }
 
-        .action-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .hidden { display: none !important; opacity: 0; }
         
         .sys-alert {
@@ -322,30 +355,55 @@
             padding: 8px 14px;
             border-radius: 2px;
             margin-bottom: 10px;
-            border-left: 3px solid var(--border-pixel);
             text-align: center;
         }
     </style>
 </head>
 <body>
 
+    <!-- Main Vector Display Background Matrix Layer -->
     <canvas id="fx-canvas"></canvas>
+
+    <!-- HORIZONTAL SCROLL TRAFFIC ELEMENT SYSTEM -->
+    <div class="traffic-lane lane-1">
+        <span class="traffic-object">🐱</span><span class="traffic-object">🏎️</span><span class="traffic-object">💖</span><span class="traffic-object">🛴</span>
+    </div>
+    <div class="traffic-lane lane-2">
+        <span class="traffic-object">🏎️</span><span class="traffic-object">🐱</span><span class="traffic-object">🛴</span><span class="traffic-object">💖</span>
+    </div>
+    <div class="traffic-lane lane-3">
+        <span class="traffic-object">🛴</span><span class="traffic-object">💖</span><span class="traffic-object">🐱</span><span class="traffic-object">🏎️</span>
+    </div>
+    <div class="traffic-lane lane-4">
+        <span class="traffic-object">💖</span><span class="traffic-object">🛴</span><span class="traffic-object">🏎️</span><span class="traffic-object">🐱</span>
+    </div>
+
+    <!-- LEFT & RIGHT ANCHORED SIDE CUSTOM ANIMATED GUARDIANS -->
+    <div class="side-cat-guardian left-side">
+ /\_/\   ☕~
+( o.o ) _/  
+ > ^ < [ ]  
+[L-CAT: SIPPIN]
+    </div>
+
+    <div class="side-cat-guardian right-side">
+  ~☕   /\_/\ 
+  \_ ( =.= )
+  [ ] > 💖 < 
+[R-CAT: CHILLIN]
+    </div>
+
     <div id="popup-cat-zone"></div>
     <div id="love-celebration-zone"></div>
 
     <div class="arcade-cabinet" id="main-cabinet">
         
-        <!-- INTRO SCREEN WITH RETRO SYSTEM WORDING -->
+        <!-- INTRO PANEL WITH TIMEOUT LOG ENGINE -->
         <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:20px; width: 100%;">
-            <div class="pixel-cat-container float-cat-anim">
- /\_/\  
-( o.o ) 
- > ^ <  
-            </div>
-            <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 80%; text-align: left; background: #090518; padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
-                > STAGE INITIALIZING...<br>
-                > ACCESS GRANTED.<br>
-                > LOADING LOVE MATRIX ENGINE...
+            <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 85%; text-align: left; background: #090518; padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
+                > INITIALIZING RETRO SUBSET MATRIX...<br>
+                > LOADING CUSTOM COLOR CONVERTER...<br>
+                > ACCESS COMPLIANT. PLAYER 1 CONNECTED!
             </div>
             <div class="glitch-title" id="intro-main-msg" style="opacity: 0;">
                 PLAYER 1 SELECTED !<br>
@@ -354,13 +412,13 @@
             <button class="action-btn hidden" id="start-quest-btn">START QUEST 🕹️</button>
         </div>
 
-        <!-- ARCADE PLAY FIELD: PURE SLOTS MINI-GAME -->
+        <!-- REEL SLOTS FRAMEWORK -->
         <div id="game-screen" class="hidden" style="width:100%;">
             <div class="level-badge" id="lvl-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 5</div>
             
             <div class="slots-machine">
-                <div class="sys-alert">🎰 Pull the Lever to spin the slots and unlock the module data!</div>
+                <div class="sys-alert">🎰 Extracting questionnaire modules via matching configuration!</div>
                 <div class="slots-window">
                     <div class="slot-reel" id="reel-1">🐱</div>
                     <div class="slot-reel" id="reel-2">💜</div>
@@ -370,27 +428,22 @@
             </div>
         </div>
 
-        <!-- DIALOGUE DATA CAPTURE NODE -->
+        <!-- INTERFACE QUESTION SUBMIT PANEL -->
         <div id="dialogue-screen" class="hidden" style="width:100%; display: flex; flex-direction: column;">
             <div class="level-badge" id="lvl-diag-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="dialogue-progress">Data Node 1 of 5 Unlocked</div>
-            <div class="prompt-text" id="active-question">Loading database matrix...</div>
+            <div class="prompt-text" id="active-question">Loading matrix modules...</div>
             <textarea class="input-box" id="response-field" placeholder="Input honest response string... 🤍"></textarea>
             <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
         </div>
 
-        <!-- END SHOWCASE: MOVIE ENDING CREDITS LOOP -->
+        <!-- FINAL ROLLING MOVIE CREDITS SCENE -->
         <div id="end-screen" class="hidden" style="width: 100%;">
-            <div class="pixel-cat-container" style="text-align: center; font-size:15px; margin-bottom: 10px;">
- /\_/\  
-( =.=. ) 
- > ♡ <  
-            </div>
-            <h1 style="font-size: 1.4rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px;">QUEST COMPLETE</h1>
+            <h1 style="font-size: 1.4rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 5px;">QUEST COMPLETE</h1>
             
             <div class="movie-credits-container">
                 <div class="credits-scroll-track" id="credits-loop-element">
-                    <!-- Dynamic Loop Inject via Script -->
+                    <!-- Target Script Loop Destination -->
                 </div>
             </div>
         </div>
@@ -398,7 +451,7 @@
     </div>
 
     <script>
-        // SHORTENED TO 5 TEST QUESTIONS
+        // STRICT CONFIGURATION TO 5 EXPERIMENTAL CHECK QUESTION DATA ENTRIES
         const questionsList = [
             "Do you promise to answer these questions completely honestly, directly from your heart? I want to know the real, raw you.",
             "Just so you know... once you click next, you can't go back to edit or change your answer. Ready for this?",
@@ -413,7 +466,7 @@
         let finalEndStateActive = false;
         const compiledData = {};
 
-        // DOM Element Definitions
+        // DOM Declarations
         const cabinet = document.getElementById('main-cabinet');
         const introDiv = document.getElementById('intro-screen');
         const gameDiv = document.getElementById('game-screen');
@@ -435,7 +488,7 @@
             return "LEVEL 3: ULTIMATE CLARITY";
         }
 
-        // --- WEB AUDIO API HIGH VOLUME CHIME SYNTHESIZER ---
+        // --- WEB AUDIO SYNTHESIZER FOR HIGH INTENSITY ELECTRONIC MEOWS ---
         let audioCtx = null;
         function playHighVolumeRetroMeow() {
             try {
@@ -447,11 +500,11 @@
                 let osc1 = audioCtx.createOscillator();
                 let gain1 = audioCtx.createGain();
                 osc1.type = 'triangle';
-                osc1.frequency.setValueAtTime(620, now);
-                osc1.frequency.exponentialRampToValueAtTime(950, now + 0.08);
+                osc1.frequency.setValueAtTime(650, now);
+                osc1.frequency.exponentialRampToValueAtTime(980, now + 0.08);
                 
-                gain1.gain.setValueAtTime(0.4, now);
-                gain1.gain.linearRampToValueAtTime(0.4, now + 0.06);
+                gain1.gain.setValueAtTime(0.45, now);
+                gain1.gain.linearRampToValueAtTime(0.45, now + 0.06);
                 gain1.gain.linearRampToValueAtTime(0.001, now + 0.22);
                 
                 osc1.connect(gain1);
@@ -463,24 +516,23 @@
                     let osc2 = audioCtx.createOscillator();
                     let gain2 = audioCtx.createGain();
                     osc2.type = 'sine';
-                    osc2.frequency.setValueAtTime(950, audioCtx.currentTime);
-                    osc2.frequency.exponentialRampToValueAtTime(1250, audioCtx.currentTime + 0.12);
+                    osc2.frequency.setValueAtTime(980, audioCtx.currentTime);
+                    osc2.frequency.exponentialRampToValueAtTime(1300, audioCtx.currentTime + 0.12);
                     
-                    gain2.gain.setValueAtTime(0.35, audioCtx.currentTime);
+                    gain2.gain.setValueAtTime(0.4, audioCtx.currentTime);
                     gain2.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.18);
                     
                     osc2.connect(gain2);
                     gain2.connect(audioCtx.destination);
                     osc2.start(audioCtx.currentTime);
                     osc2.stop(audioCtx.currentTime + 0.18);
-                }, 50);
-
+                }, 45);
             } catch (err) {
-                console.log("Audio pipeline blocked", err);
+                console.log("Audio pipeline blocked/unsupported", err);
             }
         }
 
-        // --- DYNAMIC GRAPHICS FX LAYER ENGINE ---
+        // --- PARTICLES ENGINE LAYER DESIGN (PINK & PURPLE SPECIFIC) ---
         const fxCanvas = document.getElementById('fx-canvas');
         const ctx = fxCanvas.getContext('2d');
         let elementsArray = [];
@@ -503,7 +555,7 @@
                 this.alpha = 1;
                 this.fade = 0.004 + (Math.random() * 0.004);
                 
-                const pinkPurples = ['#f472b6', '#d946ef', '#c084fc', '#e879f9', '#f472b6', '#fae8ff'];
+                const pinkPurples = ['#f472b6', '#d946ef', '#c084fc', '#e879f9', '#fae8ff', '#701a75'];
                 this.color = pinkPurples[Math.floor(Math.random() * pinkPurples.length)];
                 
                 if (type === 'firework') {
@@ -522,10 +574,6 @@
                     ctx.fillRect(this.x, this.y, this.size, this.size);
                     ctx.fillRect(this.x - this.size/2, this.y - this.size/2, this.size/2, this.size/2);
                     ctx.fillRect(this.x + this.size, this.y - this.size/2, this.size/2, this.size/2);
-                } else if (this.type === 'bgcat') {
-                    ctx.font = '12px monospace';
-                    ctx.fillStyle = 'rgba(192, 132, 252, 0.2)';
-                    ctx.fillText('🐱', this.x, this.y);
                 }
                 ctx.restore();
             }
@@ -548,11 +596,7 @@
         function engineLoop() {
             ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
             
-            if (Math.random() < 0.04) {
-                elementsArray.push(new MatrixElement(null, null, 'bgcat'));
-            }
-
-            if (finalEndStateActive && Math.random() < 0.08) {
+            if (finalEndStateActive && Math.random() < 0.09) {
                 spawnBurst(15, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.7), 'firework');
                 spawnBurst(10, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.7), 'heart');
             }
@@ -569,25 +613,21 @@
         }
         engineLoop();
 
-        // --- RETRO COOL BOOT SYSTEM SEQUENCE ---
+        // --- RETRO COOL INITIALIZATION TIMEOUTS ---
         window.addEventListener('load', () => {
             const logs = document.getElementById('boot-logs');
             setTimeout(() => {
-                logs.innerHTML += "<br>> MATCH FOUND: CHOSEN PLAYER VALIDATED.";
+                logs.innerHTML += "<br>> PARALLAX GRAPHICS ENGAGED... SUCCESS.";
                 playHighVolumeRetroMeow();
             }, 800);
             setTimeout(() => {
-                logs.innerHTML += "<br>> STATUS: ALL SYSTEM MODULES ONLINE.";
-            }, 1500);
+                logs.innerHTML += "<br>> SIDE ENGINE GUARDIANS GENERATED SYNCED.";
+            }, 1400);
             setTimeout(() => {
                 document.getElementById('intro-main-msg').style.opacity = "1";
-                const btn = document.getElementById('start-quest-btn');
-                btn.classList.remove('hidden');
-                
-                const w = window.innerWidth;
-                const h = window.innerHeight;
-                spawnBurst(40, w/2, h/2, 'heart');
-            }, 2200);
+                document.getElementById('start-quest-btn').classList.remove('hidden');
+                spawnBurst(40, window.innerWidth/2, window.innerHeight/2, 'heart');
+            }, 2000);
         });
 
         document.getElementById('start-quest-btn').addEventListener('click', () => {
@@ -609,6 +649,7 @@
             setTimeout(() => popup.remove(), 1100);
         }
 
+        // --- PERFECT CENTER CELEBRATION DISPATCH ---
         function triggerLoveCelebration() {
             const zone = document.getElementById('love-celebration-zone');
             const banner = document.createElement('div');
@@ -622,7 +663,7 @@
                 setTimeout(() => {
                     spawnBurst(20, Math.random() * w, Math.random() * (h * 0.6), 'firework');
                     spawnBurst(15, Math.random() * w, Math.random() * (h * 0.6), 'heart');
-                }, f * 150);
+                }, f * 140);
             }
             setTimeout(() => banner.remove(), 1300);
         }
@@ -724,7 +765,7 @@
 
             const dispatchPayload = new FormData();
             dispatchPayload.append("access_key", WEB3FORMS_ACCESS_KEY);
-            dispatchPayload.append("subject", "🎮 Test Run Clear: Her 5 Arcade Answers! ✨");
+            dispatchPayload.append("subject", "🎮 Test Cleared: Her 5 Core Answers! ✨");
 
             for(const [question, answer] of Object.entries(compiledData)) {
                 dispatchPayload.append(question, answer);
@@ -759,28 +800,28 @@
         function setupInfiniteCredits() {
             const container = document.getElementById('credits-loop-element');
             const blocks = `
-                <div class="credit-title">THANK YOU FOR PLAYING</div>
-                <div class="credit-name">MY WHOLE HEART</div>
+                <div class="credit-title">THANK YOU SO MUCH FOR PLAYING</div>
+                <div class="credit-name">MY ENTIRE WORLD</div>
                 
                 <div class="credit-title">DIRECTED BY</div>
-                <div class="credit-name">YOUR NUMBER ONE FAN</div>
+                <div class="credit-name">YOUR NO. 1 ADMIRER</div>
 
-                <div class="credit-title">DATA MANAGEMENT</div>
-                <div class="credit-name">SECURELY COMPILED</div>
+                <div class="credit-title">DATA MANAGEMENT MODULE</div>
+                <div class="credit-name">PERMANENTLY ENCRYPTED</div>
 
                 <div class="credit-title">TOTAL TRANSMISSIONS</div>
-                <div class="credit-name">5 / 5 TEST NODES UNLOCKED</div>
+                <div class="credit-name">5 / 5 CHANNELS CLEAR</div>
 
-                <div class="credit-title">CORE MESSAGE SYSTEM</div>
-                <div class="credit-name">I LOVE YOU SO MUCH</div>
+                <div class="credit-title">CORE PROGNOSIS</div>
+                <div class="credit-name">I LOVE YOU FOREVER</div>
 
-                <div class="credit-title">EXPIRY TIMEOUT STATUS</div>
-                <div class="credit-name">FOREVER & EVER</div>
+                <div class="credit-title">EXPIRY TIMEOUT</div>
+                <div class="credit-name">NEVER ENDING STATE</div>
 
-                <div class="credit-title">SPECIAL THANKS</div>
-                <div class="credit-name">FOR BEING HONEST ♡</div>
+                <div class="credit-title">SPECIAL COMPLIMENTS</div>
+                <div class="credit-name">FOR INDULGING ME ♡</div>
             `;
-            container.innerHTML = blocks + blocks;
+            container.innerHTML = blocks + blocks + blocks;
         }
     </script>
 </body>
