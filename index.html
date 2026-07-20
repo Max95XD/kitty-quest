@@ -111,6 +111,7 @@
             border: 3px double var(--border-pixel);
             margin-bottom: 20px;
             display: block;
+            cursor: crosshair;
         }
 
         /* --- LEVEL UI STYLING --- */
@@ -219,7 +220,7 @@
         <div id="game-screen" class="hidden" style="width:100%;">
             <div class="level-badge" id="lvl-title">LEVEL 1: THE BLANK CANVAS</div>
             <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 50</div>
-            <div class="sys-alert">🕹️ Move your cursor inside the box to catch the pulsing pink square!</div>
+            <div class="sys-alert">🕹️ Move your mouse pointer inside the box to catch the pulsing target box!</div>
             <canvas id="game-arena"></canvas>
         </div>
 
@@ -410,10 +411,8 @@
         let isGameActive = false;
 
         function setRandomTarget() {
-            if (arena.width === 0 || arena.height === 0) {
-                arena.width = arena.offsetWidth || 640;
-                arena.height = arena.offsetHeight || 220;
-            }
+            arena.width = arena.offsetWidth || 640;
+            arena.height = arena.offsetHeight || 220;
             target.x = Math.random() * (arena.width - 80) + 40;
             target.y = Math.random() * (arena.height - 80) + 40;
         }
@@ -431,9 +430,9 @@
             player.y = e.clientY - rect.top;
 
             let distance = Math.hypot(player.x - target.x, player.y - target.y);
-            if(distance < (player.size + target.size) / 1.5) {
+            // Hits the target easily
+            if(distance < (player.size + target.size) / 1.2) {
                 isGameActive = false;
-                arena.style.cursor = 'default';
                 triggerBurst(30, rect.left + target.x, rect.top + target.y);
                 setTimeout(revealDialogue, 250);
             }
@@ -443,13 +442,13 @@
             if(!isGameActive) return;
             arenaCtx.clearRect(0, 0, arena.width, arena.height);
 
-            // Target (Pulsing box)
+            // Target (Pulsing pink box)
             arenaCtx.fillStyle = '#ff758f';
             arenaCtx.fillRect(target.x - target.size/2, target.y - target.size/2, target.size, target.size);
             arenaCtx.fillStyle = '#ff4d6d';
             arenaCtx.fillRect(target.x - target.size/3, target.y - target.size/3, target.size/1.5, target.size/1.5);
 
-            // Player cyan pixel dot
+            // Cyan player tracking box
             arenaCtx.fillStyle = '#67e8f9';
             arenaCtx.fillRect(player.x - player.size/2, player.y - player.size/2, player.size, player.size);
 
@@ -472,14 +471,12 @@
             dialogDiv.classList.add('hidden');
             gameDiv.classList.remove('hidden');
             
-            // Fix layout dimensions now that element is unhidden
             resizeArena();
             
             let currentLvlStr = getLevelName();
             lvlTitle.textContent = currentLvlStr;
             gameProgressText.textContent = `Hearts Cleared: ${currentStep} / ${questionsList.length}`;
             
-            arena.style.cursor = 'none'; 
             isGameActive = true;
             runArenaFrame();
         }
