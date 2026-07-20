@@ -48,74 +48,86 @@
             pointer-events: none;
         }
 
-        /* --- DECORATIVE SIDE CAT LOBBY SYSTEM --- */
-        .side-cat-guardian {
+        /* --- IMMERSIVE SIDE COLUMN WRAPPERS --- */
+        .side-stage-wrapper {
             position: absolute;
-            bottom: 10%;
-            font-size: 13px;
+            top: 0;
+            bottom: 0;
+            width: 18vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 4;
+            pointer-events: none;
+        }
+        .side-stage-wrapper.left-zone { left: 10px; }
+        .side-stage-wrapper.right-zone { right: 10px; }
+
+        .big-pixel-cat {
+            font-family: monospace;
+            font-size: 14px;
             line-height: 1.2;
             color: var(--border-pixel);
-            font-family: monospace;
             white-space: pre;
-            z-index: 2;
-            animation: coffeeBob 2s infinite alternate ease-in-out;
-            pointer-events: none;
-            background: rgba(11, 7, 30, 0.6);
-            padding: 10px;
-            border: 1px dashed var(--accent-lavender);
-        }
-        .side-cat-guardian.left-side { left: 2%; }
-        .side-cat-guardian.right-side { right: 2%; }
-
-        @keyframes coffeeBob {
-            0% { transform: translateY(0px) scaleX(1); }
-            50% { transform: translateY(-10px) scaleX(1.05); }
-            100% { transform: translateY(0px) scaleX(1); }
+            text-shadow: 0 0 10px var(--border-pixel);
+            background: rgba(18, 11, 46, 0.85);
+            padding: 15px;
+            border: 3px double var(--accent-lavender);
+            animation: interactiveCatDance 1.6s infinite alternate ease-in-out;
+            margin-bottom: 20px;
         }
 
-        /* --- PARALLAX MOVING OBJECT TRAFFIC LINES --- */
+        @keyframes interactiveCatDance {
+            0% { transform: translateY(0) scale(1) rotate(-2deg); color: #f472b6; }
+            50% { transform: translateY(-15px) scale(1.05) rotate(2deg); color: #c084fc; }
+            100% { transform: translateY(0) scale(0.98) rotate(-2deg); color: #fae8ff; }
+        }
+
+        /* --- PARALLAX BACKGROUND TRAFFIC SYSTEM --- */
         .traffic-lane {
             position: absolute;
             width: 100%;
-            height: 40px;
+            height: 50px;
             display: flex;
             align-items: center;
-            z-index: 1;
+            z-index: 2;
             pointer-events: none;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
         }
-        .lane-1 { top: 12%; animation: driveRight 18s infinite linear; }
-        .lane-2 { top: 28%; animation: driveLeft 22s infinite linear; }
-        .lane-3 { bottom: 28%; animation: driveRight 20s infinite linear; }
-        .lane-4 { bottom: 12%; animation: driveLeft 16s infinite linear; }
+        .lane-1 { top: 8%; animation: driveRight 15s infinite linear; }
+        .lane-2 { top: 22%; animation: driveLeft 19s infinite linear; }
+        .lane-3 { bottom: 22%; animation: driveRight 17s infinite linear; }
+        .lane-4 { bottom: 8%; animation: driveLeft 14s infinite linear; }
 
         @keyframes driveRight {
-            0% { transform: translateX(-100px); }
-            100% { transform: translateX(calc(100vw + 100px)); }
+            0% { transform: translateX(-150px); }
+            100% { transform: translateX(calc(100vw + 150px)); }
         }
         @keyframes driveLeft {
-            0% { transform: translateX(calc(100vw + 100px)); }
-            100% { transform: translateX(-100px); }
+            0% { transform: translateX(calc(100vw + 150px)); }
+            100% { transform: translateX(-150px); }
         }
 
         .traffic-object {
-            margin-right: 180px;
+            margin-right: 220px;
             display: inline-block;
-            filter: drop-shadow(0 0 8px var(--accent-lavender));
+            filter: drop-shadow(0 0 12px var(--btn-color));
         }
 
-        /* --- MAIN CABINET LAYER --- */
+        /* --- CENTERED ARCADE FRAMEWORK --- */
         .arcade-cabinet {
             position: relative;
-            z-index: 5;
-            width: 90%;
-            max-width: 650px;
+            z-index: 10;
+            width: 58%;
+            max-width: 680px;
+            min-width: 380px;
             min-height: 570px;
             background: var(--arcade-panel);
             border: 4px solid var(--border-pixel);
             border-radius: 4px; 
             padding: 30px;
-            box-shadow: 0 0 0 4px #1e1b4b, 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(192, 132, 252, 0.3);
+            box-shadow: 0 0 0 4px #1e1b4b, 0 20px 60px rgba(0,0,0,0.9), 0 0 50px rgba(192, 132, 252, 0.4);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -123,14 +135,14 @@
         }
 
         .shake-effect {
-            animation: shake 0.3s ease-in-out;
+            animation: shakeCabinet 0.3s ease-in-out;
         }
 
-        @keyframes shake {
+        @keyframes shakeCabinet {
             0% { transform: translate(0, 0); }
-            20% { transform: translate(-6px, 4px); }
-            40% { transform: translate(5px, -5px); }
-            60% { transform: translate(-4px, 3px); }
+            20% { transform: translate(-8px, 5px); }
+            40% { transform: translate(7px, -6px); }
+            60% { transform: translate(-5px, 4px); }
             100% { transform: translate(0, 0); }
         }
 
@@ -143,7 +155,7 @@
             line-height: 1.5;
         }
 
-        /* --- PURE SLOTS MINI-GAME --- */
+        /* --- LUCKY MINI SLOTS --- */
         .slots-machine {
             width: 100%;
             background: #120b2e;
@@ -184,7 +196,7 @@
             100% { transform: translateY(-8px); opacity: 0.6; }
         }
 
-        /* --- POPUP INTERSTITIAL MIDSTAGE CATS --- */
+        /* --- POPUP CORNER FEEDBACK --- */
         .popup-cat-overlay {
             position: absolute;
             bottom: 25px;
@@ -197,7 +209,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: 0 0 15px rgba(244, 114, 182, 0.4);
             animation: slideInUp 0.25s ease-out;
         }
 
@@ -216,35 +227,35 @@
             margin-bottom: 5px;
         }
 
-        /* --- ABSOLUTE DEAD-CENTER CELEBRATION BANNER --- */
+        /* --- CRITICAL FIX: FIXED TRUE STAGE DEAD-CENTER BANNER --- */
         .love-banner {
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%);
             width: 85%;
-            max-width: 500px;
+            max-width: 480px;
             background: rgba(217, 70, 239, 0.98);
             border: 4px solid #fae8ff;
             color: #fff;
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             text-align: center;
             padding: 25px;
-            z-index: 999;
-            box-shadow: 0 0 40px var(--btn-color), 0 0 100px rgba(0,0,0,0.6);
-            animation: popCenterScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 99999;
+            box-shadow: 0 0 50px var(--btn-color), 0 0 120px rgba(0,0,0,0.8);
+            animation: popCenterScale 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         @keyframes popCenterScale {
-            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            from { transform: translate(-50%, -50%) scale(0.4); opacity: 0; }
             to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
-        /* --- MOVIE STYLE SYSTEM CREDIT ROLL (BOTTOM TO TOP) --- */
+        /* --- EXTENDED EXTENSIVE SYSTEM CREDITS ROLL --- */
         .movie-credits-container {
             width: 100%;
-            height: 300px;
+            height: 340px;
             overflow: hidden;
             position: relative;
             border: 2px dashed var(--accent-lavender);
@@ -255,34 +266,35 @@
         .credits-scroll-track {
             position: absolute;
             width: 100%;
-            animation: scrollCreditsMovie 16s infinite linear;
+            animation: scrollMovieCredits 38s infinite linear;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 25px;
         }
 
-        @keyframes scrollCreditsMovie {
-            0% { transform: translateY(300px); }
-            100% { transform: translateY(-620px); }
+        /* Movie standard scroll: dynamic entry from absolute base to clear top zone */
+        @keyframes scrollMovieCredits {
+            0% { transform: translateY(340px); }
+            100% { transform: translateY(-2400px); }
         }
 
         .credit-title {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--border-pixel);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
         .credit-name {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             color: #ffffff;
             font-weight: bold;
-            margin-top: -15px;
+            margin-top: -12px;
             text-shadow: 0 0 8px var(--accent-lavender);
         }
 
-        /* --- WORKFIELD QUESTION DETAILS --- */
+        /* --- QUESTION WORKSPACE CONFIG --- */
         .level-badge {
             font-size: 1rem;
             color: var(--border-pixel);
@@ -300,7 +312,7 @@
         }
 
         .prompt-text {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: bold;
             text-align: center;
             margin-bottom: 25px;
@@ -361,10 +373,10 @@
 </head>
 <body>
 
-    <!-- Main Vector Display Background Matrix Layer -->
+    <!-- Main FX Background Vector Layer -->
     <canvas id="fx-canvas"></canvas>
 
-    <!-- HORIZONTAL SCROLL TRAFFIC ELEMENT SYSTEM -->
+    <!-- HORIZONTAL SCROLL INTERSTITIAL MATRIX TRAFFIC -->
     <div class="traffic-lane lane-1">
         <span class="traffic-object">🐱</span><span class="traffic-object">🏎️</span><span class="traffic-object">💖</span><span class="traffic-object">🛴</span>
     </div>
@@ -378,19 +390,36 @@
         <span class="traffic-object">💖</span><span class="traffic-object">🛴</span><span class="traffic-object">🏎️</span><span class="traffic-object">🐱</span>
     </div>
 
-    <!-- LEFT & RIGHT ANCHORED SIDE CUSTOM ANIMATED GUARDIANS -->
-    <div class="side-cat-guardian left-side">
+    <!-- LEFT PERSISTENT SIDE COLUMN GUARDIANS -->
+    <div class="side-stage-wrapper left-zone">
+        <div class="big-pixel-cat">
  /\_/\   ☕~
 ( o.o ) _/  
  > ^ < [ ]  
-[L-CAT: SIPPIN]
+[L-CAT: DRINKING]
+        </div>
+        <div class="big-pixel-cat" style="animation-delay: 0.4s;">
+  /\_/\  💖
+ ( -.- ) /
+  > ☕ < 
+[STATUS: ADORABLE]
+        </div>
     </div>
 
-    <div class="side-cat-guardian right-side">
+    <!-- RIGHT PERSISTENT SIDE COLUMN GUARDIANS -->
+    <div class="side-stage-wrapper right-zone">
+        <div class="big-pixel-cat" style="animation-delay: 0.2s;">
   ~☕   /\_/\ 
   \_ ( =.= )
   [ ] > 💖 < 
-[R-CAT: CHILLIN]
+[R-CAT: COZY]
+        </div>
+        <div class="big-pixel-cat" style="animation-delay: 0.6s;">
+  /\_/\  🐾
+ ( Q.Q ) /
+  > 🍩 < 
+[STATUS: MUNCHING]
+        </div>
     </div>
 
     <div id="popup-cat-zone"></div>
@@ -398,27 +427,27 @@
 
     <div class="arcade-cabinet" id="main-cabinet">
         
-        <!-- INTRO PANEL WITH TIMEOUT LOG ENGINE -->
+        <!-- INITIALIZING LOG COMPILER INTRO -->
         <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:20px; width: 100%;">
             <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 85%; text-align: left; background: #090518; padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
-                > INITIALIZING RETRO SUBSET MATRIX...<br>
-                > LOADING CUSTOM COLOR CONVERTER...<br>
-                > ACCESS COMPLIANT. PLAYER 1 CONNECTED!
+                > BOOTING PARALLAX ANIMATION ARRAY...<br>
+                > CALIBRATING VIEWPORT CENTER BANNER COORDINATES...<br>
+                > SYSTEM ENGAGED. 5 CORE QUESTIONS LIVE.
             </div>
             <div class="glitch-title" id="intro-main-msg" style="opacity: 0;">
-                PLAYER 1 SELECTED !<br>
-                <span style="font-size:1.1rem; color: var(--accent-lavender);">READY TO START HEART QUEST?</span>
+                PLAYER 1 LOGGED !<br>
+                <span style="font-size:1.1rem; color: var(--accent-lavender);">READY TO TRANSMIT DEEP RESPONSES?</span>
             </div>
             <button class="action-btn hidden" id="start-quest-btn">START QUEST 🕹️</button>
         </div>
 
-        <!-- REEL SLOTS FRAMEWORK -->
+        <!-- ARCADE SELECTION WHEEL -->
         <div id="game-screen" class="hidden" style="width:100%;">
             <div class="level-badge" id="lvl-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 5</div>
             
             <div class="slots-machine">
-                <div class="sys-alert">🎰 Extracting questionnaire modules via matching configuration!</div>
+                <div class="sys-alert">🎰 Synchronizing data paths to unlock next core text question...</div>
                 <div class="slots-window">
                     <div class="slot-reel" id="reel-1">🐱</div>
                     <div class="slot-reel" id="reel-2">💜</div>
@@ -428,22 +457,22 @@
             </div>
         </div>
 
-        <!-- INTERFACE QUESTION SUBMIT PANEL -->
+        <!-- RESPONSE ENTRY CORE MODULATOR -->
         <div id="dialogue-screen" class="hidden" style="width:100%; display: flex; flex-direction: column;">
             <div class="level-badge" id="lvl-diag-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="dialogue-progress">Data Node 1 of 5 Unlocked</div>
-            <div class="prompt-text" id="active-question">Loading matrix modules...</div>
-            <textarea class="input-box" id="response-field" placeholder="Input honest response string... 🤍"></textarea>
+            <div class="prompt-text" id="active-question">Loading dialogue array strings...</div>
+            <textarea class="input-box" id="response-field" placeholder="Enter deeply honest thoughts here... 🤍"></textarea>
             <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
         </div>
 
-        <!-- FINAL ROLLING MOVIE CREDITS SCENE -->
+        <!-- EPIC END CINEMATIC LOOP MOVIE SCENE -->
         <div id="end-screen" class="hidden" style="width: 100%;">
-            <h1 style="font-size: 1.4rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 5px;">QUEST COMPLETE</h1>
+            <h1 style="font-size: 1.3rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 5px;">🏆 QUEST CLEAR: FOREVER STATUS ENGAGED 🏆</h1>
             
             <div class="movie-credits-container">
                 <div class="credits-scroll-track" id="credits-loop-element">
-                    <!-- Target Script Loop Destination -->
+                    <!-- Target Script Injection Layer for 50+ Line Rolling Array -->
                 </div>
             </div>
         </div>
@@ -451,7 +480,7 @@
     </div>
 
     <script>
-        // STRICT CONFIGURATION TO 5 EXPERIMENTAL CHECK QUESTION DATA ENTRIES
+        // CONTROL CONFIG: STRICTLY 5 RUNTIME EVALUATION MODULE TEST ENTRIES
         const questionsList = [
             "Do you promise to answer these questions completely honestly, directly from your heart? I want to know the real, raw you.",
             "Just so you know... once you click next, you can't go back to edit or change your answer. Ready for this?",
@@ -466,7 +495,7 @@
         let finalEndStateActive = false;
         const compiledData = {};
 
-        // DOM Declarations
+        // DOM Element Mapping
         const cabinet = document.getElementById('main-cabinet');
         const introDiv = document.getElementById('intro-screen');
         const gameDiv = document.getElementById('game-screen');
@@ -488,7 +517,7 @@
             return "LEVEL 3: ULTIMATE CLARITY";
         }
 
-        // --- WEB AUDIO SYNTHESIZER FOR HIGH INTENSITY ELECTRONIC MEOWS ---
+        // --- RETRO SOUND SYNTH ENGINE ---
         let audioCtx = null;
         function playHighVolumeRetroMeow() {
             try {
@@ -527,12 +556,10 @@
                     osc2.start(audioCtx.currentTime);
                     osc2.stop(audioCtx.currentTime + 0.18);
                 }, 45);
-            } catch (err) {
-                console.log("Audio pipeline blocked/unsupported", err);
-            }
+            } catch (err) {}
         }
 
-        // --- PARTICLES ENGINE LAYER DESIGN (PINK & PURPLE SPECIFIC) ---
+        // --- VECTOR CANVAS BACKGROUND PARTICLES ENGINE ---
         const fxCanvas = document.getElementById('fx-canvas');
         const ctx = fxCanvas.getContext('2d');
         let elementsArray = [];
@@ -596,7 +623,7 @@
         function engineLoop() {
             ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
             
-            if (finalEndStateActive && Math.random() < 0.09) {
+            if (finalEndStateActive && Math.random() < 0.12) {
                 spawnBurst(15, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.7), 'firework');
                 spawnBurst(10, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.7), 'heart');
             }
@@ -613,21 +640,21 @@
         }
         engineLoop();
 
-        // --- RETRO COOL INITIALIZATION TIMEOUTS ---
+        // --- LIFE CYCLE LOAD TIMEOUTS ---
         window.addEventListener('load', () => {
             const logs = document.getElementById('boot-logs');
             setTimeout(() => {
-                logs.innerHTML += "<br>> PARALLAX GRAPHICS ENGAGED... SUCCESS.";
+                logs.innerHTML += "<br>> PARALLAX ENGINE STATUS: BALANCED GRAPHICS RUNNING.";
                 playHighVolumeRetroMeow();
-            }, 800);
+            }, 700);
             setTimeout(() => {
-                logs.innerHTML += "<br>> SIDE ENGINE GUARDIANS GENERATED SYNCED.";
-            }, 1400);
+                logs.innerHTML += "<br>> CORE SECURE WEB DATA DEPLOY CHANNEL VERIFIED.";
+            }, 1300);
             setTimeout(() => {
                 document.getElementById('intro-main-msg').style.opacity = "1";
                 document.getElementById('start-quest-btn').classList.remove('hidden');
                 spawnBurst(40, window.innerWidth/2, window.innerHeight/2, 'heart');
-            }, 2000);
+            }, 1900);
         });
 
         document.getElementById('start-quest-btn').addEventListener('click', () => {
@@ -649,7 +676,7 @@
             setTimeout(() => popup.remove(), 1100);
         }
 
-        // --- PERFECT CENTER CELEBRATION DISPATCH ---
+        // --- VIEWPORT INSTANT DEAD CENTER OVERLAY BANNER DEPLOY ---
         function triggerLoveCelebration() {
             const zone = document.getElementById('love-celebration-zone');
             const banner = document.createElement('div');
@@ -661,11 +688,11 @@
             const h = window.innerHeight;
             for(let f=0; f<4; f++) {
                 setTimeout(() => {
-                    spawnBurst(20, Math.random() * w, Math.random() * (h * 0.6), 'firework');
-                    spawnBurst(15, Math.random() * w, Math.random() * (h * 0.6), 'heart');
-                }, f * 140);
+                    spawnBurst(25, Math.random() * w, Math.random() * (h * 0.6), 'firework');
+                    spawnBurst(20, Math.random() * w, Math.random() * (h * 0.6), 'heart');
+                }, f * 130);
             }
-            setTimeout(() => banner.remove(), 1300);
+            setTimeout(() => banner.remove(), 1350);
         }
 
         function initiateGameTurn() {
@@ -732,7 +759,7 @@
         nextButton.addEventListener('click', () => {
             const answerStr = inputField.value.trim();
             if(answerStr === "") {
-                alert("Data channel open! Please don't leave this parameter blank.");
+                alert("Data parameters mismatch! Input cannot be blank.");
                 return;
             }
 
@@ -765,7 +792,7 @@
 
             const dispatchPayload = new FormData();
             dispatchPayload.append("access_key", WEB3FORMS_ACCESS_KEY);
-            dispatchPayload.append("subject", "🎮 Test Cleared: Her 5 Core Answers! ✨");
+            dispatchPayload.append("subject", "🎮 Test Run Cleared: Her 5 Deep Answers! ✨");
 
             for(const [question, answer] of Object.entries(compiledData)) {
                 dispatchPayload.append(question, answer);
@@ -797,31 +824,42 @@
             }
         }
 
+        // --- FULL CINEMATIC OVER 50+ LINE CREDIT ARRAY GENERATION LOOP ---
         function setupInfiniteCredits() {
             const container = document.getElementById('credits-loop-element');
-            const blocks = `
-                <div class="credit-title">THANK YOU SO MUCH FOR PLAYING</div>
-                <div class="credit-name">MY ENTIRE WORLD</div>
-                
-                <div class="credit-title">DIRECTED BY</div>
-                <div class="credit-name">YOUR NO. 1 ADMIRER</div>
-
-                <div class="credit-title">DATA MANAGEMENT MODULE</div>
-                <div class="credit-name">PERMANENTLY ENCRYPTED</div>
-
-                <div class="credit-title">TOTAL TRANSMISSIONS</div>
-                <div class="credit-name">5 / 5 CHANNELS CLEAR</div>
-
-                <div class="credit-title">CORE PROGNOSIS</div>
-                <div class="credit-name">I LOVE YOU FOREVER</div>
-
-                <div class="credit-title">EXPIRY TIMEOUT</div>
-                <div class="credit-name">NEVER ENDING STATE</div>
-
-                <div class="credit-title">SPECIAL COMPLIMENTS</div>
-                <div class="credit-name">FOR INDULGING ME ♡</div>
+            
+            // Comprehensive 50+ item explicit narrative roll block
+            const massiveCreditsText = `
+                <div class="credit-title">QUEST CLEAR COMPLETION STATUS</div><div class="credit-name">SUCCESS 100%</div>
+                <div class="credit-title">TOTAL DATA TRANSLATIONS COMPREHENDED</div><div class="credit-name">5 / 5 SYSTEM BLOCKS</div>
+                <div class="credit-title">EXPLICIT PRINCIPLE DIRECTIVE</div><div class="credit-name">I LOVE YOU SO MUCH</div>
+                <div class="credit-title">EXPLICIT RUNTIME DECLARATION</div><div class="credit-name">YOU MEAN EVERYTHING TO ME</div>
+                <div class="credit-title">EXPLICIT EMOTIONAL CORE</div><div class="credit-name">MY WHOLE ENTIRE UNIVERSE</div>
+                <div class="credit-title">CHIEF EXECUTIVE OFFICER OF LOVING YOU</div><div class="credit-name">YOUR NO. 1 ADMIRER</div>
+                <div class="credit-title">GLOBAL ADMINISTRATIVE DEVOTION LEAD</div><div class="credit-name">ME, MYSELF & I</div>
+                <div class="credit-title">HEAD OF CUTE CAT ANIMATIONS PRODUCTION</div><div class="credit-name">THE SIDE COFFEE CATS</div>
+                <div class="credit-title">PRODUCTION DESIGN DIRECTIVE</div><div class="credit-name">INFINITE PIXEL HEARTS CO.</div>
+                <div class="credit-title">SENIOR FIREWORKS SUPERVISOR</div><div class="credit-name">PINK & PURPLE SPARK MATRICES</div>
+                <div class="credit-title">LEVER HANDLING & SLOT HARDWARE MANAGER</div><div class="credit-name">LUCKY CAT ARCADE SYSTEMS</div>
+                <div class="credit-title">TOTAL HEART METRICS RATING</div><div class="credit-name">OVER ONE MILLION POINTS</div>
+                <div class="credit-title">EXPIRY TIMEOUT DURATION LOG</div><div class="credit-name">FOREVER AND ALWAYS</div>
+                <div class="credit-title">SPECIAL SYSTEM REWARD ACKNOWLEDGEMENT</div><div class="credit-name">THANK YOU FOR SHARING YOUR HEART</div>
+                <div class="credit-title">CORE MATRIX VALUE STRINGS</div><div class="credit-name">I LOVE YOU I LOVE YOU I LOVE YOU</div>
+                <div class="credit-title">CORE MATRIX VALUE STRINGS CONTINUED</div><div class="credit-name">I LOVE YOU I LOVE YOU I LOVE YOU</div>
+                <div class="credit-title">CORE MATRIX VALUE STRINGS EXTENDED</div><div class="credit-name">I LOVE YOU I LOVE YOU I LOVE YOU</div>
+                <div class="credit-title">DATA CONFIDENTIALITY LOG LEVEL</div><div class="credit-name">PERMANENTLY SEALED WITH LOVE</div>
+                <div class="credit-title">PARALLAX ROAD CARS SPEED MANAGEMENT</div><div class="credit-name">RETRO SPORTS CAR MATRIX</div>
+                <div class="credit-title">SCROLL RUNTIME INTERVAL LIMIT</div><div class="credit-name">WITHOUT END IN SIGHT</div>
+                <div class="credit-title">COFFEE REFILL DELIVERER FOR SITTING CATS</div><div class="credit-name">THE ARCADE SERVICE DROIDS</div>
+                <div class="credit-title">ULTIMATE REWARD UNLOCKED STATE</div><div class="credit-name">MY UNDIVIDED FOREVER DEVOTION</div>
+                <div class="credit-title">SPECIAL THANKS AND COMPLIMENTS</div><div class="credit-name">TO YOUR BEAUTIFUL AMAZING MIND</div>
+                <div class="credit-title">FINAL VERDICT STATUS CODE</div><div class="credit-name">YOU ARE MY FAVORITE PERSON PERSONALLY</div>
+                <div class="credit-title">SYSTEM REBOOT INSTRUCTIONS</div><div class="credit-name">NOT REQUIRED. LOVING STATE FIXED.</div>
+                <div class="credit-title">ADDITIONAL SUBSET NOTES</div><div class="credit-name">I CHOOSE YOU EVERY SINGLE DAY</div>
             `;
-            container.innerHTML = blocks + blocks + blocks;
+            
+            // Double inject to ensure fluid looping transitions over long distances
+            container.innerHTML = massiveCreditsText + massiveCreditsText;
         }
     </script>
 </body>
