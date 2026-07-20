@@ -10,7 +10,7 @@
         :root {
             --bg-color: #030712;         
             --text-color: #f8fafc;       
-            --arcade-panel: rgba(15, 23, 42, 0.9);          
+            --arcade-panel: rgba(15, 23, 42, 0.95);          
             --border-pixel: #ff758f;      
             --btn-color: #ff4d6d;         
             --btn-text: #ffffff;       
@@ -33,9 +33,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
-        /* Particle Vector Overlay Canvas */
+        /* Ambient Floating Vector Canvas */
         #fx-canvas {
             position: absolute;
             top: 0;
@@ -46,7 +47,6 @@
             pointer-events: none;
         }
 
-        /* Screen Shake Impact Animation */
         @keyframes shake {
             0% { transform: translate(0, 0); }
             20% { transform: translate(-8px, 5px); }
@@ -65,12 +65,12 @@
             z-index: 2;
             width: 92%;
             max-width: 720px;
-            min-height: 580px;
+            min-height: 590px;
             background: var(--arcade-panel);
             border: 4px solid var(--border-pixel);
             border-radius: 4px; 
             padding: 35px;
-            box-shadow: 0 0 0 4px #0f172a, 0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(255, 117, 143, 0.2);
+            box-shadow: 0 0 0 4px #0f172a, 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(255, 117, 143, 0.3);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -78,43 +78,135 @@
             transition: all 0.3s ease-in-out;
         }
 
-        /* --- PIXEL CAT WELCOME ANIMATION --- */
-        #intro-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            gap: 20px;
+        /* INTRO HEADER EFFECTS */
+        .glitch-title {
+            font-size: 1.8rem;
+            letter-spacing: 4px; 
+            color: #ff4d6d; 
+            text-shadow: 0 0 15px #ff4d6d;
+            text-align: center;
+            line-height: 1.4;
+            margin-top: 10px;
         }
 
         .pixel-cat-container {
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.2;
             color: var(--border-pixel);
             font-weight: bold;
-            text-align: left;
+            text-align: center;
             white-space: pre;
             filter: drop-shadow(0 0 10px var(--border-pixel));
-            animation: floatCat 2s infinite alternate ease-in-out;
+        }
+
+        .float-cat-anim {
+            animation: floatCat 1.5s infinite alternate ease-in-out;
         }
 
         @keyframes floatCat {
             0% { transform: translateY(0px); }
-            100% { transform: translateY(-10px); }
+            100% { transform: translateY(-12px); }
         }
 
-        /* --- THE ARCADE MINI-GAME RADAR --- */
-        #game-arena {
+        /* --- MINI GAME: LUCKY CAT SLOTS --- */
+        .slots-machine {
             width: 100%;
-            height: 220px;
             background: #090d16;
             border: 3px double var(--border-pixel);
+            padding: 20px;
             margin-bottom: 20px;
-            display: block;
-            cursor: crosshair;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
         }
 
-        /* --- LEVEL UI STYLING --- */
+        .slots-window {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .slot-reel {
+            width: 70px;
+            height: 70px;
+            background: #020617;
+            border: 2px solid #334155;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255,255,255,0.5);
+        }
+
+        .slot-reel.spinning {
+            animation: reelSpin 0.1s infinite linear;
+        }
+
+        @keyframes reelSpin {
+            0% { transform: translateY(-5px); opacity: 0.7; }
+            50% { transform: translateY(5px); opacity: 0.4; }
+            100% { transform: translateY(-5px); opacity: 0.7; }
+        }
+
+        /* --- POPUP INTERSTITIAL CAT --- */
+        .popup-cat-overlay {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #1e1b4b;
+            border: 2px solid #67e8f9;
+            padding: 10px;
+            border-radius: 4px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(103, 232, 249, 0.4);
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(150px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .meow-bubble {
+            background: white;
+            color: black;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        /* --- CELEBRATION OVERLAY --- */
+        .love-banner {
+            position: absolute;
+            top: 25%;
+            width: 90%;
+            background: rgba(244, 63, 94, 0.95);
+            border: 3px solid #fff;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 20px;
+            z-index: 200;
+            box-shadow: 0 0 30px #f43f5e;
+            animation: popScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popScale {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- GENERAL TYPING SCREEN LAYOUTS --- */
         .level-badge {
             font-size: 1rem;
             color: #f43f5e;
@@ -193,40 +285,56 @@
             background: #1e293b;
             padding: 6px 14px;
             border-radius: 2px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             border-left: 3px solid var(--border-pixel);
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
+    <!-- Floating Background Matrix and Particle Layer -->
     <canvas id="fx-canvas"></canvas>
+
+    <!-- Mid game Jump Scare Meow Cats -->
+    <div id="popup-cat-zone"></div>
+
+    <!-- Flashing Love Banner Layer -->
+    <div id="love-celebration-zone"></div>
 
     <div class="arcade-cabinet" id="main-cabinet">
         
         <!-- LEVEL STARTER SCREEN -->
-        <div id="intro-screen">
-            <div class="pixel-cat-container" id="pixel-cat">
+        <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:25px; cursor:pointer;">
+            <div class="pixel-cat-container float-cat-anim">
  /\_/\  
 ( o.o ) 
  > ^ <  
-[ Zzz... Click Me ]
+[ CLICK CONTROLLER TO INITIALIZE ]
             </div>
-            <h2 style="letter-spacing: 3px; color: var(--border-pixel); text-shadow: 0 0 10px var(--border-pixel)">HEART QUEST v1.0</h2>
-            <p style="color: #64748b; font-size: 0.85rem;">INSERT HEART TO INITIALIZE</p>
+            <div class="glitch-title">PLAYER 1 SELECTED<br><span style="font-size:1.1rem; color:#67e8f9; text-shadow:0 0 8px #67e8f9;">START HEART QUEST?</span></div>
+            <p style="color: #64748b; font-size: 0.85rem; letter-spacing:1px;">INSERT COIN OR CLICK ANYWHERE</p>
         </div>
 
-        <!-- ARCADE PLAY FIELD -->
+        <!-- ARCADE PLAY FIELD (SLOT MACHINE METHOD) -->
         <div id="game-screen" class="hidden" style="width:100%;">
-            <div class="level-badge" id="lvl-title">LEVEL 1: THE BLANK CANVAS</div>
+            <div class="level-badge" id="lvl-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 50</div>
-            <div class="sys-alert">🕹️ Move your mouse pointer inside the box to catch the pulsing target box!</div>
-            <canvas id="game-arena"></canvas>
+            
+            <div class="slots-machine">
+                <div class="sys-alert">🎰 Match 3 items to extract the next database questionnaire module!</div>
+                <div class="slots-window">
+                    <div class="slot-reel" id="reel-1">🐱</div>
+                    <div class="slot-reel" id="reel-2">🤍</div>
+                    <div class="slot-reel" id="reel-3">🐱</div>
+                </div>
+                <button class="action-btn" id="spin-btn">PULL LEVER 🕹️</button>
+            </div>
         </div>
 
         <!-- DIALOGUE SCREEN -->
         <div id="dialogue-screen" class="hidden" style="width:100%; display: flex; flex-direction: column;">
-            <div class="level-badge" id="lvl-diag-title">LEVEL 1: THE BLANK CANVAS</div>
+            <div class="level-badge" id="lvl-diag-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="dialogue-progress">Data Node 1 of 50 Unlocked</div>
             <div class="prompt-text" id="active-question">Loading database matrix...</div>
             <textarea class="input-box" id="response-field" placeholder="Input honest response string... 🤍"></textarea>
@@ -235,14 +343,14 @@
 
         <!-- VICTORY FINAL SHOWCASE -->
         <div id="end-screen" class="hidden">
-            <div class="pixel-cat-container" style="animation: none; text-align: center;">
+            <div class="pixel-cat-container" style="text-align: center; font-size:16px;">
  /\_/\  
 ( =.=. ) 
  > ♡ <  
 [ QUEST COMPLETE ]
             </div>
-            <h1 style="font-size: 1.6rem; color: var(--border-pixel); margin-top:20px; margin-bottom: 15px;">ALL LEVELS CLEAR</h1>
-            <p style="color: #cbd5e1; font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.8;">
+            <h1 style="font-size: 1.6rem; color: var(--border-pixel); margin-top:20px; margin-bottom: 15px; text-align:center;">ALL LEVELS CLEAR</h1>
+            <p style="color: #cbd5e1; font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.8; text-align:center;">
                 Your honest transmission was compiled completely. Every answer is officially safely locked away into my source code forever. I love you. 🤍
             </p>
         </div>
@@ -331,6 +439,7 @@
         const dialProgressText = document.getElementById('dialogue-progress');
         const lvlTitle = document.getElementById('lvl-title');
         const lvlDiagTitle = document.getElementById('lvl-diag-title');
+        const spinBtn = document.getElementById('spin-btn');
 
         function getLevelName() {
             if (currentStep < 10) return "LEVEL 1: THE FOUNDATION";
@@ -340,10 +449,58 @@
             return "LEVEL 5: ULTIMATE CLARITY";
         }
 
-        // --- FX PARTICLES ENGINE ---
+        // --- WEB AUDIO SYNTHESIZER FOR 8-BIT MEOWS ---
+        let audioCtx = null;
+        function playRetroMeow() {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                
+                const now = audioCtx.currentTime;
+                
+                // First pitch node (low part of meow)
+                let osc1 = audioCtx.createOscillator();
+                let gain1 = audioCtx.createGain();
+                osc1.type = 'triangle';
+                osc1.frequency.setValueAtTime(550, now);
+                osc1.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+                
+                gain1.gain.setValueAtTime(0.15, now);
+                gain1.gain.linearRampToValueAtTime(0.15, now + 0.05);
+                gain1.gain.linearRampToValueAtTime(0.01, now + 0.2);
+                
+                osc1.connect(gain1);
+                gain1.connect(audioCtx.destination);
+                osc1.start(now);
+                osc1.stop(now + 0.2);
+
+                // Second pitch node (high tail part of meow)
+                setTimeout(() => {
+                    let osc2 = audioCtx.createOscillator();
+                    let gain2 = audioCtx.createGain();
+                    osc2.type = 'sine';
+                    osc2.frequency.setValueAtTime(880, audioCtx.currentTime);
+                    osc2.frequency.exponentialRampToValueAtTime(1100, audioCtx.currentTime + 0.12);
+                    
+                    gain2.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                    gain2.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                    
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.start(audioCtx.currentTime);
+                    osc2.stop(audioCtx.currentTime + 0.16);
+                }, 60);
+
+            } catch (err) {
+                console.log("Audio couldn't initialize", err);
+            }
+        }
+
+        // --- FX SYSTEMS CANVAS MANAGEMENT ---
         const fxCanvas = document.getElementById('fx-canvas');
         const ctx = fxCanvas.getContext('2d');
-        let particlesArray = [];
+        let elementsArray = [];
 
         function resizeCanvas() {
             fxCanvas.width = window.innerWidth;
@@ -352,23 +509,44 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        class PixelHeart {
-            constructor(x, y, isExplosion = false) {
+        // Object classes handling fireworks, hearts, background cats
+        class MatrixElement {
+            constructor(x, y, type = 'heart', speedMultiplier = 1) {
                 this.x = x || Math.random() * fxCanvas.width;
-                this.y = y || (fxCanvas.height + 20);
-                this.size = isExplosion ? (Math.random() * 8 + 4) : (Math.random() * 12 + 6);
-                this.speedX = isExplosion ? (Math.random() * 8 - 4) : (Math.random() * 2 - 1);
-                this.speedY = isExplosion ? (Math.random() * -10 - 3) : (Math.random() * -3 - 1);
+                this.y = y || (fxCanvas.height + 30);
+                this.type = type; // 'heart', 'bgcat', 'firework'
+                this.size = Math.random() * 12 + 8;
+                this.speedX = (Math.random() * 2 - 1) * speedMultiplier;
+                this.speedY = (Math.random() * -2 - 1) * speedMultiplier;
                 this.alpha = 1;
-                this.fade = isExplosion ? 0.02 : 0.008;
+                this.fade = 0.004 + (Math.random() * 0.004);
+                this.color = type === 'heart' ? '#ff4d6d' : (type === 'firework' ? this.getRandomColor() : '#1e293b');
+                
+                if(type === 'firework') {
+                    this.fade = 0.02;
+                    this.size = Math.random() * 6 + 4;
+                    this.speedX = (Math.random() * 8 - 4);
+                    this.speedY = (Math.random() * 8 - 4);
+                }
+            }
+            getRandomColor() {
+                const colors = ['#ff4d6d', '#67e8f9', '#f43f5e', '#a855f7', '#facc15'];
+                return colors[Math.floor(Math.random() * colors.length)];
             }
             draw() {
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = '#ff4d6d';
-                ctx.fillRect(this.x, this.y, this.size, this.size);
-                ctx.fillRect(this.x - this.size/2, this.y - this.size/2, this.size/2, this.size/2);
-                ctx.fillRect(this.x + this.size, this.y - this.size/2, this.size/2, this.size/2);
+                ctx.fillStyle = this.color;
+                
+                if (this.type === 'heart' || this.type === 'firework') {
+                    ctx.fillRect(this.x, this.y, this.size, this.size);
+                    ctx.fillRect(this.x - this.size/2, this.y - this.size/2, this.size/2, this.size/2);
+                    ctx.fillRect(this.x + this.size, this.y - this.size/2, this.size/2, this.size/2);
+                } else if (this.type === 'bgcat') {
+                    ctx.font = '11px monospace';
+                    ctx.fillStyle = 'rgba(255, 117, 143, 0.15)';
+                    ctx.fillText('🐱', this.x, this.y);
+                }
                 ctx.restore();
             }
             update() {
@@ -378,24 +556,28 @@
             }
         }
 
-        function triggerBurst(count, sourceX, sourceY) {
+        function spawnBurst(count, sourceX, sourceY, mode = 'heart') {
             cabinet.classList.add('shake-effect');
             setTimeout(() => cabinet.classList.remove('shake-effect'), 400);
 
             for(let i=0; i<count; i++) {
-                particlesArray.push(new PixelHeart(sourceX, sourceY, true));
+                elementsArray.push(new MatrixElement(sourceX, sourceY, mode, 3));
             }
         }
 
         function engineLoop() {
             ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
-            if(Math.random() < 0.05) particlesArray.push(new PixelHeart());
             
-            for(let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                if(particlesArray[i].alpha <= 0) {
-                    particlesArray.splice(i, 1);
+            // Random ambient backgrounds cats floating up
+            if(Math.random() < 0.03) {
+                elementsArray.push(new MatrixElement(null, null, 'bgcat'));
+            }
+            
+            for(let i = 0; i < elementsArray.length; i++) {
+                elementsArray[i].update();
+                elementsArray[i].draw();
+                if(elementsArray[i].alpha <= 0) {
+                    elementsArray.splice(i, 1);
                     i--;
                 }
             }
@@ -403,83 +585,117 @@
         }
         engineLoop();
 
-        // --- INTERACTIVE GAMING RADAR CANVAS ---
-        const arena = document.getElementById('game-arena');
-        const arenaCtx = arena.getContext('2d');
-        let target = { x: 0, y: 0, size: 24 };
-        let player = { x: 40, y: 40, size: 12 };
-        let isGameActive = false;
-
-        function setRandomTarget() {
-            arena.width = arena.offsetWidth || 640;
-            arena.height = arena.offsetHeight || 220;
-            target.x = Math.random() * (arena.width - 80) + 40;
-            target.y = Math.random() * (arena.height - 80) + 40;
+        // --- INTERSTITIAL MID-STAGE CATS POPS ---
+        function triggerPopUpCat() {
+            playRetroMeow();
+            const zone = document.getElementById('popup-cat-zone');
+            const popup = document.createElement('div');
+            popup.className = 'popup-cat-overlay';
+            popup.innerHTML = `
+                <div class="meow-bubble">MEOW! 🐾</div>
+                <div style="font-size:10px; line-height:1; color:#67e8f9; white-space:pre; font-weight:bold;">/\\_/\\ \n( o.o )</div>
+            `;
+            zone.appendChild(popup);
+            setTimeout(() => popup.remove(), 1200);
         }
 
-        function resizeArena() {
-            arena.width = arena.offsetWidth || 640;
-            arena.height = arena.offsetHeight || 220;
-            setRandomTarget();
-        }
+        // --- LOVE BANNERS AND CELEBRATION DISPLAYS ---
+        function triggerLoveCelebration() {
+            const zone = document.getElementById('love-celebration-zone');
+            const banner = document.createElement('div');
+            banner.className = 'love-banner';
+            banner.innerHTML = `I LOVE YOU SO MUCH! 🤍`;
+            zone.appendChild(banner);
 
-        arena.addEventListener('mousemove', (e) => {
-            if(!isGameActive) return;
-            const rect = arena.getBoundingClientRect();
-            player.x = e.clientX - rect.left;
-            player.y = e.clientY - rect.top;
-
-            let distance = Math.hypot(player.x - target.x, player.y - target.y);
-            // Hits the target easily
-            if(distance < (player.size + target.size) / 1.2) {
-                isGameActive = false;
-                triggerBurst(30, rect.left + target.x, rect.top + target.y);
-                setTimeout(revealDialogue, 250);
+            // Blast dynamic fireworks array everywhere
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            for(let f=0; f<5; f++) {
+                setTimeout(() => {
+                    spawnBurst(25, Math.random() * w, Math.random() * (h * 0.6), 'firework');
+                    spawnBurst(15, Math.random() * w, Math.random() * (h * 0.6), 'heart');
+                }, f * 180);
             }
-        });
 
-        function runArenaFrame() {
-            if(!isGameActive) return;
-            arenaCtx.clearRect(0, 0, arena.width, arena.height);
-
-            // Target (Pulsing pink box)
-            arenaCtx.fillStyle = '#ff758f';
-            arenaCtx.fillRect(target.x - target.size/2, target.y - target.size/2, target.size, target.size);
-            arenaCtx.fillStyle = '#ff4d6d';
-            arenaCtx.fillRect(target.x - target.size/3, target.y - target.size/3, target.size/1.5, target.size/1.5);
-
-            // Cyan player tracking box
-            arenaCtx.fillStyle = '#67e8f9';
-            arenaCtx.fillRect(player.x - player.size/2, player.y - player.size/2, player.size, player.size);
-
-            requestAnimationFrame(runArenaFrame);
+            setTimeout(() => banner.remove(), 1400);
         }
 
-        // --- FLOW CONTROL STATE MANAGEMENT ---
+        // --- FLOW STATE SYSTEM OPERATIONS ---
         introDiv.addEventListener('click', () => {
-            document.getElementById('pixel-cat').innerText = " /\\_/\\ \n( >.< ) \n > ♡ < \n[ MEOW! START! ]";
+            triggerPopUpCat();
             const rect = introDiv.getBoundingClientRect();
-            triggerBurst(45, rect.left + rect.width/2, rect.top + rect.height/2);
+            // Blast massive initial entrance hearts
+            for(let k=0; k<3; k++) {
+                setTimeout(() => {
+                    spawnBurst(35, rect.left + rect.width/2, rect.top + rect.height/2, 'heart');
+                }, k * 100);
+            }
             
             setTimeout(() => {
                 introDiv.classList.add('hidden');
                 initiateGameTurn();
-            }, 400);
+            }, 500);
         });
 
         function initiateGameTurn() {
             dialogDiv.classList.add('hidden');
             gameDiv.classList.remove('hidden');
             
-            resizeArena();
-            
             let currentLvlStr = getLevelName();
             lvlTitle.textContent = currentLvlStr;
             gameProgressText.textContent = `Hearts Cleared: ${currentStep} / ${questionsList.length}`;
             
-            isGameActive = true;
-            runArenaFrame();
+            // Reset slots visuals
+            document.getElementById('reel-1').textContent = "🐱";
+            document.getElementById('reel-2').textContent = "🤍";
+            document.getElementById('reel-3').textContent = "🐱";
+            spinBtn.disabled = false;
+            spinBtn.textContent = "PULL LEVER 🕹️";
         }
+
+        // Slots Engine Logic Execution
+        spinBtn.addEventListener('click', () => {
+            spinBtn.disabled = true;
+            spinBtn.textContent = "SPINNING...";
+            
+            const r1 = document.getElementById('reel-1');
+            const r2 = document.getElementById('reel-2');
+            const r3 = document.getElementById('reel-3');
+
+            r1.classList.add('spinning');
+            r2.classList.add('spinning');
+            r3.classList.add('spinning');
+
+            const items = ["🐱", "🤍", "💖", "🐾"];
+
+            setTimeout(() => {
+                r1.classList.remove('spinning');
+                r1.textContent = items[Math.floor(Math.random() * items.length)];
+            }, 400);
+
+            setTimeout(() => {
+                r2.classList.remove('spinning');
+                r2.textContent = items[Math.floor(Math.random() * items.length)];
+            }, 700);
+
+            setTimeout(() => {
+                r3.classList.remove('spinning');
+                // Force win condition for smooth progression loop
+                r1.textContent = "💖";
+                r2.textContent = "🐱";
+                r3.textContent = "💖";
+                
+                r3.classList.remove('spinning');
+                
+                // Trigger mid level cat chime meow sound logic
+                triggerPopUpCat();
+                
+                const rect = spinBtn.getBoundingClientRect();
+                spawnBurst(25, rect.left + rect.width/2, rect.top, 'heart');
+
+                setTimeout(revealDialogue, 600);
+            }, 1000);
+        });
 
         function revealDialogue() {
             gameDiv.classList.add('hidden');
@@ -491,9 +707,7 @@
             qText.textContent = questionsList[currentStep];
             
             inputField.value = '';
-            setTimeout(() => {
-                inputField.focus();
-            }, 50);
+            setTimeout(() => inputField.focus(), 50);
 
             if (currentStep === questionsList.length - 1) {
                 nextButton.textContent = "CLEAR GAME ♡";
@@ -513,19 +727,24 @@
             const datasetKey = `[${currentLvlStr}] Q${currentStep + 1}: ${questionsList[currentStep]}`;
             compiledData[datasetKey] = answerStr;
             
+            // Trigger Love explosion after answer submissions
+            triggerLoveCelebration();
+
             let oldLevel = currentLvlStr;
             currentStep++;
             let newLevel = getLevelName();
 
-            if (currentStep < questionsList.length) {
-                if(oldLevel !== newLevel) {
-                    const cabRect = cabinet.getBoundingClientRect();
-                    triggerBurst(50, cabRect.left + cabRect.width/2, cabRect.top + cabRect.height/2);
+            setTimeout(() => {
+                if (currentStep < questionsList.length) {
+                    if(oldLevel !== newLevel) {
+                        const cabRect = cabinet.getBoundingClientRect();
+                        spawnBurst(50, cabRect.left + cabRect.width/2, cabRect.top + cabRect.height/2, 'heart');
+                    }
+                    initiateGameTurn();
+                } else {
+                    dispatchResults();
                 }
-                initiateGameTurn();
-            } else {
-                dispatchResults();
-            }
+            }, 1400); // Allow fireworks celebration display space to play out
         });
 
         async function dispatchResults() {
@@ -553,9 +772,10 @@
                     endDiv.classList.remove('hidden');
                     
                     const cabRect = cabinet.getBoundingClientRect();
-                    for(let b=0; b<6; b++) {
+                    for(let b=0; b<8; b++) {
                         setTimeout(() => {
-                            triggerBurst(35, cabRect.left + (Math.random() * cabRect.width), cabRect.top + (Math.random() * cabRect.height));
+                            spawnBurst(35, cabRect.left + (Math.random() * cabRect.width), cabRect.top + (Math.random() * cabRect.height), 'firework');
+                            spawnBurst(25, cabRect.left + (Math.random() * cabRect.width), cabRect.top + (Math.random() * cabRect.height), 'heart');
                         }, b * 200);
                     }
                 } else {
