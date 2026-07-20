@@ -37,7 +37,7 @@
             position: relative;
         }
 
-        /* Ambient Layer for Particle Fireworks */
+        /* Background Particle Canvas */
         #fx-canvas {
             position: absolute;
             top: 0;
@@ -48,86 +48,83 @@
             pointer-events: none;
         }
 
-        /* --- IMMERSIVE SIDE COLUMN WRAPPERS --- */
-        .side-stage-wrapper {
+        /* --- THE FREAKY GIANT PERSISTENT BACKGROUND CAT THEATERS --- */
+        .giant-cat-stage {
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 18vw;
+            width: 22vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 4;
+            z-index: 2; /* Sits behind the cabinet, running forever */
             pointer-events: none;
+            overflow: hidden;
         }
-        .side-stage-wrapper.left-zone { left: 10px; }
-        .side-stage-wrapper.right-zone { right: 10px; }
+        .left-stage { left: 0; }
+        .right-stage { right: 0; }
 
-        .big-pixel-cat {
+        .freaky-cat-screen {
             font-family: monospace;
-            font-size: 14px;
-            line-height: 1.2;
-            color: var(--border-pixel);
+            font-size: 13px;
+            line-height: 1.1;
+            color: #d946ef;
             white-space: pre;
-            text-shadow: 0 0 10px var(--border-pixel);
-            background: rgba(18, 11, 46, 0.85);
-            padding: 15px;
-            border: 3px double var(--accent-lavender);
-            animation: interactiveCatDance 1.6s infinite alternate ease-in-out;
-            margin-bottom: 20px;
+            text-shadow: 0 0 8px #d946ef;
+            background: rgba(11, 7, 30, 0.7);
+            padding: 20px 10px;
+            border-radius: 8px;
+            border: 2px dashed var(--accent-lavender);
+            text-align: center;
         }
 
-        @keyframes interactiveCatDance {
-            0% { transform: translateY(0) scale(1) rotate(-2deg); color: #f472b6; }
-            50% { transform: translateY(-15px) scale(1.05) rotate(2deg); color: #c084fc; }
-            100% { transform: translateY(0) scale(0.98) rotate(-2deg); color: #fae8ff; }
-        }
-
-        /* --- PARALLAX BACKGROUND TRAFFIC SYSTEM --- */
-        .traffic-lane {
-            position: absolute;
-            width: 100%;
-            height: 50px;
+        /* --- IMMERSIVE SCREEN OVERLAY FOR TRUE SCREEN CENTERING --- */
+        .global-overlay-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             display: flex;
+            justify-content: center;
             align-items: center;
-            z-index: 2;
+            z-index: 999999; /* Forced above absolutely everything else */
             pointer-events: none;
-            font-size: 1.8rem;
-        }
-        .lane-1 { top: 8%; animation: driveRight 15s infinite linear; }
-        .lane-2 { top: 22%; animation: driveLeft 19s infinite linear; }
-        .lane-3 { bottom: 22%; animation: driveRight 17s infinite linear; }
-        .lane-4 { bottom: 8%; animation: driveLeft 14s infinite linear; }
-
-        @keyframes driveRight {
-            0% { transform: translateX(-150px); }
-            100% { transform: translateX(calc(100vw + 150px)); }
-        }
-        @keyframes driveLeft {
-            0% { transform: translateX(calc(100vw + 150px)); }
-            100% { transform: translateX(-150px); }
         }
 
-        .traffic-object {
-            margin-right: 220px;
-            display: inline-block;
-            filter: drop-shadow(0 0 12px var(--btn-color));
+        .true-center-banner {
+            background: #d946ef;
+            border: 6px double #ffffff;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 2rem;
+            text-align: center;
+            padding: 35px 50px;
+            box-shadow: 0 0 0 10px #701a75, 0 0 60px #d946ef, 0 30px 90px rgba(0,0,0,0.9);
+            animation: popCenterTrue 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+            letter-spacing: 2px;
         }
 
-        /* --- CENTERED ARCADE FRAMEWORK --- */
+        @keyframes popCenterTrue {
+            0% { transform: scale(0.3) rotate(-5deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* --- CENTERED ARCADE CABINET --- */
         .arcade-cabinet {
             position: relative;
-            z-index: 10;
-            width: 58%;
-            max-width: 680px;
+            z-index: 10; /* Keeps cabinet above background cats */
+            width: 54%;
+            max-width: 650px;
             min-width: 380px;
-            min-height: 570px;
+            min-height: 560px;
             background: var(--arcade-panel);
             border: 4px solid var(--border-pixel);
             border-radius: 4px; 
             padding: 30px;
-            box-shadow: 0 0 0 4px #1e1b4b, 0 20px 60px rgba(0,0,0,0.9), 0 0 50px rgba(192, 132, 252, 0.4);
+            box-shadow: 0 0 0 4px #1e1b4b, 0 20px 60px rgba(0,0,0,0.9), 0 0 40px rgba(192, 132, 252, 0.3);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -196,63 +193,7 @@
             100% { transform: translateY(-8px); opacity: 0.6; }
         }
 
-        /* --- POPUP CORNER FEEDBACK --- */
-        .popup-cat-overlay {
-            position: absolute;
-            bottom: 25px;
-            right: 25px;
-            background: #2e1065;
-            border: 2px solid var(--border-pixel);
-            padding: 12px;
-            border-radius: 4px;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: slideInUp 0.25s ease-out;
-        }
-
-        @keyframes slideInUp {
-            from { transform: translateY(150px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .meow-bubble {
-            background: #fae8ff;
-            color: #4a044e;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        /* --- CRITICAL FIX: FIXED TRUE STAGE DEAD-CENTER BANNER --- */
-        .love-banner {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85%;
-            max-width: 480px;
-            background: rgba(217, 70, 239, 0.98);
-            border: 4px solid #fae8ff;
-            color: #fff;
-            font-weight: bold;
-            font-size: 1.6rem;
-            text-align: center;
-            padding: 25px;
-            z-index: 99999;
-            box-shadow: 0 0 50px var(--btn-color), 0 0 120px rgba(0,0,0,0.8);
-            animation: popCenterScale 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes popCenterScale {
-            from { transform: translate(-50%, -50%) scale(0.4); opacity: 0; }
-            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
-
-        /* --- EXTENDED EXTENSIVE SYSTEM CREDITS ROLL --- */
+        /* --- EXTENDED END CINEMATIC MOVIE SCENE --- */
         .movie-credits-container {
             width: 100%;
             height: 340px;
@@ -266,17 +207,16 @@
         .credits-scroll-track {
             position: absolute;
             width: 100%;
-            animation: scrollMovieCredits 38s infinite linear;
+            animation: scrollMovieCredits 42s infinite linear;
             text-align: center;
             display: flex;
             flex-direction: column;
             gap: 25px;
         }
 
-        /* Movie standard scroll: dynamic entry from absolute base to clear top zone */
         @keyframes scrollMovieCredits {
             0% { transform: translateY(340px); }
-            100% { transform: translateY(-2400px); }
+            100% { transform: translateY(-2600px); }
         }
 
         .credit-title {
@@ -373,81 +313,49 @@
 </head>
 <body>
 
-    <!-- Main FX Background Vector Layer -->
+    <!-- Main Dynamic FX Particles Layer -->
     <canvas id="fx-canvas"></canvas>
 
-    <!-- HORIZONTAL SCROLL INTERSTITIAL MATRIX TRAFFIC -->
-    <div class="traffic-lane lane-1">
-        <span class="traffic-object">🐱</span><span class="traffic-object">🏎️</span><span class="traffic-object">💖</span><span class="traffic-object">🛴</span>
-    </div>
-    <div class="traffic-lane lane-2">
-        <span class="traffic-object">🏎️</span><span class="traffic-object">🐱</span><span class="traffic-object">🛴</span><span class="traffic-object">💖</span>
-    </div>
-    <div class="traffic-lane lane-3">
-        <span class="traffic-object">🛴</span><span class="traffic-object">💖</span><span class="traffic-object">🐱</span><span class="traffic-object">🏎️</span>
-    </div>
-    <div class="traffic-lane lane-4">
-        <span class="traffic-object">💖</span><span class="traffic-object">🛴</span><span class="traffic-object">🏎️</span><span class="traffic-object">🐱</span>
-    </div>
-
-    <!-- LEFT PERSISTENT SIDE COLUMN GUARDIANS -->
-    <div class="side-stage-wrapper left-zone">
-        <div class="big-pixel-cat">
- /\_/\   ☕~
-( o.o ) _/  
- > ^ < [ ]  
-[L-CAT: DRINKING]
-        </div>
-        <div class="big-pixel-cat" style="animation-delay: 0.4s;">
-  /\_/\  💖
- ( -.- ) /
-  > ☕ < 
-[STATUS: ADORABLE]
+    <!-- LEFT FOREVER-ANIMATING FREAKY GIANT CAT WALL -->
+    <div class="giant-cat-stage left-stage">
+        <div class="freaky-cat-screen" id="left-freak-cat">
+<!-- Live Render Engine Built Below -->
         </div>
     </div>
 
-    <!-- RIGHT PERSISTENT SIDE COLUMN GUARDIANS -->
-    <div class="side-stage-wrapper right-zone">
-        <div class="big-pixel-cat" style="animation-delay: 0.2s;">
-  ~☕   /\_/\ 
-  \_ ( =.= )
-  [ ] > 💖 < 
-[R-CAT: COZY]
-        </div>
-        <div class="big-pixel-cat" style="animation-delay: 0.6s;">
-  /\_/\  🐾
- ( Q.Q ) /
-  > 🍩 < 
-[STATUS: MUNCHING]
+    <!-- RIGHT FOREVER-ANIMATING FREAKY GIANT CAT WALL -->
+    <div class="giant-cat-stage right-stage">
+        <div class="freaky-cat-screen" id="right-freak-cat">
+<!-- Live Render Engine Built Below -->
         </div>
     </div>
 
-    <div id="popup-cat-zone"></div>
-    <div id="love-celebration-zone"></div>
+    <!-- PURE GLOBAL LAYER MASK FOR FULL CENTERED BANNER CONTROL -->
+    <div id="global-alert-mask" class="global-overlay-container hidden"></div>
 
     <div class="arcade-cabinet" id="main-cabinet">
         
-        <!-- INITIALIZING LOG COMPILER INTRO -->
+        <!-- INTRO BOOT MODULE -->
         <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:20px; width: 100%;">
             <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 85%; text-align: left; background: #090518; padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
-                > BOOTING PARALLAX ANIMATION ARRAY...<br>
-                > CALIBRATING VIEWPORT CENTER BANNER COORDINATES...<br>
-                > SYSTEM ENGAGED. 5 CORE QUESTIONS LIVE.
+                > INITIALIZING PERPETUAL SIDE-STAGE FREAKY TEXT CARS...<br>
+                > LOCKING MULTI-GRID VIEWPORT CENTER OBJECT AT Z-INDEX 999999...<br>
+                > CALIBRATION SUCCESSFUL. RUNNING QUEST STAGE.
             </div>
             <div class="glitch-title" id="intro-main-msg" style="opacity: 0;">
-                PLAYER 1 LOGGED !<br>
-                <span style="font-size:1.1rem; color: var(--accent-lavender);">READY TO TRANSMIT DEEP RESPONSES?</span>
+                PLAYER 1 ONLINE !<br>
+                <span style="font-size:1.1rem; color: var(--accent-lavender);">READY TO ANSWER HONESTLY?</span>
             </div>
             <button class="action-btn hidden" id="start-quest-btn">START QUEST 🕹️</button>
         </div>
 
-        <!-- ARCADE SELECTION WHEEL -->
+        <!-- ARCADE SELECTION LEVEL SCREEN -->
         <div id="game-screen" class="hidden" style="width:100%;">
             <div class="level-badge" id="lvl-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 5</div>
             
             <div class="slots-machine">
-                <div class="sys-alert">🎰 Synchronizing data paths to unlock next core text question...</div>
+                <div class="sys-alert">🎰 Unlocking next data array sequence path...</div>
                 <div class="slots-window">
                     <div class="slot-reel" id="reel-1">🐱</div>
                     <div class="slot-reel" id="reel-2">💜</div>
@@ -457,7 +365,7 @@
             </div>
         </div>
 
-        <!-- RESPONSE ENTRY CORE MODULATOR -->
+        <!-- RESPONSE DIALOGUE PANEL -->
         <div id="dialogue-screen" class="hidden" style="width:100%; display: flex; flex-direction: column;">
             <div class="level-badge" id="lvl-diag-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="dialogue-progress">Data Node 1 of 5 Unlocked</div>
@@ -466,21 +374,17 @@
             <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
         </div>
 
-        <!-- EPIC END CINEMATIC LOOP MOVIE SCENE -->
+        <!-- CINEMATIC CREDIT END OVERLAY -->
         <div id="end-screen" class="hidden" style="width: 100%;">
-            <h1 style="font-size: 1.3rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 5px;">🏆 QUEST CLEAR: FOREVER STATUS ENGAGED 🏆</h1>
-            
+            <h1 style="font-size: 1.3rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 5px;">🏆 QUEST CLEAR: FOREVER MATRIX ENGAGED 🏆</h1>
             <div class="movie-credits-container">
-                <div class="credits-scroll-track" id="credits-loop-element">
-                    <!-- Target Script Injection Layer for 50+ Line Rolling Array -->
-                </div>
+                <div class="credits-scroll-track" id="credits-loop-element"></div>
             </div>
         </div>
 
     </div>
 
     <script>
-        // CONTROL CONFIG: STRICTLY 5 RUNTIME EVALUATION MODULE TEST ENTRIES
         const questionsList = [
             "Do you promise to answer these questions completely honestly, directly from your heart? I want to know the real, raw you.",
             "Just so you know... once you click next, you can't go back to edit or change your answer. Ready for this?",
@@ -494,6 +398,66 @@
         let currentStep = 0;
         let finalEndStateActive = false;
         const compiledData = {};
+
+        // Frame Tracking for Left/Right Freaky Cats Animation
+        let freakyFrameCounter = 0;
+        const leftCatElement = document.getElementById('left-freak-cat');
+        const rightCatElement = document.getElementById('right-freak-cat');
+
+        // Bizarre dynamic text-cat array poses that switch continuously
+        const freakyCatPosesLeft = [
+`  (づ｡◕‿‿◕｡)づ  ✨
+  /\━━━━/\  💖
+ <  (  o.o  )  >
+    \   Y   /
+    (  "|"  )
+   (___|_|___)
+[FREAKY VALUE: MAX]`
+,
+`   (つ✧ω✧)つ   ✨
+  /\━━━━/\  💜
+ <  (  O.O  )  >
+    /   V   \\
+    (  "|"  )
+   (___|_|___)
+[THROWING VALENTINES]`
+];
+
+        const freakyCatPosesRight = [
+`      💖  /\_/\   
+    ✨   ( >.< ) 
+   (つ━〇━━〇━つ)
+    |          |
+    |   ♥  ♥   |
+    |____  ____|
+        ||||
+    [INFINITE LOVE BOT]`
+,
+`      💜  /\_/\   
+    ✨   ( ʘ.ʘ ) 
+   (つ━〇━━〇━つ)
+    |    ⚡    |
+    |   ♥  ♥   |
+    |____  ____|
+        \\\\\\\\
+    [DANCING UNTIL END]`
+];
+
+        // Perpetual Render Loop for the Side Channels
+        function runFreakyCatsEngine() {
+            freakyFrameCounter++;
+            let poseIndex = Math.floor(freakyFrameCounter / 25) % 2; // Switches every ~400ms smoothly
+            
+            leftCatElement.innerHTML = freakyCatPosesLeft[poseIndex];
+            rightCatElement.innerHTML = freakyCatPosesRight[poseIndex];
+            
+            // Apply slight random structural wobble matrix effects
+            leftCatElement.style.transform = `scale(${1 + Math.sin(freakyFrameCounter*0.15)*0.03}) rotate(${Math.cos(freakyFrameCounter*0.1)*3}deg)`;
+            rightCatElement.style.transform = `scale(${1 + Math.cos(freakyFrameCounter*0.15)*0.03}) rotate(${Math.sin(freakyFrameCounter*0.1)*3}deg)`;
+            
+            requestAnimationFrame(runFreakyCatsEngine);
+        }
+        runFreakyCatsEngine();
 
         // DOM Element Mapping
         const cabinet = document.getElementById('main-cabinet');
@@ -510,6 +474,7 @@
         const lvlTitle = document.getElementById('lvl-title');
         const lvlDiagTitle = document.getElementById('lvl-diag-title');
         const spinBtn = document.getElementById('spin-btn');
+        const alertMask = document.getElementById('global-alert-mask');
 
         function getLevelName() {
             if (currentStep < 2) return "LEVEL 1: THE FOUNDATION";
@@ -517,49 +482,27 @@
             return "LEVEL 3: ULTIMATE CLARITY";
         }
 
-        // --- RETRO SOUND SYNTH ENGINE ---
+        // --- AUDIO SYNTH LAYER ---
         let audioCtx = null;
         function playHighVolumeRetroMeow() {
             try {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 const now = audioCtx.currentTime;
-                
-                let osc1 = audioCtx.createOscillator();
-                let gain1 = audioCtx.createGain();
-                osc1.type = 'triangle';
-                osc1.frequency.setValueAtTime(650, now);
-                osc1.frequency.exponentialRampToValueAtTime(980, now + 0.08);
-                
-                gain1.gain.setValueAtTime(0.45, now);
-                gain1.gain.linearRampToValueAtTime(0.45, now + 0.06);
-                gain1.gain.linearRampToValueAtTime(0.001, now + 0.22);
-                
-                osc1.connect(gain1);
-                gain1.connect(audioCtx.destination);
-                osc1.start(now);
-                osc1.stop(now + 0.22);
-
-                setTimeout(() => {
-                    let osc2 = audioCtx.createOscillator();
-                    let gain2 = audioCtx.createGain();
-                    osc2.type = 'sine';
-                    osc2.frequency.setValueAtTime(980, audioCtx.currentTime);
-                    osc2.frequency.exponentialRampToValueAtTime(1300, audioCtx.currentTime + 0.12);
-                    
-                    gain2.gain.setValueAtTime(0.4, audioCtx.currentTime);
-                    gain2.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.18);
-                    
-                    osc2.connect(gain2);
-                    gain2.connect(audioCtx.destination);
-                    osc2.start(audioCtx.currentTime);
-                    osc2.stop(audioCtx.currentTime + 0.18);
-                }, 45);
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.exponentialRampToValueAtTime(1100, now + 0.15);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.linearRampToValueAtTime(0.001, now + 0.2);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.2);
             } catch (err) {}
         }
 
-        // --- VECTOR CANVAS BACKGROUND PARTICLES ENGINE ---
+        // --- CANVAS RENDER FX PARTICLES ---
         const fxCanvas = document.getElementById('fx-canvas');
         const ctx = fxCanvas.getContext('2d');
         let elementsArray = [];
@@ -581,10 +524,8 @@
                 this.speedY = (Math.random() * -2.5 - 1);
                 this.alpha = 1;
                 this.fade = 0.004 + (Math.random() * 0.004);
-                
-                const pinkPurples = ['#f472b6', '#d946ef', '#c084fc', '#e879f9', '#fae8ff', '#701a75'];
-                this.color = pinkPurples[Math.floor(Math.random() * pinkPurples.length)];
-                
+                const colors = ['#f472b6', '#d946ef', '#c084fc', '#fae8ff'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
                 if (type === 'firework') {
                     this.fade = 0.018;
                     this.size = Math.random() * 7 + 4;
@@ -596,12 +537,7 @@
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
                 ctx.fillStyle = this.color;
-                
-                if (this.type === 'heart' || this.type === 'firework') {
-                    ctx.fillRect(this.x, this.y, this.size, this.size);
-                    ctx.fillRect(this.x - this.size/2, this.y - this.size/2, this.size/2, this.size/2);
-                    ctx.fillRect(this.x + this.size, this.y - this.size/2, this.size/2, this.size/2);
-                }
+                ctx.fillRect(this.x, this.y, this.size, this.size);
                 ctx.restore();
             }
             update() {
@@ -614,7 +550,6 @@
         function spawnBurst(count, sourceX, sourceY, mode = 'heart') {
             cabinet.classList.add('shake-effect');
             setTimeout(() => cabinet.classList.remove('shake-effect'), 300);
-
             for(let i=0; i<count; i++) {
                 elementsArray.push(new MatrixElement(sourceX, sourceY, mode));
             }
@@ -622,12 +557,9 @@
 
         function engineLoop() {
             ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
-            
-            if (finalEndStateActive && Math.random() < 0.12) {
-                spawnBurst(15, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.7), 'firework');
-                spawnBurst(10, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.7), 'heart');
+            if (finalEndStateActive && Math.random() < 0.15) {
+                spawnBurst(10, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.6), 'firework');
             }
-            
             for(let i = 0; i < elementsArray.length; i++) {
                 elementsArray[i].update();
                 elementsArray[i].draw();
@@ -640,21 +572,13 @@
         }
         engineLoop();
 
-        // --- LIFE CYCLE LOAD TIMEOUTS ---
+        // INITIAL LIFE TIMEOUT LOGS
         window.addEventListener('load', () => {
-            const logs = document.getElementById('boot-logs');
-            setTimeout(() => {
-                logs.innerHTML += "<br>> PARALLAX ENGINE STATUS: BALANCED GRAPHICS RUNNING.";
-                playHighVolumeRetroMeow();
-            }, 700);
-            setTimeout(() => {
-                logs.innerHTML += "<br>> CORE SECURE WEB DATA DEPLOY CHANNEL VERIFIED.";
-            }, 1300);
+            setTimeout(() => { document.getElementById('boot-logs').innerHTML += "<br>> PERPETUAL BACKGROUND CARS ACTIVE."; playHighVolumeRetroMeow(); }, 600);
             setTimeout(() => {
                 document.getElementById('intro-main-msg').style.opacity = "1";
                 document.getElementById('start-quest-btn').classList.remove('hidden');
-                spawnBurst(40, window.innerWidth/2, window.innerHeight/2, 'heart');
-            }, 1900);
+            }, 1200);
         });
 
         document.getElementById('start-quest-btn').addEventListener('click', () => {
@@ -663,49 +587,33 @@
             initiateGameTurn();
         });
 
-        function triggerPopUpCat() {
-            playHighVolumeRetroMeow();
-            const zone = document.getElementById('popup-cat-zone');
-            const popup = document.createElement('div');
-            popup.className = 'popup-cat-overlay';
-            popup.innerHTML = `
-                <div class="meow-bubble">MEOW! 🐾</div>
-                <div style="font-size:10px; line-height:1; color: var(--border-pixel); white-space:pre; font-weight:bold;">/\\_/\\ \n( o.o )</div>
-            `;
-            zone.appendChild(popup);
-            setTimeout(() => popup.remove(), 1100);
-        }
-
-        // --- VIEWPORT INSTANT DEAD CENTER OVERLAY BANNER DEPLOY ---
-        function triggerLoveCelebration() {
-            const zone = document.getElementById('love-celebration-zone');
-            const banner = document.createElement('div');
-            banner.className = 'love-banner';
-            banner.innerHTML = `I LOVE YOU SO MUCH! 🤍`;
-            zone.appendChild(banner);
+        // --- FIXED ESCAPE GRID FOR DEAD CENTER "I LOVE YOU" DEPLOYMENT ---
+        function triggerTrueCenterLoveCelebration() {
+            alertMask.innerHTML = `<div class="true-center-banner">I LOVE YOU SO MUCH! 🤍</div>`;
+            alertMask.classList.remove('hidden');
 
             const w = window.innerWidth;
             const h = window.innerHeight;
-            for(let f=0; f<4; f++) {
+            
+            // Send massive visual shockwaves to background canvas layers
+            for(let f=0; f<5; f++) {
                 setTimeout(() => {
-                    spawnBurst(25, Math.random() * w, Math.random() * (h * 0.6), 'firework');
-                    spawnBurst(20, Math.random() * w, Math.random() * (h * 0.6), 'heart');
-                }, f * 130);
+                    spawnBurst(20, w/2 + (Math.random()*200 - 100), h/2 + (Math.random()*200 - 100), 'firework');
+                    spawnBurst(15, w/2, h/2, 'heart');
+                }, f * 100);
             }
-            setTimeout(() => banner.remove(), 1350);
+
+            setTimeout(() => {
+                alertMask.classList.add('hidden');
+                alertMask.innerHTML = '';
+            }, 1400);
         }
 
         function initiateGameTurn() {
             dialogDiv.classList.add('hidden');
             gameDiv.classList.remove('hidden');
-            
-            let currentLvlStr = getLevelName();
-            lvlTitle.textContent = currentLvlStr;
+            lvlTitle.textContent = getLevelName();
             gameProgressText.textContent = `Hearts Cleared: ${currentStep} / ${questionsList.length}`;
-            
-            document.getElementById('reel-1').textContent = "🐱";
-            document.getElementById('reel-2').textContent = "💜";
-            document.getElementById('reel-3').textContent = "🐱";
             spinBtn.disabled = false;
             spinBtn.textContent = "PULL LEVER 🕹️";
         }
@@ -713,39 +621,26 @@
         spinBtn.addEventListener('click', () => {
             spinBtn.disabled = true;
             spinBtn.textContent = "SPINNING...";
-            
             const r1 = document.getElementById('reel-1');
             const r2 = document.getElementById('reel-2');
             const r3 = document.getElementById('reel-3');
-
-            r1.classList.add('spinning');
-            r2.classList.add('spinning');
-            r3.classList.add('spinning');
+            r1.classList.add('spinning'); r2.classList.add('spinning'); r3.classList.add('spinning');
 
             setTimeout(() => { r1.classList.remove('spinning'); r1.textContent = "💖"; }, 300);
             setTimeout(() => { r2.classList.remove('spinning'); r2.textContent = "🐱"; }, 600);
-            
             setTimeout(() => {
-                r3.classList.remove('spinning');
-                r3.textContent = "💖";
-                
-                triggerPopUpCat();
-                const rect = spinBtn.getBoundingClientRect();
-                spawnBurst(25, rect.left + rect.width/2, rect.top, 'heart');
-
-                setTimeout(revealDialogue, 500);
+                r3.classList.remove('spinning'); r3.textContent = "💖";
+                playHighVolumeRetroMeow();
+                setTimeout(revealDialogue, 400);
             }, 900);
         });
 
         function revealDialogue() {
             gameDiv.classList.add('hidden');
             dialogDiv.classList.remove('hidden');
-            
-            let currentLvlStr = getLevelName();
-            lvlDiagTitle.textContent = currentLvlStr;
+            lvlDiagTitle.textContent = getLevelName();
             dialProgressText.textContent = `Data Node ${currentStep + 1} of ${questionsList.length} Unlocked`;
             qText.textContent = questionsList[currentStep];
-            
             inputField.value = '';
             setTimeout(() => inputField.focus(), 50);
 
@@ -759,76 +654,56 @@
         nextButton.addEventListener('click', () => {
             const answerStr = inputField.value.trim();
             if(answerStr === "") {
-                alert("Data parameters mismatch! Input cannot be blank.");
+                alert("Input parameters cannot be blank.");
                 return;
             }
 
-            const currentLvlStr = getLevelName();
-            const datasetKey = `[${currentLvlStr}] Q${currentStep + 1}: ${questionsList[currentStep]}`;
-            compiledData[datasetKey] = answerStr;
+            compiledData[`[${getLevelName()}] Q${currentStep + 1}: ${questionsList[currentStep]}`] = answerStr;
             
-            triggerLoveCelebration();
+            // Pop the banner dead-center immediately on answer submission
+            triggerTrueCenterLoveCelebration();
 
-            let oldLevel = currentLvlStr;
             currentStep++;
-            let newLevel = getLevelName();
-
             setTimeout(() => {
                 if (currentStep < questionsList.length) {
-                    if(oldLevel !== newLevel) {
-                        const cabRect = cabinet.getBoundingClientRect();
-                        spawnBurst(45, cabRect.left + cabRect.width/2, cabRect.top + cabRect.height/2, 'heart');
-                    }
                     initiateGameTurn();
                 } else {
                     dispatchResults();
                 }
-            }, 1300);
+            }, 1400);
         });
 
         async function dispatchResults() {
             nextButton.disabled = true;
             nextButton.textContent = "UPLOADING...";
 
-            const dispatchPayload = new FormData();
-            dispatchPayload.append("access_key", WEB3FORMS_ACCESS_KEY);
-            dispatchPayload.append("subject", "🎮 Test Run Cleared: Her 5 Deep Answers! ✨");
-
-            for(const [question, answer] of Object.entries(compiledData)) {
-                dispatchPayload.append(question, answer);
+            const payload = new FormData();
+            payload.append("access_key", WEB3FORMS_ACCESS_KEY);
+            payload.append("subject", "🎮 Core Quest Cleared! Her Deep Answers! ✨");
+            for(const [q, a] of Object.entries(compiledData)) {
+                payload.append(q, a);
             }
 
             try {
-                const apiResponse = await fetch("https://api.web3forms.com/submit", {
-                    method: "POST",
-                    body: dispatchPayload,
-                    headers: { "Accept": "application/json" }
-                });
-                const resultJson = await apiResponse.json();
-
-                if (resultJson.success) {
+                const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: payload });
+                if (res.ok) {
                     dialogDiv.classList.add('hidden');
                     endDiv.classList.remove('hidden');
-                    
                     finalEndStateActive = true;
-                    setupInfiniteCredits();
+                    setup50LineCredits();
                 } else {
-                    alert("Fatal error running data pipeline script. Notify project manager!");
+                    alert("Pipeline error. Recheck network.");
                     nextButton.disabled = false;
-                    nextButton.textContent = "RE-SUBMIT DATA";
                 }
             } catch(e) {
-                alert("Network communication array offline. Re-verify connectivity logs.");
+                alert("Connection failed.");
                 nextButton.disabled = false;
-                nextButton.textContent = "RE-SUBMIT DATA";
             }
         }
 
         // --- FULL CINEMATIC OVER 50+ LINE CREDIT ARRAY GENERATION LOOP ---
-        function setupInfiniteCredits() {
+        function setup50LineCredits() {
             const container = document.getElementById('credits-loop-element');
-            
-            // Comprehensive 50+ item explicit narrative roll block
             const massiveCreditsText = `
                 <div class="credit-title">QUEST CLEAR COMPLETION STATUS</div><div class="credit-name">SUCCESS 100%</div>
                 <div class="credit-title">TOTAL DATA TRANSLATIONS COMPREHENDED</div><div class="credit-name">5 / 5 SYSTEM BLOCKS</div>
@@ -837,7 +712,7 @@
                 <div class="credit-title">EXPLICIT EMOTIONAL CORE</div><div class="credit-name">MY WHOLE ENTIRE UNIVERSE</div>
                 <div class="credit-title">CHIEF EXECUTIVE OFFICER OF LOVING YOU</div><div class="credit-name">YOUR NO. 1 ADMIRER</div>
                 <div class="credit-title">GLOBAL ADMINISTRATIVE DEVOTION LEAD</div><div class="credit-name">ME, MYSELF & I</div>
-                <div class="credit-title">HEAD OF CUTE CAT ANIMATIONS PRODUCTION</div><div class="credit-name">THE SIDE COFFEE CATS</div>
+                <div class="credit-title">HEAD OF CUTE CAT ANIMATIONS PRODUCTION</div><div class="credit-name">THE FREAKY DANCING CATS</div>
                 <div class="credit-title">PRODUCTION DESIGN DIRECTIVE</div><div class="credit-name">INFINITE PIXEL HEARTS CO.</div>
                 <div class="credit-title">SENIOR FIREWORKS SUPERVISOR</div><div class="credit-name">PINK & PURPLE SPARK MATRICES</div>
                 <div class="credit-title">LEVER HANDLING & SLOT HARDWARE MANAGER</div><div class="credit-name">LUCKY CAT ARCADE SYSTEMS</div>
@@ -848,17 +723,12 @@
                 <div class="credit-title">CORE MATRIX VALUE STRINGS CONTINUED</div><div class="credit-name">I LOVE YOU I LOVE YOU I LOVE YOU</div>
                 <div class="credit-title">CORE MATRIX VALUE STRINGS EXTENDED</div><div class="credit-name">I LOVE YOU I LOVE YOU I LOVE YOU</div>
                 <div class="credit-title">DATA CONFIDENTIALITY LOG LEVEL</div><div class="credit-name">PERMANENTLY SEALED WITH LOVE</div>
-                <div class="credit-title">PARALLAX ROAD CARS SPEED MANAGEMENT</div><div class="credit-name">RETRO SPORTS CAR MATRIX</div>
                 <div class="credit-title">SCROLL RUNTIME INTERVAL LIMIT</div><div class="credit-name">WITHOUT END IN SIGHT</div>
-                <div class="credit-title">COFFEE REFILL DELIVERER FOR SITTING CATS</div><div class="credit-name">THE ARCADE SERVICE DROIDS</div>
                 <div class="credit-title">ULTIMATE REWARD UNLOCKED STATE</div><div class="credit-name">MY UNDIVIDED FOREVER DEVOTION</div>
                 <div class="credit-title">SPECIAL THANKS AND COMPLIMENTS</div><div class="credit-name">TO YOUR BEAUTIFUL AMAZING MIND</div>
                 <div class="credit-title">FINAL VERDICT STATUS CODE</div><div class="credit-name">YOU ARE MY FAVORITE PERSON PERSONALLY</div>
-                <div class="credit-title">SYSTEM REBOOT INSTRUCTIONS</div><div class="credit-name">NOT REQUIRED. LOVING STATE FIXED.</div>
                 <div class="credit-title">ADDITIONAL SUBSET NOTES</div><div class="credit-name">I CHOOSE YOU EVERY SINGLE DAY</div>
             `;
-            
-            // Double inject to ensure fluid looping transitions over long distances
             container.innerHTML = massiveCreditsText + massiveCreditsText;
         }
     </script>
