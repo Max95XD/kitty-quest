@@ -106,10 +106,11 @@
         /* --- THE ARCADE MINI-GAME RADAR --- */
         #game-arena {
             width: 100%;
-            height: 190px;
+            height: 220px;
             background: #090d16;
             border: 3px double var(--border-pixel);
             margin-bottom: 20px;
+            display: block;
         }
 
         /* --- LEVEL UI STYLING --- */
@@ -218,7 +219,7 @@
         <div id="game-screen" class="hidden" style="width:100%;">
             <div class="level-badge" id="lvl-title">LEVEL 1: THE BLANK CANVAS</div>
             <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 50</div>
-            <div class="sys-alert">🕹️ Move your mouse into the arena to catch the pulsing target box!</div>
+            <div class="sys-alert">🕹️ Move your cursor inside the box to catch the pulsing pink square!</div>
             <canvas id="game-arena"></canvas>
         </div>
 
@@ -310,7 +311,6 @@
             "This is the very last question. Is there anything else—no matter how small or scary it feels—that you need to get off your chest to make sure there are zero secrets between us? I love you."
         ];
 
-        // Updated access key injected perfectly
         const WEB3FORMS_ACCESS_KEY = "2e120831-8dcc-42cf-b1ca-904ad12ea316";
 
         let currentStep = 0;
@@ -410,13 +410,17 @@
         let isGameActive = false;
 
         function setRandomTarget() {
+            if (arena.width === 0 || arena.height === 0) {
+                arena.width = arena.offsetWidth || 640;
+                arena.height = arena.offsetHeight || 220;
+            }
             target.x = Math.random() * (arena.width - 80) + 40;
             target.y = Math.random() * (arena.height - 80) + 40;
         }
 
         function resizeArena() {
-            arena.width = arena.offsetWidth;
-            arena.height = arena.offsetHeight;
+            arena.width = arena.offsetWidth || 640;
+            arena.height = arena.offsetHeight || 220;
             setRandomTarget();
         }
 
@@ -429,7 +433,6 @@
             let distance = Math.hypot(player.x - target.x, player.y - target.y);
             if(distance < (player.size + target.size) / 1.5) {
                 isGameActive = false;
-                // Reset user alignment parameters so arena cursor styling drops instantly
                 arena.style.cursor = 'default';
                 triggerBurst(30, rect.left + target.x, rect.top + target.y);
                 setTimeout(revealDialogue, 250);
@@ -440,13 +443,13 @@
             if(!isGameActive) return;
             arenaCtx.clearRect(0, 0, arena.width, arena.height);
 
-            // Paw zone icon
+            // Target (Pulsing box)
             arenaCtx.fillStyle = '#ff758f';
             arenaCtx.fillRect(target.x - target.size/2, target.y - target.size/2, target.size, target.size);
             arenaCtx.fillStyle = '#ff4d6d';
             arenaCtx.fillRect(target.x - target.size/3, target.y - target.size/3, target.size/1.5, target.size/1.5);
 
-            // Player pixel target box pointer
+            // Player cyan pixel dot
             arenaCtx.fillStyle = '#67e8f9';
             arenaCtx.fillRect(player.x - player.size/2, player.y - player.size/2, player.size, player.size);
 
@@ -461,7 +464,6 @@
             
             setTimeout(() => {
                 introDiv.classList.add('hidden');
-                resizeArena();
                 initiateGameTurn();
             }, 400);
         });
@@ -470,12 +472,14 @@
             dialogDiv.classList.add('hidden');
             gameDiv.classList.remove('hidden');
             
+            // Fix layout dimensions now that element is unhidden
+            resizeArena();
+            
             let currentLvlStr = getLevelName();
             lvlTitle.textContent = currentLvlStr;
             gameProgressText.textContent = `Hearts Cleared: ${currentStep} / ${questionsList.length}`;
             
-            setRandomTarget();
-            arena.style.cursor = 'none'; // Lock regular cursor ONLY during active micro game runtime
+            arena.style.cursor = 'none'; 
             isGameActive = true;
             runArenaFrame();
         }
@@ -490,7 +494,6 @@
             qText.textContent = questionsList[currentStep];
             
             inputField.value = '';
-            // Force keyboard focus state directly into the interactive DOM element
             setTimeout(() => {
                 inputField.focus();
             }, 50);
