@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitty Quest: Galaxy Edition ♡</title>
+    <title>Cyber Heart Quest: Cosmic Edition ♡</title>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-black: #05020a;         
+            --bg-black: #030008;         
             --pink-neon: #ff007f;       
             --pink-light: #f472b6;
             --purple-neon: #9d4edd;
-            --purple-deep: #240046;
-            --card-bg: rgba(22, 5, 40, 0.94);          
-            --border-pixel: #ff007f;      
+            --purple-deep: #1e0038;
+            --card-bg: rgba(18, 3, 33, 0.95);          
             --font-retro: 'Courier Prime', monospace; 
         }
 
@@ -37,8 +36,8 @@
             position: relative;
         }
 
-        /* --- PIXEL GALAXY BACKGROUND CANVAS --- */
-        #fx-canvas {
+        /* GALAXY CANVAS BACKGROUND */
+        #galaxy-canvas {
             position: absolute;
             top: 0;
             left: 0;
@@ -48,12 +47,12 @@
             pointer-events: none;
         }
 
-        /* --- LEFT & RIGHT SIDE WIDGETS --- */
-        .arcade-side-stage {
+        /* LEFT & RIGHT SIDE CYBER STAGES */
+        .cyber-side-stage {
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 22vw;
+            width: 23vw;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -65,59 +64,53 @@
         .left-stage { left: 0; }
         .right-stage { right: 0; }
 
-        .side-widget-card {
-            background: rgba(15, 3, 30, 0.88);
-            border: 3px double var(--pink-light);
-            box-shadow: 0 0 18px var(--pink-neon), inset 0 0 10px var(--purple-neon);
-            padding: 15px 10px;
-            border-radius: 8px;
+        .side-widget-box {
+            background: rgba(12, 2, 24, 0.9);
+            border: 2px ridge var(--purple-neon);
+            box-shadow: 0 0 15px var(--pink-neon), inset 0 0 12px var(--purple-neon);
+            padding: 12px;
+            border-radius: 10px;
             text-align: center;
             width: 90%;
-            max-width: 230px;
+            max-width: 220px;
         }
 
-        .cat-screen {
+        .animated-cat-art {
             font-family: monospace;
-            font-size: 13px;
-            line-height: 1.2;
+            font-size: 12px;
+            line-height: 1.25;
             color: #ff77bc;
             white-space: pre;
-            text-shadow: 0 0 10px #ff007f;
+            text-shadow: 0 0 8px #ff007f;
         }
 
-        .power-bar-container {
-            width: 100%;
-            height: 16px;
-            background: #110022;
-            border: 2px solid var(--purple-neon);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 6px;
+        /* EQUALIZER ANIMATION */
+        .eq-bar-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 4px;
+            height: 35px;
+            margin-top: 8px;
         }
-        .power-bar-fill {
-            height: 100%;
-            width: 85%;
-            background: linear-gradient(90deg, #9d4edd, #ff007f);
-            box-shadow: 0 0 10px #ff007f;
-            animation: pulsePower 1.5s infinite alternate;
+        .eq-bar {
+            width: 8px;
+            background: linear-gradient(0deg, var(--purple-neon), var(--pink-neon));
+            border-radius: 2px;
+            animation: bounceEq 1s ease-in-out infinite alternate;
         }
-        @keyframes pulsePower {
-            0% { opacity: 0.7; width: 75%; }
-            100% { opacity: 1; width: 98%; }
+        .eq-bar:nth-child(1) { animation-delay: 0.1s; }
+        .eq-bar:nth-child(2) { animation-delay: 0.4s; }
+        .eq-bar:nth-child(3) { animation-delay: 0.2s; }
+        .eq-bar:nth-child(4) { animation-delay: 0.6s; }
+        .eq-bar:nth-child(5) { animation-delay: 0.3s; }
+
+        @keyframes bounceEq {
+            0% { height: 15%; }
+            100% { height: 100%; }
         }
 
-        .big-pixel-heart {
-            font-size: 2.5rem;
-            color: var(--pink-neon);
-            text-shadow: 0 0 20px var(--pink-neon), 0 0 40px var(--purple-neon);
-            animation: heartbeat 1.2s infinite ease-in-out;
-        }
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.25); }
-        }
-
-        /* --- CENTRAL ARCADE CABINET --- */
+        /* MAIN CENTRAL CABINET */
         .arcade-cabinet {
             position: relative;
             z-index: 10;
@@ -126,10 +119,10 @@
             min-width: 380px;
             max-height: 94vh;
             background: var(--card-bg);
-            border: 4px solid var(--border-pixel);
-            border-radius: 12px; 
+            border: 4px solid var(--pink-neon);
+            border-radius: 16px; 
             padding: 24px;
-            box-shadow: 0 0 0 4px #10002b, 0 20px 60px rgba(0,0,0,0.95), 0 0 50px rgba(255, 0, 127, 0.4);
+            box-shadow: 0 0 0 4px #1a0033, 0 20px 60px rgba(0,0,0,0.95), 0 0 50px rgba(255, 0, 127, 0.4);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -137,19 +130,8 @@
             overflow-y: auto;
         }
 
-        .shake-effect {
-            animation: shakeCabinet 0.3s ease-in-out;
-        }
-        @keyframes shakeCabinet {
-            0% { transform: translate(0, 0); }
-            20% { transform: translate(-8px, 5px); }
-            40% { transform: translate(7px, -6px); }
-            60% { transform: translate(-5px, 4px); }
-            100% { transform: translate(0, 0); }
-        }
-
-        /* --- GIANT PURPLE FLOWER BUTTON --- */
-        .start-flower-btn {
+        /* BIG PURPLE FLOWER BUTTON */
+        .flower-start-btn {
             background: none;
             border: none;
             cursor: pointer;
@@ -160,30 +142,30 @@
             gap: 15px;
             margin-top: 15px;
             outline: none;
-            transition: transform 0.2s ease;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .start-flower-btn:hover {
-            transform: scale(1.08);
+        .flower-start-btn:hover {
+            transform: scale(1.1);
         }
 
-        .flower-icon {
-            font-size: 5rem;
-            filter: drop-shadow(0 0 25px #9d4edd) drop-shadow(0 0 40px #ff007f);
-            animation: spinFlower 8s linear infinite;
+        .big-purple-flower {
+            font-size: 5.5rem;
+            filter: drop-shadow(0 0 25px #9d4edd) drop-shadow(0 0 45px #ff007f);
+            animation: floatSpinFlower 6s ease-in-out infinite alternate;
         }
 
-        @keyframes spinFlower {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes floatSpinFlower {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-10px) rotate(15deg); }
         }
 
-        .flower-text {
+        .flower-banner-text {
             background: linear-gradient(135deg, #ff007f, #9d4edd);
             color: #ffffff;
             font-family: var(--font-retro);
             font-weight: bold;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             padding: 16px 28px;
             border-radius: 30px;
             border: 3px solid #ffffff;
@@ -193,54 +175,66 @@
             letter-spacing: 1px;
         }
 
-        /* --- UNIQUE MINI GAME: CATCH THE HEART KEYS --- */
-        .heart-catch-area {
+        /* NEW MINI GAME: LOVE WHEEL / SLOT MACHINE */
+        .slot-machine-box {
             width: 100%;
-            height: 220px;
-            background: #0a0218;
-            border: 3px double var(--pink-light);
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
+            background: #090117;
+            border: 3px double var(--pink-neon);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
             margin: 15px 0;
-            cursor: crosshair;
+            box-shadow: inset 0 0 20px rgba(157, 78, 221, 0.5);
         }
 
-        .floating-target-heart {
-            position: absolute;
-            font-size: 2.2rem;
+        .slot-reel-display {
+            font-size: 3rem;
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            background: #150228;
+            border: 2px solid var(--purple-neon);
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: inset 0 0 10px #000;
+        }
+
+        .spin-action-btn {
+            background: linear-gradient(135deg, #ff007f, #9d4edd);
+            color: #fff;
+            border: none;
+            font-family: var(--font-retro);
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 25px;
             cursor: pointer;
-            user-select: none;
-            animation: floatDown 3.5s linear infinite;
-            filter: drop-shadow(0 0 10px #ff007f);
+            box-shadow: 0 0 15px var(--pink-neon);
+            transition: all 0.2s;
         }
 
-        @keyframes floatDown {
-            0% { top: -40px; opacity: 1; }
-            100% { top: 230px; opacity: 0.2; }
+        .spin-action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--pink-neon);
         }
 
-        /* --- ENDING CARD & EXACT SKETCH IMAGE EMBEDDED --- */
-        .ending-card-large {
+        /* ENDING SKETCH CARD & CREDS */
+        .sketch-display-card {
             width: 100%;
-            background: #0d021a;
+            background: #090117;
             border: 4px double var(--pink-neon);
-            border-radius: 10px;
-            padding: 12px;
+            border-radius: 12px;
+            padding: 14px;
             box-shadow: 0 0 30px var(--pink-neon), inset 0 0 20px var(--purple-neon);
             margin: 12px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            animation: floatEnding 3s ease-in-out infinite;
         }
 
-        @keyframes floatEnding {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
-        }
-
-        .uploaded-sketch-img {
+        .user-sketch-img {
             width: 100%;
             max-width: 440px;
             height: auto;
@@ -250,50 +244,33 @@
             object-fit: contain;
         }
 
-        /* CREDITS SCROLLING TRACK */
         .movie-credits-container {
             width: 100%;
             height: 180px;
             overflow: hidden;
             position: relative;
             border: 2px dashed var(--purple-neon);
-            background: #090214;
+            background: #080114;
             margin-top: 10px;
-            border-radius: 6px;
+            border-radius: 8px;
         }
 
         .credits-scroll-track {
             position: absolute;
             width: 100%;
-            animation: scrollMovieStory 35s infinite linear;
+            animation: scrollCredits 32s infinite linear;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
         }
 
-        @keyframes scrollMovieStory {
-            0% { transform: translateY(-2000px); }
+        @keyframes scrollCredits {
+            0% { transform: translateY(-1800px); }
             100% { transform: translateY(180px); }
         }
 
-        .story-chapter {
-            font-size: 0.8rem;
-            color: var(--pink-light);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .story-line {
-            font-size: 0.95rem;
-            color: #ffffff;
-            font-weight: bold;
-            margin-top: -8px;
-            text-shadow: 0 0 8px var(--purple-neon);
-            padding: 0 10px;
-        }
-
-        /* GENERAL UI ELEMENTS */
+        /* UI FORM ELEMENTS */
         .level-badge {
             font-size: 0.95rem;
             color: var(--pink-light);
@@ -308,7 +285,6 @@
             color: var(--purple-neon);
             margin-bottom: 12px;
             letter-spacing: 1px;
-            text-shadow: 0 0 5px var(--purple-neon);
         }
 
         .prompt-text {
@@ -323,7 +299,7 @@
 
         .input-box {
             width: 100%;
-            background: #0d021a;
+            background: #0b0118;
             border: 2px solid var(--purple-neon);
             color: #fff;
             padding: 14px;
@@ -332,13 +308,13 @@
             resize: none;
             min-height: 100px;
             margin-bottom: 20px;
-            border-radius: 4px;
+            border-radius: 6px;
         }
 
         .input-box:focus {
             outline: none;
             border-color: var(--pink-neon);
-            box-shadow: 0 0 10px var(--pink-neon);
+            box-shadow: 0 0 15px var(--pink-neon);
         }
 
         .action-btn {
@@ -352,7 +328,7 @@
             cursor: pointer;
             box-shadow: 0 4px 0px #3c096c, 0 0 15px var(--pink-neon);
             transition: all 0.1s;
-            border-radius: 4px;
+            border-radius: 6px;
         }
 
         .action-btn:hover {
@@ -360,157 +336,149 @@
             box-shadow: 0 2px 0px #3c096c, 0 0 25px var(--pink-neon);
         }
 
-        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .hidden { display: none !important; opacity: 0; }
-        
-        /* OVERLAY ALERT */
-        .global-overlay-container {
+
+        /* OVERLAY BANNER */
+        .overlay-center {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999999;
-            background: rgba(5, 2, 10, 0.8);
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999;
+            background: rgba(3, 0, 8, 0.85);
         }
 
-        .true-center-banner {
+        .pop-banner {
             background: var(--pink-neon);
             border: 4px double #ffffff;
             color: #ffffff;
             font-weight: bold;
             font-size: 2rem;
             text-align: center;
-            padding: 30px 45px;
+            padding: 25px 40px;
             box-shadow: 0 0 50px var(--pink-neon);
-            animation: popCenterTrue 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            border-radius: 8px;
+            border-radius: 10px;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        @keyframes popCenterTrue {
-            0% { transform: scale(0.3); opacity: 0; }
+        @keyframes popIn {
+            0% { transform: scale(0.2); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- PIXEL GALAXY CANVAS (PINK, PURPLE & BLACK ONLY) -->
-    <canvas id="fx-canvas"></canvas>
+    <!-- GALAXY CANVAS -->
+    <canvas id="galaxy-canvas"></canvas>
 
-    <!-- LEFT ARCADE STAGE -->
-    <div class="arcade-side-stage left-stage">
-        <div class="side-widget-card">
-            <div style="font-size: 0.75rem; color: var(--pink-light); font-weight: bold;">⚡ LOVE ENERGY</div>
-            <div class="power-bar-container">
-                <div class="power-bar-fill"></div>
+    <!-- LEFT SIDE WIDGETS -->
+    <div class="cyber-side-stage left-stage">
+        <div class="side-widget-box">
+            <div style="font-size: 0.75rem; color: var(--pink-light); font-weight: bold;">💖 LOVE POWER</div>
+            <div class="eq-bar-wrap">
+                <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
             </div>
         </div>
 
-        <div class="side-widget-card">
-            <div class="cat-screen" id="left-freak-cat"></div>
+        <div class="side-widget-box">
+            <div class="animated-cat-art" id="cat-art-left"></div>
         </div>
 
-        <div class="side-widget-card">
-            <div class="big-pixel-heart">👾</div>
-            <div style="font-size: 0.75rem; color: var(--pink-light); margin-top: 5px;">PLAYER 1 READY</div>
+        <div class="side-widget-box">
+            <div style="font-size: 2rem;">🌸</div>
+            <div style="font-size: 0.75rem; color: var(--pink-light); margin-top: 5px;">HUN BUN MODE: ON</div>
         </div>
     </div>
 
-    <!-- RIGHT ARCADE STAGE -->
-    <div class="arcade-side-stage right-stage">
-        <div class="side-widget-card">
-            <div class="big-pixel-heart">💖</div>
-            <div style="font-size: 0.75rem; color: var(--pink-light); margin-top: 5px;">SYNC RATE: 100%</div>
+    <!-- RIGHT SIDE WIDGETS -->
+    <div class="cyber-side-stage right-stage">
+        <div class="side-widget-box">
+            <div style="font-size: 2rem;">👾</div>
+            <div style="font-size: 0.75rem; color: var(--pink-light); margin-top: 5px;">USMAN MATRIX</div>
         </div>
 
-        <div class="side-widget-card">
-            <div class="cat-screen" id="right-freak-cat"></div>
+        <div class="side-widget-box">
+            <div class="animated-cat-art" id="cat-art-right"></div>
         </div>
 
-        <div class="side-widget-card">
-            <div style="font-size: 0.75rem; color: var(--pink-light); font-weight: bold;">🔮 QUEST OVERDRIVE</div>
-            <div class="power-bar-container">
-                <div class="power-bar-fill" style="animation-delay: 0.5s;"></div>
+        <div class="side-widget-box">
+            <div style="font-size: 0.75rem; color: var(--pink-light); font-weight: bold;">⚡ NEBULA BEAT</div>
+            <div class="eq-bar-wrap">
+                <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
             </div>
         </div>
     </div>
 
-    <div id="global-alert-mask" class="global-overlay-container hidden"></div>
+    <div id="banner-mask" class="overlay-center hidden"></div>
 
-    <!-- MAIN ARCADE CABINET -->
+    <!-- MAIN ARCADE CONTAINER -->
     <div class="arcade-cabinet" id="main-cabinet">
         
-        <!-- INTRO SCREEN WITH BIG PURPLE FLOWER BUTTON -->
+        <!-- INTRO SCREEN WITH BIG PURPLE FLOWER -->
         <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:18px; width: 100%;">
-            <div style="font-size: 1.5rem; letter-spacing: 2px; color: var(--pink-light); text-shadow: 0 0 12px var(--pink-neon); text-align: center;">
-                🐱 KITTY QUEST: GALAXY EDITION 🐱
+            <div style="font-size: 1.4rem; letter-spacing: 2px; color: var(--pink-light); text-shadow: 0 0 12px var(--pink-neon); text-align: center;">
+                🌌 CYBER HEART QUEST 🌌
             </div>
 
             <!-- BIG PURPLE FLOWER BUTTON -->
-            <button class="start-flower-btn" id="flower-start-trigger">
-                <div class="flower-icon">🌺</div>
-                <div class="flower-text">welcome to my game hun bun 💜</div>
+            <button class="flower-start-btn" id="flower-btn">
+                <div class="big-purple-flower">🌺</div>
+                <div class="flower-banner-text">welcome to my game hun bun 💜</div>
             </button>
         </div>
 
-        <!-- NEW MINI-GAME HUB: CATCH THE HEART KEYS -->
+        <!-- NEW MINI-GAME SCREEN: LOVE SLOT WHEEL -->
         <div id="game-screen" class="hidden" style="width:100%;">
-            <div class="level-badge" id="lvl-title">LEVEL 1: THE FOUNDATION</div>
-            <div class="step-counter" id="game-progress">Hearts Collected: 0 / 5</div>
+            <div class="level-badge" id="slot-lvl-title">LEVEL 1</div>
+            <div class="step-counter" id="slot-progress">Nodes Unlocked: 0 / 5</div>
             
-            <div style="background: #110022; border: 3px double var(--pink-neon); padding: 16px; border-radius: 8px; text-align: center;">
-                <div style="font-size:0.9rem; color: var(--pink-light); font-weight: bold;">
-                    💖 CATCH A FALLING HEART KEY TO UNLOCK QUESTION!
-                </div>
-                
-                <div class="heart-catch-area" id="catch-arena">
-                    <!-- Hearts will spawn here dynamically -->
+            <div class="slot-machine-box">
+                <div style="font-size:1rem; color: var(--pink-light); font-weight: bold;">
+                    🎰 SPIN THE LOVE REEL TO UNLOCK DATA NODE!
                 </div>
 
-                <div id="catch-instructions" style="font-size:0.8rem; color: var(--purple-neon); font-weight: bold;">
-                    [ Tap or click any floating heart above ]
+                <div class="slot-reel-display" id="reel-display">
+                    <span>💜</span><span>💖</span><span>🌸</span>
                 </div>
+
+                <button class="spin-action-btn" id="spin-btn">SPIN REEL! ✨</button>
             </div>
         </div>
 
         <!-- QUESTION DIALOGUE SCREEN -->
         <div id="dialogue-screen" class="hidden" style="width:100%; display: flex; flex-direction: column;">
-            <div class="level-badge" id="lvl-diag-title">LEVEL 1: THE FOUNDATION</div>
+            <div class="level-badge" id="lvl-diag-title">LEVEL 1</div>
             <div class="step-counter" id="dialogue-progress">Data Node 1 of 5 Unlocked</div>
             <div class="prompt-text" id="active-question">Loading dialogue array strings...</div>
             <textarea class="input-box" id="response-field" placeholder="Enter your honest thoughts here... 🤍"></textarea>
             <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
         </div>
 
-        <!-- ENDING SCREEN WITH EXACT SKETCH IMAGE EMBEDDED -->
+        <!-- ENDING SCREEN WITH SKETCH IMAGE EMBEDDED -->
         <div id="end-screen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             <h1 style="font-size: 1.1rem; color: var(--pink-neon); text-align:center; letter-spacing: 2px; margin-bottom: 6px; text-shadow: 0 0 10px var(--pink-neon);">
                 🏆 QUEST CLEAR: FOREVER MATRIX ENGAGED 🏆
             </h1>
             
-            <!-- EXACT PENCIL SKETCH PICTURE DISPLAY CARD -->
-            <div class="ending-card-large">
-                <img id="sketch-img-element" class="uploaded-sketch-img" alt="Usman & Partner Pencil Sketch" />
+            <!-- SKETCH DISPLAY CARD -->
+            <div class="sketch-display-card">
+                <img id="sketch-img-element" class="user-sketch-img" alt="Usman & Partner Pencil Sketch" />
                 <div style="margin-top: 10px; font-size: 0.95rem; color: var(--pink-light); text-align: center; font-weight: bold;">
                     I love you so much usman &lt;3 muah~♡
                 </div>
             </div>
 
-            <!-- SCROLLING CREDITS STORY -->
+            <!-- CREDITS STORY -->
             <div class="movie-credits-container">
-                <div class="credits-scroll-track" id="credits-loop-element"></div>
+                <div class="credits-scroll-track" id="credits-track"></div>
             </div>
         </div>
 
     </div>
 
     <script>
-        // EXACT BASE64 DATA OF THE ORIGINAL PENCIL SKETCH IMAGE
-        const SKETCH_BASE64_URI = "data:image/jpeg;base64," + "CUSTOM_B64_DATA_KEY";
+        // EXACT BASE64 OF PENCIL SKETCH IMAGE
+        const SKETCH_B64 = "data:image/jpeg;base64,CUSTOM_B64_DATA_KEY";
 
         const questionsList = [
             "Do you promise to answer these questions completely honestly, directly from your heart? I want to know the real, raw you.",
@@ -525,97 +493,78 @@
         let currentStep = 0;
         const compiledData = {};
 
-        /* --- SIDE CAT ANIMATIONS --- */
-        let freakyFrameCounter = 0;
-        const leftCatElement = document.getElementById('left-freak-cat');
-        const rightCatElement = document.getElementById('right-freak-cat');
+        /* --- SIDE ANIMATED CAT ENGINE --- */
+        let catFrame = 0;
+        const leftCat = document.getElementById('cat-art-left');
+        const rightCat = document.getElementById('cat-art-right');
 
-        const freakyCatPosesLeft = [
+        const catPosesLeft = [
 `  💖 (っ◕‿‿◕)っ 💖
    /\\━━━━━━/\\ 
   <  (  O.O  )  >  ✨
      \\   V   /
       (  "|"  )
-     /___|_|___\\
- [ENERGY: 200%]`
+     /___|_|___\\`
 ,
 `  💜 (つ✧益✧)つ 💜
    /\\━━━━━━/\\ 
   <  (  o.o  )  >  ✨
      /   Y   \\
       (  "|"  )
-     \\___|_|___/
- [CAT POWER MAX]`
+     \\___|_|___/`
 ];
 
-        const freakyCatPosesRight = [
+        const catPosesRight = [
 `       💖   /\\_/\\  
      ✨    ( >.< ) 
    (つ━━〇━━━〇━━つ) 💖
      |           |
      |   ♥   ♥   |
-     |_____  ____|
-         |||||
-   [ULTRA LOVE BOT]`
+     |_____  ____|`
 ,
 `       💜   /\\_/\\  
      ✨    ( ʘ.ʘ ) 
    (つ━━〇━━━〇━━つ) 💜
      |    💥     |
      |   ♥   ♥   |
-     |_____  ____|
-         \\\\\\\\\\
-   [DANCING CAT]`
+     |_____  ____|`
 ];
 
-        function runFreakyCatsEngine() {
-            freakyFrameCounter++;
-            let poseIndex = Math.floor(freakyFrameCounter / 18) % 2; 
-            
-            leftCatElement.innerHTML = freakyCatPosesLeft[poseIndex];
-            rightCatElement.innerHTML = freakyCatPosesRight[poseIndex];
-            
-            let scaleVal = 1 + Math.sin(freakyFrameCounter * 0.12) * 0.05;
-            let rotateVal = Math.cos(freakyFrameCounter * 0.08) * 6;
-            
-            leftCatElement.style.transform = `scale(${scaleVal}) rotate(${rotateVal}deg)`;
-            rightCatElement.style.transform = `scale(${scaleVal}) rotate(${-rotateVal}deg)`;
-            
-            requestAnimationFrame(runFreakyCatsEngine);
+        function catEngine() {
+            catFrame++;
+            let idx = Math.floor(catFrame / 20) % 2;
+            leftCat.innerHTML = catPosesLeft[idx];
+            rightCat.innerHTML = catPosesRight[idx];
+            requestAnimationFrame(catEngine);
         }
-        runFreakyCatsEngine();
+        catEngine();
 
-        /* --- PURPLE, PINK & BLACK PIXEL GALAXY CANVAS --- */
-        const fxCanvas = document.getElementById('fx-canvas');
-        const ctx = fxCanvas.getContext('2d');
-        let galaxyStars = [];
-        let nebulaClouds = [];
+        /* --- PINK, PURPLE & BLACK GALAXY ENGINE --- */
+        const canvas = document.getElementById('galaxy-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-        function resizeCanvas() {
-            fxCanvas.width = window.innerWidth;
-            fxCanvas.height = window.innerHeight;
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        window.addEventListener('resize', resize);
+        resize();
 
-        class GalaxyStar {
-            constructor() {
-                this.reset();
-            }
+        class Particle {
+            constructor() { this.reset(); }
             reset() {
-                this.x = Math.random() * fxCanvas.width;
-                this.y = Math.random() * fxCanvas.height;
-                this.size = Math.random() * 2.5 + 1;
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
                 this.alpha = Math.random();
-                this.speed = Math.random() * 0.02 + 0.005;
-                const colors = ['#ff007f', '#9d4edd', '#f472b6', '#ffffff', '#e0aaff', '#240046'];
+                this.speed = Math.random() * 0.015 + 0.005;
+                const colors = ['#ff007f', '#9d4edd', '#f472b6', '#ffffff', '#240046'];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
             }
             update() {
                 this.alpha += this.speed;
-                if (this.alpha > 1 || this.alpha < 0) {
-                    this.speed = -this.speed;
-                }
+                if (this.alpha > 1 || this.alpha < 0) this.speed = -this.speed;
             }
             draw() {
                 ctx.save();
@@ -626,154 +575,105 @@
             }
         }
 
-        class NebulaCloud {
-            constructor() {
-                this.x = Math.random() * fxCanvas.width;
-                this.y = Math.random() * fxCanvas.height;
-                this.radius = Math.random() * 200 + 100;
-                this.color = Math.random() > 0.5 ? 'rgba(157, 78, 221, 0.12)' : 'rgba(255, 0, 127, 0.10)';
+        for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+        function loopGalaxy() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
             }
-            draw() {
-                ctx.save();
-                let grad = ctx.createRadialGradient(this.x, this.y, 10, this.x, this.y, this.radius);
-                grad.addColorStop(0, this.color);
-                grad.addColorStop(1, 'rgba(5, 2, 10, 0)');
-                ctx.fillStyle = grad;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
+            requestAnimationFrame(loopGalaxy);
         }
+        loopGalaxy();
 
-        for (let i = 0; i < 110; i++) galaxyStars.push(new GalaxyStar());
-        for (let i = 0; i < 6; i++) nebulaClouds.push(new NebulaCloud());
-
-        function galaxyEngineLoop() {
-            ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
-            
-            // Draw Nebulae
-            for (let i = 0; i < nebulaClouds.length; i++) nebulaClouds[i].draw();
-
-            // Draw Stars
-            for (let i = 0; i < galaxyStars.length; i++) {
-                galaxyStars[i].update();
-                galaxyStars[i].draw();
-            }
-
-            requestAnimationFrame(galaxyEngineLoop);
-        }
-        galaxyEngineLoop();
-
-        /* --- GAME LOGIC & HEART CATCH MECHANIC --- */
-        const cabinet = document.getElementById('main-cabinet');
+        /* --- GAME FLOW & LOVE SLOT LOGIC --- */
         const introDiv = document.getElementById('intro-screen');
         const gameDiv = document.getElementById('game-screen');
         const dialogDiv = document.getElementById('dialogue-screen');
         const endDiv = document.getElementById('end-screen');
-        
+        const bannerMask = document.getElementById('banner-mask');
+
+        const reelDisplay = document.getElementById('reel-display');
+        const spinBtn = document.getElementById('spin-btn');
         const qText = document.getElementById('active-question');
         const inputField = document.getElementById('response-field');
         const nextButton = document.getElementById('next-btn');
-        const alertMask = document.getElementById('global-alert-mask');
 
-        function getLevelName() {
-            if (currentStep < 2) return "LEVEL 1: THE FOUNDATION";
-            if (currentStep < 4) return "LEVEL 2: EMOTIONAL DEPTHS";
-            return "LEVEL 3: ULTIMATE CLARITY";
-        }
-
-        // START GAME VIA BIG PURPLE FLOWER
-        document.getElementById('flower-start-trigger').addEventListener('click', () => {
+        document.getElementById('flower-btn').addEventListener('click', () => {
             introDiv.classList.add('hidden');
-            initiateGameTurn();
+            showSlotMachine();
         });
 
-        function initiateGameTurn() {
+        function showSlotMachine() {
             dialogDiv.classList.add('hidden');
             gameDiv.classList.remove('hidden');
-            document.getElementById('lvl-title').textContent = getLevelName();
-            document.getElementById('game-progress').textContent = `Hearts Collected: ${currentStep} / ${questionsList.length}`;
-            
-            spawnFallingHeartsArea();
+            document.getElementById('slot-lvl-title').textContent = `STAGE ${currentStep + 1}`;
+            document.getElementById('slot-progress').textContent = `Nodes Unlocked: ${currentStep} / ${questionsList.length}`;
+            spinBtn.disabled = false;
         }
 
-        let heartSpawnInterval = null;
-        function spawnFallingHeartsArea() {
-            const arena = document.getElementById('catch-arena');
-            arena.innerHTML = '';
+        const slotIcons = ['💜', '💖', '🌸', '✨', '🐾', '👑'];
+        spinBtn.addEventListener('click', () => {
+            spinBtn.disabled = true;
+            let spins = 0;
+            const spinTimer = setInterval(() => {
+                spins++;
+                let i1 = slotIcons[Math.floor(Math.random() * slotIcons.length)];
+                let i2 = slotIcons[Math.floor(Math.random() * slotIcons.length)];
+                let i3 = slotIcons[Math.floor(Math.random() * slotIcons.length)];
+                reelDisplay.innerHTML = `<span>${i1}</span><span>${i2}</span><span>${i3}</span>`;
 
-            function createSingleHeart() {
-                const h = document.createElement('div');
-                h.className = 'floating-target-heart';
-                const icons = ['💖', '💜', '🐾', '🌸', '✨'];
-                h.textContent = icons[Math.floor(Math.random() * icons.length)];
-                h.style.left = Math.floor(Math.random() * 80 + 5) + '%';
-                h.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
+                if (spins > 15) {
+                    clearInterval(spinTimer);
+                    reelDisplay.innerHTML = `<span>💖</span><span>💜</span><span>💖</span>`;
+                    setTimeout(showQuestionDialogue, 600);
+                }
+            }, 80);
+        });
 
-                h.addEventListener('click', () => {
-                    clearInterval(heartSpawnInterval);
-                    revealDialogue();
-                });
-
-                arena.appendChild(h);
-                setTimeout(() => { if (h.parentNode) h.parentNode.removeChild(h); }, 3500);
-            }
-
-            createSingleHeart();
-            heartSpawnInterval = setInterval(createSingleHeart, 800);
-        }
-
-        function revealDialogue() {
+        function showQuestionDialogue() {
             gameDiv.classList.add('hidden');
             dialogDiv.classList.remove('hidden');
-            document.getElementById('lvl-diag-title').textContent = getLevelName();
-            document.getElementById('dialogue-progress').textContent = `Data Node ${currentStep + 1} of ${questionsList.length} Unlocked`;
+            document.getElementById('lvl-diag-title').textContent = `STAGE ${currentStep + 1}`;
+            document.getElementById('dialogue-progress').textContent = `Data Node ${currentStep + 1} of ${questionsList.length}`;
             qText.textContent = questionsList[currentStep];
             inputField.value = '';
             setTimeout(() => inputField.focus(), 50);
 
-            if (currentStep === questionsList.length - 1) {
-                nextButton.textContent = "CLEAR GAME ♡";
-            } else {
-                nextButton.textContent = "SUBMIT DATA →";
-            }
+            nextButton.textContent = (currentStep === questionsList.length - 1) ? "CLEAR GAME ♡" : "SUBMIT DATA →";
         }
 
         nextButton.addEventListener('click', () => {
-            const answerStr = inputField.value.trim();
-            if(answerStr === "") {
-                alert("Input parameters cannot be blank.");
+            const ans = inputField.value.trim();
+            if(!ans) {
+                alert("Please write something first! 🤍");
                 return;
             }
 
-            compiledData[`[${getLevelName()}] Q${currentStep + 1}: ${questionsList[currentStep]}`] = answerStr;
-            
-            // Pop banner
-            alertMask.innerHTML = `<div class="true-center-banner">I LOVE YOU SO MUCH! 🤍</div>`;
-            alertMask.classList.remove('hidden');
+            compiledData[`Q${currentStep + 1}: ${questionsList[currentStep]}`] = ans;
 
-            cabinet.classList.add('shake-effect');
-            setTimeout(() => cabinet.classList.remove('shake-effect'), 300);
+            bannerMask.innerHTML = `<div class="pop-banner">I LOVE YOU SO MUCH! 🤍</div>`;
+            bannerMask.classList.remove('hidden');
 
             currentStep++;
             setTimeout(() => {
-                alertMask.classList.add('hidden');
+                bannerMask.classList.add('hidden');
                 if (currentStep < questionsList.length) {
-                    initiateGameTurn();
+                    showSlotMachine();
                 } else {
-                    dispatchResults();
+                    submitAllData();
                 }
             }, 1200);
         });
 
-        async function dispatchResults() {
+        async function submitAllData() {
             nextButton.disabled = true;
             nextButton.textContent = "UPLOADING...";
 
             const payload = new FormData();
             payload.append("access_key", WEB3FORMS_ACCESS_KEY);
-            payload.append("subject", "🎮 Kitty Quest Cleared! Her Answers! ✨");
+            payload.append("subject", "🎮 Cyber Quest Cleared! Her Answers! ✨");
             for(const [q, a] of Object.entries(compiledData)) {
                 payload.append(q, a);
             }
@@ -782,40 +682,38 @@
                 const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: payload });
                 if (res.ok) {
                     dialogDiv.classList.add('hidden');
-                    
-                    // Assign Exact Pencil Sketch Image
-                    document.getElementById('sketch-img-element').src = SKETCH_BASE64_URI;
-                    
+                    document.getElementById('sketch-img-element').src = SKETCH_B64;
                     endDiv.classList.remove('hidden');
-                    setupCreditsStory();
+                    initCreditsStory();
                 } else {
-                    alert("Pipeline error. Recheck network.");
+                    alert("Submission error. Please check internet connection.");
                     nextButton.disabled = false;
                 }
             } catch(e) {
-                alert("Connection failed.");
+                alert("Connection error.");
                 nextButton.disabled = false;
             }
         }
 
-        function setupCreditsStory() {
-            const container = document.getElementById('credits-loop-element');
+        function initCreditsStory() {
+            const track = document.getElementById('credits-track');
             const storyText = `
-                <div class="story-chapter">CHAPTER 1: THE DISCOVERY</div>
-                <div class="story-line">Once upon a time in a pixel galaxy...</div>
-                <div class="story-line">Usman met his favorite person in her cozy bear hoodie.</div>
-                <div class="story-line">They unlocked the ultimate co-op adventure together.</div>
+                <div style="color: var(--pink-light); font-weight: bold;">CHAPTER 1: THE DISCOVERY</div>
+                <div>Once upon a time in a galaxy far away...</div>
+                <div>Usman met his favorite person in her cozy hoodie.</div>
+                <div>Together they unlocked the ultimate co-op universe!</div>
 
-                <div class="story-chapter">CHAPTER 2: INFINITE HIGH SCORES</div>
-                <div class="story-line">Through every mini-game, puzzle, and challenge...</div>
-                <div class="story-line">They held hands and defeated all boss levels!</div>
+                <div style="color: var(--pink-light); font-weight: bold; margin-top:15px;">CHAPTER 2: FOREVER SCORE</div>
+                <div>Through every level, spin, and puzzle...</div>
+                <div>They achieved the highest score in love!</div>
 
-                <div class="story-chapter">CORE DECREES</div>
-                <div class="story-line">I LOVE YOU SO MUCH USMAN 🤍</div>
-                <div class="story-line">YOU ARE MY WORLD AND MY ENTIRE HIGH SCORE!</div>
-                <div class="story-line">❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤</div>
+                <div style="color: var(--pink-neon); font-weight: bold; margin-top:20px; font-size:1.1rem;">
+                    I LOVE YOU SO MUCH USMAN 🤍<br>
+                    YOU ARE MY WHOLE WORLD! <br>
+                    ❤❤❤❤❤❤❤❤❤❤❤❤❤❤
+                </div>
             `;
-            container.innerHTML = storyText + storyText;
+            track.innerHTML = storyText + storyText;
         }
     </script>
 </body>
