@@ -66,7 +66,7 @@
 
         .freaky-cat-screen {
             font-family: monospace;
-            font-size: 15px; /* Boosted scale size */
+            font-size: 15px;
             line-height: 1.2;
             color: #d946ef;
             white-space: pre;
@@ -123,7 +123,7 @@
             background: var(--arcade-panel);
             border: 4px solid var(--border-pixel);
             border-radius: 4px; 
-            padding: 30px;
+            padding: 25px;
             box-shadow: 0 0 0 4px #1e1b4b, 0 20px 60px rgba(0,0,0,0.9), 0 0 40px rgba(192, 132, 252, 0.3);
             display: flex;
             flex-direction: column;
@@ -192,31 +192,59 @@
             100% { transform: translateY(-8px); opacity: 0.6; }
         }
 
+        /* --- PIXEL ART COUPLE PORTRAIT CARD --- */
+        .pixel-art-card {
+            background: #090518;
+            border: 3px double var(--border-pixel);
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 0 15px rgba(244, 114, 182, 0.4);
+            margin: 10px 0;
+            animation: floatPixelArt 3s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes floatPixelArt {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .pixel-art-display {
+            font-family: monospace;
+            font-size: 9px;
+            line-height: 1;
+            white-space: pre;
+            color: #f472b6;
+            text-shadow: 0 0 5px #d946ef;
+            user-select: none;
+        }
+
         /* --- CINEMATIC REVERSED DOWN-SCROLL FILM ROLL --- */
         .movie-credits-container {
             width: 100%;
-            height: 350px;
+            height: 220px;
             overflow: hidden;
             position: relative;
             border: 2px dashed var(--accent-lavender);
             background: #090518;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .credits-scroll-track {
             position: absolute;
             width: 100%;
-            /* Modified to slide fluidly from TOP to BOTTOM */
             animation: scrollMovieStory 45s infinite linear;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 22px;
         }
 
         @keyframes scrollMovieStory {
             0% { transform: translateY(-2400px); }
-            100% { transform: translateY(350px); }
+            100% { transform: translateY(220px); }
         }
 
         .story-chapter {
@@ -227,7 +255,7 @@
         }
 
         .story-line {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #ffffff;
             font-weight: bold;
             margin-top: -10px;
@@ -334,7 +362,7 @@
         <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:20px; width: 100%;">
             <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 85%; text-align: left; background: #090518; padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
                 > DEPLOYING EXTRA LARGE SIDE STAGE CAR MATRIX...<br>
-                > INVERTING CREDITS ENGINE TO TOP-DOWN SCROLL VECTOR...<br>
+                > LOADING PIXELATED ENDING ARTWORK (USMAN & BEAR HOODIE)...<br>
                 > HARDWARE RUNNING FLUIDLY. READY TO PROCEED.
             </div>
             <div class="glitch-title" id="intro-main-msg" style="opacity: 0;">
@@ -369,9 +397,27 @@
             <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
         </div>
 
-        <!-- TOP-DOWN SCROLLING STORYBOARD THEATER -->
-        <div id="end-screen" class="hidden" style="width: 100%;">
-            <h1 style="font-size: 1.1rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 5px;">🏆 THE COZY ARCADE CHRONICLES: SUCCESS! 🏆</h1>
+        <!-- TOP-DOWN SCROLLING STORYBOARD THEATER WITH PIXEL COUPLE PORTRAIT -->
+        <div id="end-screen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <h1 style="font-size: 1.1rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 2px;">🏆 QUEST CLEAR: FOREVER MATRIX ENGAGED 🏆</h1>
+            
+            <!-- REAL PIXEL ART CONVERTED SKETCH -->
+            <div class="pixel-art-card">
+                <div class="pixel-art-display">
+    (⌒_⌒)            ʕ •ᴥ• ʔ  
+    /   \           /       \ 
+   | Usman|        | Bear  |  
+   (______)===♥===(________) 
+  /|      |\      /|      |\ 
+ / |  ♥   | \    / |  ♥   | \
+   |______|        |______|  
+   /      \        /      \  
+  /________\      /________\ 
+ 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
+ [I love you so much usman <3 muah~♡]
+                </div>
+            </div>
+
             <div class="movie-credits-container">
                 <div class="credits-scroll-track" id="credits-loop-element"></div>
             </div>
@@ -398,7 +444,6 @@
         const leftCatElement = document.getElementById('left-freak-cat');
         const rightCatElement = document.getElementById('right-freak-cat');
 
-        // Big, energetic structural poses
         const freakyCatPosesLeft = [
 `    (っ◕‿‿◕)っ ✨
    /\\━━━━━━/\\ 💖
@@ -437,7 +482,6 @@
    [DANCING FOREVER]`
 ];
 
-        // Running uninterrupted from start to finish
         function runFreakyCatsEngine() {
             freakyFrameCounter++;
             let poseIndex = Math.floor(freakyFrameCounter / 18) % 2; 
@@ -445,7 +489,6 @@
             leftCatElement.innerHTML = freakyCatPosesLeft[poseIndex];
             rightCatElement.innerHTML = freakyCatPosesRight[poseIndex];
             
-            // Expanded swinging physics movement modifiers
             let scaleVal = 1 + Math.sin(freakyFrameCounter * 0.12) * 0.05;
             let rotateVal = Math.cos(freakyFrameCounter * 0.08) * 6;
             let slideVal = Math.sin(freakyFrameCounter * 0.05) * 10;
@@ -457,7 +500,6 @@
         }
         runFreakyCatsEngine();
 
-        // Element Selectors
         const cabinet = document.getElementById('main-cabinet');
         const introDiv = document.getElementById('intro-screen');
         const gameDiv = document.getElementById('game-screen');
@@ -692,29 +734,28 @@
             }
         }
 
-        // --- CUTE & FUNNY ARCADE STORY SCROLL (TOP-TO-BOTTOM COMPREHENSIVE TEXT BLOCK) ---
         function setup50LineCreditsStory() {
             const container = document.getElementById('credits-loop-element');
             const funnyLoveStoryText = `
                 <div class="story-chapter">CHAPTER 1: THE DISCOVERY</div>
                 <div class="story-line">Once upon a time, in a neon pixelated world...</div>
-                <div class="story-line">Player 1 met Player 2 near a buggy arcade machine.</div>
-                <div class="story-line">Player 1 tried to look cool but accidentally dropped their coffee.</div>
-                <div class="story-line">Player 2 just laughed and offered to share theirs.</div>
-                <div class="story-line">It was a critical hit directly to the feelings!</div>
+                <div class="story-line">Usman met his partner in her cozy bear hoodie near an arcade.</div>
+                <div class="story-line">Usman tried to look cool but accidentally dropped his coffee.</div>
+                <div class="story-line">She just laughed and offered to share hers.</div>
+                <div class="story-line">It was a critical hit directly to the heart!</div>
 
                 <div class="story-chapter">CHAPTER 2: THE GLITCHY JOURNEY</div>
                 <div class="story-line">They decided to team up for co-op mode.</div>
-                <div class="story-line">Player 1 wasn't very good at jumping over obstacles...</div>
-                <div class="story-line">And Player 2 kept accidentally throwing shields at walls instead of bad guys.</div>
+                <div class="story-line">Usman wasn't very good at jumping over obstacles...</div>
+                <div class="story-line">And she kept accidentally throwing shields at walls instead of bad guys.</div>
                 <div class="story-line">But somehow, they kept winning anyway!</div>
                 <div class="story-line">Because team dynamics were perfectly synced.</div>
 
                 <div class="story-chapter">CHAPTER 3: THE CONFESSION MODULATION</div>
                 <div class="story-line">One night under a low-res digital starry sky...</div>
-                <div class="story-line">Player 1 typed: "I think my code has a bug."</div>
-                <div class="story-line">Player 2 panicked and checked the system logs.</div>
-                <div class="story-line">Player 1 smiled and said: "Yeah, it keeps looping 'I love you'."</div>
+                <div class="story-line">Usman typed: "I think my code has a bug."</div>
+                <div class="story-line">She panicked and checked the system logs.</div>
+                <div class="story-line">Usman smiled and said: "Yeah, it keeps looping 'I love you'."</div>
                 <div class="story-line">The system completely overheated with cuteness.</div>
 
                 <div class="story-chapter">CHAPTER 4: INFINITE HIGH SCORES</div>
@@ -724,14 +765,13 @@
                 <div class="story-line">And they lived happily, collecting hearts until the end of time.</div>
 
                 <div class="story-chapter">APPENDIX LOG: CORE DECREES</div>
-                <div class="story-line">I LOVE YOU SO MUCH 🤍</div>
+                <div class="story-line">I LOVE YOU SO MUCH USMAN 🤍</div>
                 <div class="story-line">I LOVE YOU I LOVE YOU I LOVE YOU</div>
                 <div class="story-line">YOU ARE MY WORLD AND MY ENTIRE HIGH SCORE</div>
                 <div class="story-line">THANK YOU FOR FINISHING THIS RETRO QUEST WITH ME!</div>
                 <div class="story-line">GAME STATUS: PERFECTLY SEALED WITH FOREVER DEVOTION</div>
                 <div class="story-line">❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤</div>
             `;
-            // Loop array duplication to support flawless seamless cycle boundaries
             container.innerHTML = funnyLoveStoryText + funnyLoveStoryText;
         }
     </script>
