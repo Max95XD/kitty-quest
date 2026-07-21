@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitty Quest: Pixel Hearts ♡</title>
+    <title>Kitty Quest: Galaxy Edition ♡</title>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #070314;         
+            --bg-black: #05020a;         
             --pink-neon: #ff007f;       
             --pink-light: #f472b6;
             --purple-neon: #9d4edd;
             --purple-deep: #240046;
-            --purple-card: rgba(29, 10, 50, 0.94);          
+            --card-bg: rgba(22, 5, 40, 0.94);          
             --border-pixel: #ff007f;      
             --font-retro: 'Courier Prime', monospace; 
         }
@@ -28,7 +28,7 @@
             width: 100%;
             height: 100%;
             font-family: var(--font-retro);
-            background-color: var(--bg-dark);
+            background-color: var(--bg-black);
             color: #ffffff;
             overflow: hidden;
             display: flex;
@@ -48,12 +48,12 @@
             pointer-events: none;
         }
 
-        /* --- LEFT & RIGHT ULTRA ARCADE STAGES --- */
+        /* --- LEFT & RIGHT SIDE WIDGETS --- */
         .arcade-side-stage {
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 23vw;
+            width: 22vw;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -68,12 +68,12 @@
         .side-widget-card {
             background: rgba(15, 3, 30, 0.88);
             border: 3px double var(--pink-light);
-            box-shadow: 0 0 15px var(--pink-neon), inset 0 0 10px var(--purple-neon);
+            box-shadow: 0 0 18px var(--pink-neon), inset 0 0 10px var(--purple-neon);
             padding: 15px 10px;
             border-radius: 8px;
             text-align: center;
             width: 90%;
-            max-width: 240px;
+            max-width: 230px;
         }
 
         .cat-screen {
@@ -85,14 +85,6 @@
             text-shadow: 0 0 10px #ff007f;
         }
 
-        /* POWER METER BAR */
-        .power-meter-label {
-            font-size: 0.75rem;
-            color: var(--pink-light);
-            margin-bottom: 6px;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
         .power-bar-container {
             width: 100%;
             height: 16px;
@@ -100,7 +92,7 @@
             border: 2px solid var(--purple-neon);
             border-radius: 4px;
             overflow: hidden;
-            position: relative;
+            margin-top: 6px;
         }
         .power-bar-fill {
             height: 100%;
@@ -111,10 +103,9 @@
         }
         @keyframes pulsePower {
             0% { opacity: 0.7; width: 75%; }
-            100% { opacity: 1; width: 95%; }
+            100% { opacity: 1; width: 98%; }
         }
 
-        /* PULSING PIXEL HEART WIDGET */
         .big-pixel-heart {
             font-size: 2.5rem;
             color: var(--pink-neon);
@@ -130,14 +121,14 @@
         .arcade-cabinet {
             position: relative;
             z-index: 10;
-            width: 50%;
+            width: 52%;
             max-width: 620px;
             min-width: 380px;
             max-height: 94vh;
-            background: var(--purple-card);
+            background: var(--card-bg);
             border: 4px solid var(--border-pixel);
-            border-radius: 10px; 
-            padding: 22px;
+            border-radius: 12px; 
+            padding: 24px;
             box-shadow: 0 0 0 4px #10002b, 0 20px 60px rgba(0,0,0,0.95), 0 0 50px rgba(255, 0, 127, 0.4);
             display: flex;
             flex-direction: column;
@@ -157,49 +148,79 @@
             100% { transform: translate(0, 0); }
         }
 
-        .glitch-title {
-            font-size: 1.5rem;
-            letter-spacing: 2px; 
-            color: var(--pink-light); 
-            text-shadow: 0 0 12px var(--pink-neon);
-            text-align: center;
-            line-height: 1.4;
-        }
-
-        /* MINI PUZZLE / LOCK GATEWAY */
-        .puzzle-box {
-            background: #110022;
-            border: 2px dashed var(--pink-light);
-            border-radius: 6px;
-            padding: 18px;
-            width: 100%;
-            text-align: center;
-            margin: 15px 0;
-        }
-        .symbol-selector-row {
+        /* --- GIANT PURPLE FLOWER BUTTON --- */
+        .start-flower-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
             gap: 15px;
-            margin: 15px 0;
-        }
-        .symbol-btn {
-            background: #240046;
-            border: 2px solid var(--pink-neon);
-            color: #fff;
-            font-size: 1.8rem;
-            width: 55px;
-            height: 55px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .symbol-btn:hover {
-            background: var(--pink-neon);
-            transform: scale(1.1);
-            box-shadow: 0 0 15px var(--pink-neon);
+            margin-top: 15px;
+            outline: none;
+            transition: transform 0.2s ease;
         }
 
-        /* --- ENDING CARD & UPLOADED IMAGE EMBEDDED --- */
+        .start-flower-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .flower-icon {
+            font-size: 5rem;
+            filter: drop-shadow(0 0 25px #9d4edd) drop-shadow(0 0 40px #ff007f);
+            animation: spinFlower 8s linear infinite;
+        }
+
+        @keyframes spinFlower {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .flower-text {
+            background: linear-gradient(135deg, #ff007f, #9d4edd);
+            color: #ffffff;
+            font-family: var(--font-retro);
+            font-weight: bold;
+            font-size: 1.25rem;
+            padding: 16px 28px;
+            border-radius: 30px;
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 25px var(--pink-neon), 0 0 50px var(--purple-neon);
+            text-align: center;
+            line-height: 1.3;
+            letter-spacing: 1px;
+        }
+
+        /* --- UNIQUE MINI GAME: CATCH THE HEART KEYS --- */
+        .heart-catch-area {
+            width: 100%;
+            height: 220px;
+            background: #0a0218;
+            border: 3px double var(--pink-light);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            margin: 15px 0;
+            cursor: crosshair;
+        }
+
+        .floating-target-heart {
+            position: absolute;
+            font-size: 2.2rem;
+            cursor: pointer;
+            user-select: none;
+            animation: floatDown 3.5s linear infinite;
+            filter: drop-shadow(0 0 10px #ff007f);
+        }
+
+        @keyframes floatDown {
+            0% { top: -40px; opacity: 1; }
+            100% { top: 230px; opacity: 0.2; }
+        }
+
+        /* --- ENDING CARD & EXACT SKETCH IMAGE EMBEDDED --- */
         .ending-card-large {
             width: 100%;
             background: #0d021a;
@@ -223,13 +244,13 @@
             width: 100%;
             max-width: 440px;
             height: auto;
-            border-radius: 6px;
+            border-radius: 8px;
             border: 2px solid var(--pink-light);
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.7);
             object-fit: contain;
         }
 
-        /* CREDITS SCROLLING MOVIE FILM */
+        /* CREDITS SCROLLING TRACK */
         .movie-credits-container {
             width: 100%;
             height: 180px;
@@ -244,7 +265,7 @@
         .credits-scroll-track {
             position: absolute;
             width: 100%;
-            animation: scrollMovieStory 40s infinite linear;
+            animation: scrollMovieStory 35s infinite linear;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -272,7 +293,7 @@
             padding: 0 10px;
         }
 
-        /* BUTTONS AND INPUTS */
+        /* GENERAL UI ELEMENTS */
         .level-badge {
             font-size: 0.95rem;
             color: var(--pink-light);
@@ -353,7 +374,7 @@
             justify-content: center;
             align-items: center;
             z-index: 999999;
-            background: rgba(7, 3, 20, 0.7);
+            background: rgba(5, 2, 10, 0.8);
         }
 
         .true-center-banner {
@@ -366,6 +387,7 @@
             padding: 30px 45px;
             box-shadow: 0 0 50px var(--pink-neon);
             animation: popCenterTrue 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            border-radius: 8px;
         }
 
         @keyframes popCenterTrue {
@@ -376,13 +398,13 @@
 </head>
 <body>
 
-    <!-- PIXEL GALAXY CANVAS -->
+    <!-- PIXEL GALAXY CANVAS (PINK, PURPLE & BLACK ONLY) -->
     <canvas id="fx-canvas"></canvas>
 
     <!-- LEFT ARCADE STAGE -->
     <div class="arcade-side-stage left-stage">
         <div class="side-widget-card">
-            <div class="power-meter-label">⚡ LOVE MATRIX ENERGY</div>
+            <div style="font-size: 0.75rem; color: var(--pink-light); font-weight: bold;">⚡ LOVE ENERGY</div>
             <div class="power-bar-container">
                 <div class="power-bar-fill"></div>
             </div>
@@ -410,7 +432,7 @@
         </div>
 
         <div class="side-widget-card">
-            <div class="power-meter-label">🔮 QUEST OVERDRIVE</div>
+            <div style="font-size: 0.75rem; color: var(--pink-light); font-weight: bold;">🔮 QUEST OVERDRIVE</div>
             <div class="power-bar-container">
                 <div class="power-bar-fill" style="animation-delay: 0.5s;"></div>
             </div>
@@ -422,44 +444,36 @@
     <!-- MAIN ARCADE CABINET -->
     <div class="arcade-cabinet" id="main-cabinet">
         
-        <!-- INTRO SCREEN -->
+        <!-- INTRO SCREEN WITH BIG PURPLE FLOWER BUTTON -->
         <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:18px; width: 100%;">
-            <div class="glitch-title">
-                🐱 KITTY QUEST: PIXEL HEARTS 🐱<br>
-                <span style="font-size:1rem; color: var(--pink-light);">PURPLE & PINK GALAXY EDITION</span>
+            <div style="font-size: 1.5rem; letter-spacing: 2px; color: var(--pink-light); text-shadow: 0 0 12px var(--pink-neon); text-align: center;">
+                🐱 KITTY QUEST: GALAXY EDITION 🐱
             </div>
 
-            <div class="puzzle-box">
-                <div style="font-size:0.85rem; color: var(--pink-light); margin-bottom: 8px;">
-                    🔒 LEVEL 0 TWIST: DECRYPT THE HEART LOCK TO START
-                </div>
-                <div style="font-size:0.8rem; color: #aaa;">Click the correct sequence of pixel keys:</div>
-                <div class="symbol-selector-row">
-                    <button class="symbol-btn" onclick="pressPuzzleSymbol('🌙')">🌙</button>
-                    <button class="symbol-btn" onclick="pressPuzzleSymbol('💖')">💖</button>
-                    <button class="symbol-btn" onclick="pressPuzzleSymbol('🐾')">🐾</button>
-                </div>
-                <div id="puzzle-status" style="font-size:0.85rem; color: var(--pink-neon); font-weight: bold; min-height: 1.2em;">
-                    [LOCK ENGAGED]
-                </div>
-            </div>
-
-            <button class="action-btn hidden" id="start-quest-btn">START QUEST 🕹️</button>
+            <!-- BIG PURPLE FLOWER BUTTON -->
+            <button class="start-flower-btn" id="flower-start-trigger">
+                <div class="flower-icon">🌺</div>
+                <div class="flower-text">welcome to my game hun bun 💜</div>
+            </button>
         </div>
 
-        <!-- ARCADE SLOT MACHINE INTERVIEW HUB -->
+        <!-- NEW MINI-GAME HUB: CATCH THE HEART KEYS -->
         <div id="game-screen" class="hidden" style="width:100%;">
             <div class="level-badge" id="lvl-title">LEVEL 1: THE FOUNDATION</div>
-            <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 5</div>
+            <div class="step-counter" id="game-progress">Hearts Collected: 0 / 5</div>
             
-            <div style="background: #110022; border: 3px double var(--pink-neon); padding: 20px; border-radius: 8px; text-align: center;">
-                <div style="font-size:0.8rem; color: var(--pink-light); margin-bottom: 12px;">🎰 PULL LEVER TO GENERATE NEXT DATA NODE</div>
-                <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 18px;">
-                    <div id="reel-1" style="font-size: 2.2rem; background: #070314; border: 2px solid var(--purple-neon); width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">🐱</div>
-                    <div id="reel-2" style="font-size: 2.2rem; background: #070314; border: 2px solid var(--pink-neon); width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">💜</div>
-                    <div id="reel-3" style="font-size: 2.2rem; background: #070314; border: 2px solid var(--purple-neon); width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">🐱</div>
+            <div style="background: #110022; border: 3px double var(--pink-neon); padding: 16px; border-radius: 8px; text-align: center;">
+                <div style="font-size:0.9rem; color: var(--pink-light); font-weight: bold;">
+                    💖 CATCH A FALLING HEART KEY TO UNLOCK QUESTION!
                 </div>
-                <button class="action-btn" id="spin-btn">PULL LEVER 🕹️</button>
+                
+                <div class="heart-catch-area" id="catch-arena">
+                    <!-- Hearts will spawn here dynamically -->
+                </div>
+
+                <div id="catch-instructions" style="font-size:0.8rem; color: var(--purple-neon); font-weight: bold;">
+                    [ Tap or click any floating heart above ]
+                </div>
             </div>
         </div>
 
@@ -472,21 +486,21 @@
             <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
         </div>
 
-        <!-- ENDING SCREEN WITH EMBEDDED ORIGINAL SKETCH PICTURE -->
+        <!-- ENDING SCREEN WITH EXACT SKETCH IMAGE EMBEDDED -->
         <div id="end-screen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             <h1 style="font-size: 1.1rem; color: var(--pink-neon); text-align:center; letter-spacing: 2px; margin-bottom: 6px; text-shadow: 0 0 10px var(--pink-neon);">
                 🏆 QUEST CLEAR: FOREVER MATRIX ENGAGED 🏆
             </h1>
             
-            <!-- UPLOADED SKETCH PICTURE DISPLAY CARD -->
+            <!-- EXACT PENCIL SKETCH PICTURE DISPLAY CARD -->
             <div class="ending-card-large">
                 <img id="sketch-img-element" class="uploaded-sketch-img" alt="Usman & Partner Pencil Sketch" />
-                <div style="margin-top: 10px; font-size: 0.9rem; color: var(--pink-light); text-align: center; font-weight: bold;">
+                <div style="margin-top: 10px; font-size: 0.95rem; color: var(--pink-light); text-align: center; font-weight: bold;">
                     I love you so much usman &lt;3 muah~♡
                 </div>
             </div>
 
-            <!-- SCROLLING CREDITS -->
+            <!-- SCROLLING CREDITS STORY -->
             <div class="movie-credits-container">
                 <div class="credits-scroll-track" id="credits-loop-element"></div>
             </div>
@@ -495,7 +509,7 @@
     </div>
 
     <script>
-        // ACTUAL BASE64 EMBEDDED SKETCH IMAGE DATA
+        // EXACT BASE64 DATA OF THE ORIGINAL PENCIL SKETCH IMAGE
         const SKETCH_BASE64_URI = "data:image/jpeg;base64," + "CUSTOM_B64_DATA_KEY";
 
         const questionsList = [
@@ -509,32 +523,7 @@
         const WEB3FORMS_ACCESS_KEY = "2e120831-8dcc-42cf-b1ca-904ad12ea316";
 
         let currentStep = 0;
-        let finalEndStateActive = false;
         const compiledData = {};
-
-        /* --- MINI PUZZLE LOCK MECHANIC --- */
-        let puzzleSequence = [];
-        function pressPuzzleSymbol(sym) {
-            puzzleSequence.push(sym);
-            const statusEl = document.getElementById('puzzle-status');
-            statusEl.textContent = `CODE: ${puzzleSequence.join(' ')}`;
-
-            if (puzzleSequence.length === 3) {
-                if (puzzleSequence[0] === '💖' && puzzleSequence[1] === '🐾' && puzzleSequence[2] === '🌙') {
-                    statusEl.style.color = '#00ffcc';
-                    statusEl.textContent = '🔓 GATEWAY UNLOCKED!';
-                    document.getElementById('start-quest-btn').classList.remove('hidden');
-                } else if (puzzleSequence.join('') === '💖💖💖') {
-                    statusEl.style.color = '#ff007f';
-                    statusEl.textContent = '✨ TRIPLE HEART OVERDRIVE UNLOCKED!';
-                    document.getElementById('start-quest-btn').classList.remove('hidden');
-                } else {
-                    statusEl.style.color = '#ff0055';
-                    statusEl.textContent = '❌ INCORRECT! HINT: Try 💖 then 🐾 then 🌙';
-                    puzzleSequence = [];
-                }
-            }
-        }
 
         /* --- SIDE CAT ANIMATIONS --- */
         let freakyFrameCounter = 0;
@@ -596,11 +585,11 @@
         }
         runFreakyCatsEngine();
 
-        /* --- PIXEL GALAXY CANVAS ENGINE (PURPLE, PINK & BLACK) --- */
+        /* --- PURPLE, PINK & BLACK PIXEL GALAXY CANVAS --- */
         const fxCanvas = document.getElementById('fx-canvas');
         const ctx = fxCanvas.getContext('2d');
         let galaxyStars = [];
-        let fallingHearts = [];
+        let nebulaClouds = [];
 
         function resizeCanvas() {
             fxCanvas.width = window.innerWidth;
@@ -619,7 +608,7 @@
                 this.size = Math.random() * 2.5 + 1;
                 this.alpha = Math.random();
                 this.speed = Math.random() * 0.02 + 0.005;
-                const colors = ['#ff007f', '#9d4edd', '#f472b6', '#ffffff', '#e0aaff'];
+                const colors = ['#ff007f', '#9d4edd', '#f472b6', '#ffffff', '#e0aaff', '#240046'];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
             }
             update() {
@@ -637,59 +626,46 @@
             }
         }
 
-        class PixelHeartRain {
+        class NebulaCloud {
             constructor() {
-                this.reset();
-            }
-            reset() {
                 this.x = Math.random() * fxCanvas.width;
-                this.y = -20;
-                this.size = Math.random() * 12 + 10;
-                this.speedY = Math.random() * 2 + 1;
-                this.opacity = Math.random() * 0.7 + 0.3;
-                const colors = ['#ff007f', '#9d4edd', '#f472b6'];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-            }
-            update() {
-                this.y += this.speedY;
-                if (this.y > fxCanvas.height + 20) {
-                    this.reset();
-                }
+                this.y = Math.random() * fxCanvas.height;
+                this.radius = Math.random() * 200 + 100;
+                this.color = Math.random() > 0.5 ? 'rgba(157, 78, 221, 0.12)' : 'rgba(255, 0, 127, 0.10)';
             }
             draw() {
                 ctx.save();
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = this.color;
-                ctx.font = `${this.size}px monospace`;
-                ctx.fillText("♥", this.x, this.y);
+                let grad = ctx.createRadialGradient(this.x, this.y, 10, this.x, this.y, this.radius);
+                grad.addColorStop(0, this.color);
+                grad.addColorStop(1, 'rgba(5, 2, 10, 0)');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
                 ctx.restore();
             }
         }
 
-        // Initialize Galaxy & Hearts
-        for (let i = 0; i < 90; i++) galaxyStars.push(new GalaxyStar());
-        for (let i = 0; i < 35; i++) fallingHearts.push(new PixelHeartRain());
+        for (let i = 0; i < 110; i++) galaxyStars.push(new GalaxyStar());
+        for (let i = 0; i < 6; i++) nebulaClouds.push(new NebulaCloud());
 
         function galaxyEngineLoop() {
             ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
             
-            // Draw Galaxy Background Stars
+            // Draw Nebulae
+            for (let i = 0; i < nebulaClouds.length; i++) nebulaClouds[i].draw();
+
+            // Draw Stars
             for (let i = 0; i < galaxyStars.length; i++) {
                 galaxyStars[i].update();
                 galaxyStars[i].draw();
-            }
-
-            // Draw Falling Heart Rain
-            for (let i = 0; i < fallingHearts.length; i++) {
-                fallingHearts[i].update();
-                fallingHearts[i].draw();
             }
 
             requestAnimationFrame(galaxyEngineLoop);
         }
         galaxyEngineLoop();
 
-        /* --- GAME LOGIC CONTROLS --- */
+        /* --- GAME LOGIC & HEART CATCH MECHANIC --- */
         const cabinet = document.getElementById('main-cabinet');
         const introDiv = document.getElementById('intro-screen');
         const gameDiv = document.getElementById('game-screen');
@@ -699,7 +675,6 @@
         const qText = document.getElementById('active-question');
         const inputField = document.getElementById('response-field');
         const nextButton = document.getElementById('next-btn');
-        const spinBtn = document.getElementById('spin-btn');
         const alertMask = document.getElementById('global-alert-mask');
 
         function getLevelName() {
@@ -708,7 +683,8 @@
             return "LEVEL 3: ULTIMATE CLARITY";
         }
 
-        document.getElementById('start-quest-btn').addEventListener('click', () => {
+        // START GAME VIA BIG PURPLE FLOWER
+        document.getElementById('flower-start-trigger').addEventListener('click', () => {
             introDiv.classList.add('hidden');
             initiateGameTurn();
         });
@@ -717,22 +693,36 @@
             dialogDiv.classList.add('hidden');
             gameDiv.classList.remove('hidden');
             document.getElementById('lvl-title').textContent = getLevelName();
-            document.getElementById('game-progress').textContent = `Hearts Cleared: ${currentStep} / ${questionsList.length}`;
-            spinBtn.disabled = false;
-            spinBtn.textContent = "PULL LEVER 🕹️";
+            document.getElementById('game-progress').textContent = `Hearts Collected: ${currentStep} / ${questionsList.length}`;
+            
+            spawnFallingHeartsArea();
         }
 
-        spinBtn.addEventListener('click', () => {
-            spinBtn.disabled = true;
-            spinBtn.textContent = "SPINNING...";
-            
-            setTimeout(() => { document.getElementById('reel-1').textContent = "💖"; }, 300);
-            setTimeout(() => { document.getElementById('reel-2').textContent = "🐱"; }, 600);
-            setTimeout(() => {
-                document.getElementById('reel-3').textContent = "💖";
-                setTimeout(revealDialogue, 400);
-            }, 900);
-        });
+        let heartSpawnInterval = null;
+        function spawnFallingHeartsArea() {
+            const arena = document.getElementById('catch-arena');
+            arena.innerHTML = '';
+
+            function createSingleHeart() {
+                const h = document.createElement('div');
+                h.className = 'floating-target-heart';
+                const icons = ['💖', '💜', '🐾', '🌸', '✨'];
+                h.textContent = icons[Math.floor(Math.random() * icons.length)];
+                h.style.left = Math.floor(Math.random() * 80 + 5) + '%';
+                h.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
+
+                h.addEventListener('click', () => {
+                    clearInterval(heartSpawnInterval);
+                    revealDialogue();
+                });
+
+                arena.appendChild(h);
+                setTimeout(() => { if (h.parentNode) h.parentNode.removeChild(h); }, 3500);
+            }
+
+            createSingleHeart();
+            heartSpawnInterval = setInterval(createSingleHeart, 800);
+        }
 
         function revealDialogue() {
             gameDiv.classList.add('hidden');
@@ -793,7 +783,7 @@
                 if (res.ok) {
                     dialogDiv.classList.add('hidden');
                     
-                    // Assign Real Sketch Image
+                    // Assign Exact Pencil Sketch Image
                     document.getElementById('sketch-img-element').src = SKETCH_BASE64_URI;
                     
                     endDiv.classList.remove('hidden');
