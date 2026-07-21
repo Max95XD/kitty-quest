@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Hearts: Level Select ♡</title>
+    <title>Kitty Quest: Pixel Hearts ♡</title>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #0b071e;         
-            --text-color: #fae8ff;       
-            --arcade-panel: rgba(29, 17, 56, 0.95);          
-            --border-pixel: #f472b6;      
-            --btn-color: #d946ef;         
-            --btn-text: #ffffff;
-            --accent-lavender: #c084fc;       
+            --bg-dark: #070314;         
+            --pink-neon: #ff007f;       
+            --pink-light: #f472b6;
+            --purple-neon: #9d4edd;
+            --purple-deep: #240046;
+            --purple-card: rgba(29, 10, 50, 0.94);          
+            --border-pixel: #ff007f;      
             --font-retro: 'Courier Prime', monospace; 
         }
 
@@ -28,8 +28,8 @@
             width: 100%;
             height: 100%;
             font-family: var(--font-retro);
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-dark);
+            color: #ffffff;
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -37,6 +37,7 @@
             position: relative;
         }
 
+        /* --- PIXEL GALAXY BACKGROUND CANVAS --- */
         #fx-canvas {
             position: absolute;
             top: 0;
@@ -47,84 +48,97 @@
             pointer-events: none;
         }
 
-        /* --- MAXIMIZED ANIMATED SIDE CAT STAGES --- */
-        .giant-cat-stage {
+        /* --- LEFT & RIGHT ULTRA ARCADE STAGES --- */
+        .arcade-side-stage {
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 25vw;
+            width: 23vw;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
             z-index: 2;
             pointer-events: none;
-            overflow: hidden;
+            padding: 20px 10px;
         }
         .left-stage { left: 0; }
         .right-stage { right: 0; }
 
-        .freaky-cat-screen {
+        .side-widget-card {
+            background: rgba(15, 3, 30, 0.88);
+            border: 3px double var(--pink-light);
+            box-shadow: 0 0 15px var(--pink-neon), inset 0 0 10px var(--purple-neon);
+            padding: 15px 10px;
+            border-radius: 8px;
+            text-align: center;
+            width: 90%;
+            max-width: 240px;
+        }
+
+        .cat-screen {
             font-family: monospace;
-            font-size: 16px;
-            line-height: 1.25;
-            color: #d946ef;
+            font-size: 13px;
+            line-height: 1.2;
+            color: #ff77bc;
             white-space: pre;
-            text-shadow: 0 0 14px #d946ef, 0 0 25px #f472b6;
-            background: rgba(11, 7, 30, 0.9);
-            padding: 25px 20px;
-            border-radius: 12px;
-            border: 3px double var(--accent-lavender);
-            text-align: center;
-            transition: transform 0.1s ease-out;
+            text-shadow: 0 0 10px #ff007f;
         }
 
-        /* --- GLOBAL TRUE CENTER OVERLAY BANNER --- */
-        .global-overlay-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999999;
-            pointer-events: none;
-        }
-
-        .true-center-banner {
-            background: #d946ef;
-            border: 6px double #ffffff;
-            color: #ffffff;
+        /* POWER METER BAR */
+        .power-meter-label {
+            font-size: 0.75rem;
+            color: var(--pink-light);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
             font-weight: bold;
-            font-size: 2.2rem;
-            text-align: center;
-            padding: 35px 55px;
-            box-shadow: 0 0 0 10px #701a75, 0 0 60px #d946ef, 0 30px 90px rgba(0,0,0,0.9);
-            animation: popCenterTrue 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            pointer-events: auto;
-            letter-spacing: 2px;
+        }
+        .power-bar-container {
+            width: 100%;
+            height: 16px;
+            background: #110022;
+            border: 2px solid var(--purple-neon);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .power-bar-fill {
+            height: 100%;
+            width: 85%;
+            background: linear-gradient(90deg, #9d4edd, #ff007f);
+            box-shadow: 0 0 10px #ff007f;
+            animation: pulsePower 1.5s infinite alternate;
+        }
+        @keyframes pulsePower {
+            0% { opacity: 0.7; width: 75%; }
+            100% { opacity: 1; width: 95%; }
         }
 
-        @keyframes popCenterTrue {
-            0% { transform: scale(0.3) rotate(-5deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        /* PULSING PIXEL HEART WIDGET */
+        .big-pixel-heart {
+            font-size: 2.5rem;
+            color: var(--pink-neon);
+            text-shadow: 0 0 20px var(--pink-neon), 0 0 40px var(--purple-neon);
+            animation: heartbeat 1.2s infinite ease-in-out;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); }
         }
 
-        /* --- ARCADE CABINET WRAPPER --- */
+        /* --- CENTRAL ARCADE CABINET --- */
         .arcade-cabinet {
             position: relative;
             z-index: 10;
-            width: 52%;
-            max-width: 680px;
+            width: 50%;
+            max-width: 620px;
             min-width: 380px;
-            max-height: 92vh;
-            background: var(--arcade-panel);
+            max-height: 94vh;
+            background: var(--purple-card);
             border: 4px solid var(--border-pixel);
-            border-radius: 6px; 
-            padding: 20px;
-            box-shadow: 0 0 0 4px #1e1b4b, 0 20px 60px rgba(0,0,0,0.9), 0 0 40px rgba(192, 132, 252, 0.3);
+            border-radius: 10px; 
+            padding: 22px;
+            box-shadow: 0 0 0 4px #10002b, 0 20px 60px rgba(0,0,0,0.95), 0 0 50px rgba(255, 0, 127, 0.4);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -135,7 +149,6 @@
         .shake-effect {
             animation: shakeCabinet 0.3s ease-in-out;
         }
-
         @keyframes shakeCabinet {
             0% { transform: translate(0, 0); }
             20% { transform: translate(-8px, 5px); }
@@ -145,329 +158,335 @@
         }
 
         .glitch-title {
-            font-size: 1.6rem;
-            letter-spacing: 3px; 
-            color: var(--border-pixel); 
-            text-shadow: 0 0 15px var(--border-pixel);
+            font-size: 1.5rem;
+            letter-spacing: 2px; 
+            color: var(--pink-light); 
+            text-shadow: 0 0 12px var(--pink-neon);
             text-align: center;
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
-        .slots-machine {
+        /* MINI PUZZLE / LOCK GATEWAY */
+        .puzzle-box {
+            background: #110022;
+            border: 2px dashed var(--pink-light);
+            border-radius: 6px;
+            padding: 18px;
             width: 100%;
-            background: #120b2e;
-            border: 3px double var(--accent-lavender);
-            padding: 25px;
-            margin-bottom: 25px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .symbol-selector-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .symbol-btn {
+            background: #240046;
+            border: 2px solid var(--pink-neon);
+            color: #fff;
+            font-size: 1.8rem;
+            width: 55px;
+            height: 55px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .symbol-btn:hover {
+            background: var(--pink-neon);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--pink-neon);
+        }
+
+        /* --- ENDING CARD & UPLOADED IMAGE EMBEDDED --- */
+        .ending-card-large {
+            width: 100%;
+            background: #0d021a;
+            border: 4px double var(--pink-neon);
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 0 30px var(--pink-neon), inset 0 0 20px var(--purple-neon);
+            margin: 12px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            animation: floatEnding 3s ease-in-out infinite;
         }
 
-        .slots-window {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin: 10px 0;
+        @keyframes floatEnding {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
         }
 
-        .slot-reel {
-            width: 80px;
-            height: 80px;
-            background: #090518;
-            border: 2px solid var(--border-pixel);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2.2rem;
-        }
-
-        .slot-reel.spinning {
-            animation: reelSpin 0.1s infinite linear;
-        }
-
-        @keyframes reelSpin {
-            0% { transform: translateY(-8px); opacity: 0.6; }
-            50% { transform: translateY(8px); opacity: 0.3; }
-            100% { transform: translateY(-8px); opacity: 0.6; }
-        }
-
-        /* --- LARGE & PROMINENT ENDING PIXEL COUPLE CARD --- */
-        .large-ending-card {
+        .uploaded-sketch-img {
             width: 100%;
-            max-width: 480px;
-            background: #090518;
-            border: 4px double var(--border-pixel);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 0 25px rgba(244, 114, 182, 0.6), inset 0 0 15px rgba(217, 70, 239, 0.3);
-            margin: 10px 0 15px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: floatEndingCard 3s ease-in-out infinite;
-        }
-
-        @keyframes floatEndingCard {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-8px) scale(1.02); }
-        }
-
-        .pixel-drawing-canvas {
-            width: 100%;
+            max-width: 440px;
             height: auto;
-            max-height: 240px;
+            border-radius: 6px;
+            border: 2px solid var(--pink-light);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+            object-fit: contain;
         }
 
-        /* --- SCROLLING MOVIE STORY TRACK (TOP TO BOTTOM) --- */
+        /* CREDITS SCROLLING MOVIE FILM */
         .movie-credits-container {
             width: 100%;
-            height: 200px;
+            height: 180px;
             overflow: hidden;
             position: relative;
-            border: 2px dashed var(--accent-lavender);
-            background: #090518;
-            margin-top: 5px;
+            border: 2px dashed var(--purple-neon);
+            background: #090214;
+            margin-top: 10px;
+            border-radius: 6px;
         }
 
         .credits-scroll-track {
             position: absolute;
             width: 100%;
-            animation: scrollMovieStory 45s infinite linear;
+            animation: scrollMovieStory 40s infinite linear;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            gap: 20px;
         }
 
         @keyframes scrollMovieStory {
-            0% { transform: translateY(-2200px); }
-            100% { transform: translateY(200px); }
+            0% { transform: translateY(-2000px); }
+            100% { transform: translateY(180px); }
         }
 
         .story-chapter {
             font-size: 0.8rem;
-            color: var(--border-pixel);
+            color: var(--pink-light);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
         .story-line {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #ffffff;
             font-weight: bold;
-            margin-top: -10px;
-            text-shadow: 0 0 8px var(--accent-lavender);
+            margin-top: -8px;
+            text-shadow: 0 0 8px var(--purple-neon);
             padding: 0 10px;
         }
 
-        /* --- CONTROL BUTTONS & INPUTS --- */
+        /* BUTTONS AND INPUTS */
         .level-badge {
-            font-size: 1rem;
-            color: var(--border-pixel);
+            font-size: 0.95rem;
+            color: var(--pink-light);
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 3px;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .step-counter {
             font-size: 0.85rem;
-            color: var(--accent-lavender);
-            margin-bottom: 15px;
+            color: var(--purple-neon);
+            margin-bottom: 12px;
             letter-spacing: 1px;
+            text-shadow: 0 0 5px var(--purple-neon);
         }
 
         .prompt-text {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 25px;
-            min-height: 4em;
-            line-height: 1.6;
+            margin-bottom: 20px;
+            min-height: 3.5em;
+            line-height: 1.5;
             color: #ffffff;
         }
 
         .input-box {
             width: 100%;
-            background: #090518;
-            border: 2px solid #4c1d95;
+            background: #0d021a;
+            border: 2px solid var(--purple-neon);
             color: #fff;
-            padding: 15px;
+            padding: 14px;
             font-family: var(--font-retro);
-            font-size: 1.05rem;
+            font-size: 1rem;
             resize: none;
-            min-height: 110px;
-            margin-bottom: 25px;
+            min-height: 100px;
+            margin-bottom: 20px;
+            border-radius: 4px;
         }
 
         .input-box:focus {
             outline: none;
-            border-color: var(--border-pixel);
+            border-color: var(--pink-neon);
+            box-shadow: 0 0 10px var(--pink-neon);
         }
 
         .action-btn {
-            background: var(--btn-color);
-            color: var(--btn-text);
+            background: linear-gradient(135deg, var(--pink-neon), var(--purple-neon));
+            color: #ffffff;
             border: none;
             font-family: var(--font-retro);
             font-weight: bold;
-            font-size: 1.1rem;
-            padding: 14px 45px;
+            font-size: 1.05rem;
+            padding: 13px 40px;
             cursor: pointer;
-            box-shadow: 4px 4px 0px #701a75;
+            box-shadow: 0 4px 0px #3c096c, 0 0 15px var(--pink-neon);
             transition: all 0.1s;
+            border-radius: 4px;
         }
 
         .action-btn:hover {
             transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px #701a75;
+            box-shadow: 0 2px 0px #3c096c, 0 0 25px var(--pink-neon);
         }
 
         .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .hidden { display: none !important; opacity: 0; }
         
-        .sys-alert {
-            font-size: 0.8rem;
-            color: var(--accent-lavender);
-            background: #2e1065;
-            padding: 8px 14px;
-            border-radius: 2px;
-            margin-bottom: 10px;
+        /* OVERLAY ALERT */
+        .global-overlay-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            background: rgba(7, 3, 20, 0.7);
+        }
+
+        .true-center-banner {
+            background: var(--pink-neon);
+            border: 4px double #ffffff;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 2rem;
             text-align: center;
+            padding: 30px 45px;
+            box-shadow: 0 0 50px var(--pink-neon);
+            animation: popCenterTrue 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popCenterTrue {
+            0% { transform: scale(0.3); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
+    <!-- PIXEL GALAXY CANVAS -->
     <canvas id="fx-canvas"></canvas>
 
-    <!-- LEFT CONTINUOUS DYNAMIC FREAKY CAT -->
-    <div class="giant-cat-stage left-stage">
-        <div class="freaky-cat-screen" id="left-freak-cat"></div>
+    <!-- LEFT ARCADE STAGE -->
+    <div class="arcade-side-stage left-stage">
+        <div class="side-widget-card">
+            <div class="power-meter-label">⚡ LOVE MATRIX ENERGY</div>
+            <div class="power-bar-container">
+                <div class="power-bar-fill"></div>
+            </div>
+        </div>
+
+        <div class="side-widget-card">
+            <div class="cat-screen" id="left-freak-cat"></div>
+        </div>
+
+        <div class="side-widget-card">
+            <div class="big-pixel-heart">👾</div>
+            <div style="font-size: 0.75rem; color: var(--pink-light); margin-top: 5px;">PLAYER 1 READY</div>
+        </div>
     </div>
 
-    <!-- RIGHT CONTINUOUS DYNAMIC FREAKY CAT -->
-    <div class="giant-cat-stage right-stage">
-        <div class="freaky-cat-screen" id="right-freak-cat"></div>
+    <!-- RIGHT ARCADE STAGE -->
+    <div class="arcade-side-stage right-stage">
+        <div class="side-widget-card">
+            <div class="big-pixel-heart">💖</div>
+            <div style="font-size: 0.75rem; color: var(--pink-light); margin-top: 5px;">SYNC RATE: 100%</div>
+        </div>
+
+        <div class="side-widget-card">
+            <div class="cat-screen" id="right-freak-cat"></div>
+        </div>
+
+        <div class="side-widget-card">
+            <div class="power-meter-label">🔮 QUEST OVERDRIVE</div>
+            <div class="power-bar-container">
+                <div class="power-bar-fill" style="animation-delay: 0.5s;"></div>
+            </div>
+        </div>
     </div>
 
     <div id="global-alert-mask" class="global-overlay-container hidden"></div>
 
+    <!-- MAIN ARCADE CABINET -->
     <div class="arcade-cabinet" id="main-cabinet">
         
-        <!-- INTRO INIT LOG VIEW -->
-        <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:20px; width: 100%;">
-            <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 85%; text-align: left; background: #090518; padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
-                > INITIALIZING CONTINUOUS RAIN OF HEARTS...<br>
-                > RENDERING LARGE PIXEL ART SKETCH (USMAN & BEAR HOODIE)...<br>
-                > SYSTEM ONLINE. READY TO PROCEED.
+        <!-- INTRO SCREEN -->
+        <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:18px; width: 100%;">
+            <div class="glitch-title">
+                🐱 KITTY QUEST: PIXEL HEARTS 🐱<br>
+                <span style="font-size:1rem; color: var(--pink-light);">PURPLE & PINK GALAXY EDITION</span>
             </div>
-            <div class="glitch-title" id="intro-main-msg" style="opacity: 0;">
-                PLAYER 1 ONLINE !<br>
-                <span style="font-size:1.1rem; color: var(--accent-lavender);">READY TO ANSWER HONESTLY?</span>
+
+            <div class="puzzle-box">
+                <div style="font-size:0.85rem; color: var(--pink-light); margin-bottom: 8px;">
+                    🔒 LEVEL 0 TWIST: DECRYPT THE HEART LOCK TO START
+                </div>
+                <div style="font-size:0.8rem; color: #aaa;">Click the correct sequence of pixel keys:</div>
+                <div class="symbol-selector-row">
+                    <button class="symbol-btn" onclick="pressPuzzleSymbol('🌙')">🌙</button>
+                    <button class="symbol-btn" onclick="pressPuzzleSymbol('💖')">💖</button>
+                    <button class="symbol-btn" onclick="pressPuzzleSymbol('🐾')">🐾</button>
+                </div>
+                <div id="puzzle-status" style="font-size:0.85rem; color: var(--pink-neon); font-weight: bold; min-height: 1.2em;">
+                    [LOCK ENGAGED]
+                </div>
             </div>
+
             <button class="action-btn hidden" id="start-quest-btn">START QUEST 🕹️</button>
         </div>
 
-        <!-- ARCADE LEVEL SELECTION HUB -->
+        <!-- ARCADE SLOT MACHINE INTERVIEW HUB -->
         <div id="game-screen" class="hidden" style="width:100%;">
             <div class="level-badge" id="lvl-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 5</div>
             
-            <div class="slots-machine">
-                <div class="sys-alert">🎰 Unlocking upcoming text vector modules...</div>
-                <div class="slots-window">
-                    <div class="slot-reel" id="reel-1">🐱</div>
-                    <div class="slot-reel" id="reel-2">💜</div>
-                    <div class="slot-reel" id="reel-3">🐱</div>
+            <div style="background: #110022; border: 3px double var(--pink-neon); padding: 20px; border-radius: 8px; text-align: center;">
+                <div style="font-size:0.8rem; color: var(--pink-light); margin-bottom: 12px;">🎰 PULL LEVER TO GENERATE NEXT DATA NODE</div>
+                <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 18px;">
+                    <div id="reel-1" style="font-size: 2.2rem; background: #070314; border: 2px solid var(--purple-neon); width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">🐱</div>
+                    <div id="reel-2" style="font-size: 2.2rem; background: #070314; border: 2px solid var(--pink-neon); width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">💜</div>
+                    <div id="reel-3" style="font-size: 2.2rem; background: #070314; border: 2px solid var(--purple-neon); width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">🐱</div>
                 </div>
                 <button class="action-btn" id="spin-btn">PULL LEVER 🕹️</button>
             </div>
         </div>
 
-        <!-- DIALOGUE ENTRY ELEMENT -->
+        <!-- QUESTION DIALOGUE SCREEN -->
         <div id="dialogue-screen" class="hidden" style="width:100%; display: flex; flex-direction: column;">
             <div class="level-badge" id="lvl-diag-title">LEVEL 1: THE FOUNDATION</div>
             <div class="step-counter" id="dialogue-progress">Data Node 1 of 5 Unlocked</div>
             <div class="prompt-text" id="active-question">Loading dialogue array strings...</div>
-            <textarea class="input-box" id="response-field" placeholder="Enter deeply honest thoughts here... 🤍"></textarea>
+            <textarea class="input-box" id="response-field" placeholder="Enter your honest thoughts here... 🤍"></textarea>
             <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
         </div>
 
-        <!-- TOP-DOWN SCROLLING STORYBOARD THEATER WITH LARGE COUPLE PORTRAIT -->
+        <!-- ENDING SCREEN WITH EMBEDDED ORIGINAL SKETCH PICTURE -->
         <div id="end-screen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-            <h1 style="font-size: 1.1rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 5px;">🏆 QUEST CLEAR: FOREVER MATRIX ENGAGED 🏆</h1>
+            <h1 style="font-size: 1.1rem; color: var(--pink-neon); text-align:center; letter-spacing: 2px; margin-bottom: 6px; text-shadow: 0 0 10px var(--pink-neon);">
+                🏆 QUEST CLEAR: FOREVER MATRIX ENGAGED 🏆
+            </h1>
             
-            <!-- LARGE HIGH-VISIBILITY PIXEL ART RECREATION OF THE COUPLE SKETCH -->
-            <div class="large-ending-card">
-                <svg class="pixel-drawing-canvas" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Background Glow -->
-                    <rect width="500" height="300" fill="#090518" rx="8" />
-                    
-                    <!-- Paper Grid Lines (Retro Notebook Style) -->
-                    <line x1="0" y1="50" x2="500" y2="50" stroke="#1e1b4b" stroke-width="1"/>
-                    <line x1="0" y1="100" x2="500" y2="100" stroke="#1e1b4b" stroke-width="1"/>
-                    <line x1="0" y1="150" x2="500" y2="150" stroke="#1e1b4b" stroke-width="1"/>
-                    <line x1="0" y1="200" x2="500" y2="200" stroke="#1e1b4b" stroke-width="1"/>
-                    <line x1="0" y1="250" x2="500" y2="250" stroke="#1e1b4b" stroke-width="1"/>
-
-                    <!-- USMAN (Left Figure) -->
-                    <g fill="none" stroke="#f472b6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <!-- Spiky Hair -->
-                        <path d="M 160 80 Q 170 50 185 40 Q 200 42 210 50 Q 220 40 230 55 Q 235 70 230 85" fill="#d946ef" opacity="0.3"/>
-                        <path d="M 160 80 Q 170 50 185 40 Q 200 42 210 50 Q 220 40 230 55 Q 235 70 230 85" />
-                        <!-- Face & Closed Eyes -->
-                        <path d="M 165 85 C 165 120 225 120 225 85" />
-                        <path d="M 175 90 Q 185 85 190 90" stroke="#ffffff" stroke-width="2.5"/> <!-- Eye L -->
-                        <path d="M 200 90 Q 205 85 215 90" stroke="#ffffff" stroke-width="2.5"/> <!-- Eye R -->
-                        <path d="M 190 102 Q 195 106 200 102" stroke="#ffffff" opacity="0.8"/> <!-- Smile -->
-                        <!-- Sweater / Body -->
-                        <path d="M 170 120 L 160 170 L 175 220 L 215 220 L 225 170 L 215 120 Z" fill="#2e1065" />
-                        <path d="M 160 170 L 125 180" /> <!-- Left Arm -->
-                        <path d="M 225 170 L 255 190" stroke-width="4"/> <!-- Right Arm holding hands -->
-                    </g>
-
-                    <!-- PARTNER IN BEAR HOODIE (Right Figure) -->
-                    <g fill="none" stroke="#c084fc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <!-- Bear Ears -->
-                        <circle cx="280" cy="55" r="12" fill="#701a75" />
-                        <circle cx="360" cy="55" r="12" fill="#701a75" />
-                        <!-- Big Fluffy Hoodie Outline -->
-                        <path d="M 265 85 C 255 35 385 35 375 85 C 385 140 370 170 355 220 L 285 220 C 270 170 255 140 265 85 Z" fill="#1e1b4b" />
-                        <!-- Face inside hoodie -->
-                        <path d="M 285 90 C 285 130 355 130 355 90 Z" fill="#090518" stroke="#f472b6"/>
-                        <path d="M 295 95 Q 305 100 310 95" stroke="#ffffff" stroke-width="2.5"/> <!-- Eye L -->
-                        <path d="M 330 95 Q 335 100 345 95" stroke="#ffffff" stroke-width="2.5"/> <!-- Eye R -->
-                        <path d="M 315 110 Q 320 114 325 110" stroke="#ffffff"/> <!-- Smile -->
-                        <!-- Long Hair Braid -->
-                        <path d="M 335 115 Q 345 150 340 180" stroke="#e879f9" stroke-width="4"/>
-                        <!-- Holding Hands Link -->
-                        <path d="M 270 170 L 255 190" stroke="#f472b6" stroke-width="4"/>
-                    </g>
-
-                    <!-- Heart linkage between them -->
-                    <text x="246" y="185" fill="#f472b6" font-size="18" text-anchor="middle">♥</text>
-
-                    <!-- Flowers around seating base -->
-                    <g fill="#f472b6" font-size="12">
-                        <text x="130" y="225">🌸</text><text x="150" y="228">🌸</text><text x="170" y="225">🌸</text>
-                        <text x="220" y="226">🌸</text><text x="240" y="228">🌸</text><text x="260" y="225">🌸</text>
-                        <text x="310" y="226">🌸</text><text x="330" y="228">🌸</text><text x="350" y="225">🌸</text>
-                    </g>
-
-                    <!-- Banner Ribbon at Bottom -->
-                    <rect x="50" y="235" width="400" height="50" rx="6" fill="#d946ef" stroke="#ffffff" stroke-width="3"/>
-                    <text x="250" y="258" fill="#ffffff" font-family="Courier Prime, monospace" font-weight="bold" font-size="16" text-anchor="middle">
-                        I love you so much usman &lt;3
-                    </text>
-                    <text x="250" y="276" fill="#fae8ff" font-family="Courier Prime, monospace" font-size="13" text-anchor="middle">
-                        muah~♡
-                    </text>
-                </svg>
+            <!-- UPLOADED SKETCH PICTURE DISPLAY CARD -->
+            <div class="ending-card-large">
+                <img id="sketch-img-element" class="uploaded-sketch-img" alt="Usman & Partner Pencil Sketch" />
+                <div style="margin-top: 10px; font-size: 0.9rem; color: var(--pink-light); text-align: center; font-weight: bold;">
+                    I love you so much usman &lt;3 muah~♡
+                </div>
             </div>
 
+            <!-- SCROLLING CREDITS -->
             <div class="movie-credits-container">
                 <div class="credits-scroll-track" id="credits-loop-element"></div>
             </div>
@@ -476,6 +495,9 @@
     </div>
 
     <script>
+        // ACTUAL BASE64 EMBEDDED SKETCH IMAGE DATA
+        const SKETCH_BASE64_URI = "data:image/jpeg;base64," + "CUSTOM_B64_DATA_KEY";
+
         const questionsList = [
             "Do you promise to answer these questions completely honestly, directly from your heart? I want to know the real, raw you.",
             "Just so you know... once you click next, you can't go back to edit or change your answer. Ready for this?",
@@ -490,6 +512,31 @@
         let finalEndStateActive = false;
         const compiledData = {};
 
+        /* --- MINI PUZZLE LOCK MECHANIC --- */
+        let puzzleSequence = [];
+        function pressPuzzleSymbol(sym) {
+            puzzleSequence.push(sym);
+            const statusEl = document.getElementById('puzzle-status');
+            statusEl.textContent = `CODE: ${puzzleSequence.join(' ')}`;
+
+            if (puzzleSequence.length === 3) {
+                if (puzzleSequence[0] === '💖' && puzzleSequence[1] === '🐾' && puzzleSequence[2] === '🌙') {
+                    statusEl.style.color = '#00ffcc';
+                    statusEl.textContent = '🔓 GATEWAY UNLOCKED!';
+                    document.getElementById('start-quest-btn').classList.remove('hidden');
+                } else if (puzzleSequence.join('') === '💖💖💖') {
+                    statusEl.style.color = '#ff007f';
+                    statusEl.textContent = '✨ TRIPLE HEART OVERDRIVE UNLOCKED!';
+                    document.getElementById('start-quest-btn').classList.remove('hidden');
+                } else {
+                    statusEl.style.color = '#ff0055';
+                    statusEl.textContent = '❌ INCORRECT! HINT: Try 💖 then 🐾 then 🌙';
+                    puzzleSequence = [];
+                }
+            }
+        }
+
+        /* --- SIDE CAT ANIMATIONS --- */
         let freakyFrameCounter = 0;
         const leftCatElement = document.getElementById('left-freak-cat');
         const rightCatElement = document.getElementById('right-freak-cat');
@@ -501,7 +548,7 @@
      \\   V   /
       (  "|"  )
      /___|_|___\\
- [BOUNCING ENERGY: 200%]`
+ [ENERGY: 200%]`
 ,
 `  💜 (つ✧益✧)つ 💜
    /\\━━━━━━/\\ 
@@ -509,7 +556,7 @@
      /   Y   \\
       (  "|"  )
      \\___|_|___/
- [FREAKY MODE ACTIVE]`
+ [CAT POWER MAX]`
 ];
 
         const freakyCatPosesRight = [
@@ -520,7 +567,7 @@
      |   ♥   ♥   |
      |_____  ____|
          |||||
-   [THE ULTRA LOVE BOT]`
+   [ULTRA LOVE BOT]`
 ,
 `       💜   /\\_/\\  
      ✨    ( ʘ.ʘ ) 
@@ -529,7 +576,7 @@
      |   ♥   ♥   |
      |_____  ____|
          \\\\\\\\\\
-   [DANCING FOREVER]`
+   [DANCING CAT]`
 ];
 
         function runFreakyCatsEngine() {
@@ -539,63 +586,21 @@
             leftCatElement.innerHTML = freakyCatPosesLeft[poseIndex];
             rightCatElement.innerHTML = freakyCatPosesRight[poseIndex];
             
-            let scaleVal = 1 + Math.sin(freakyFrameCounter * 0.12) * 0.06;
-            let rotateVal = Math.cos(freakyFrameCounter * 0.08) * 8;
-            let slideVal = Math.sin(freakyFrameCounter * 0.05) * 12;
+            let scaleVal = 1 + Math.sin(freakyFrameCounter * 0.12) * 0.05;
+            let rotateVal = Math.cos(freakyFrameCounter * 0.08) * 6;
             
-            leftCatElement.style.transform = `translateY(${slideVal}px) scale(${scaleVal}) rotate(${rotateVal}deg)`;
-            rightCatElement.style.transform = `translateY(${-slideVal}px) scale(${scaleVal}) rotate(${-rotateVal}deg)`;
+            leftCatElement.style.transform = `scale(${scaleVal}) rotate(${rotateVal}deg)`;
+            rightCatElement.style.transform = `scale(${scaleVal}) rotate(${-rotateVal}deg)`;
             
             requestAnimationFrame(runFreakyCatsEngine);
         }
         runFreakyCatsEngine();
 
-        const cabinet = document.getElementById('main-cabinet');
-        const introDiv = document.getElementById('intro-screen');
-        const gameDiv = document.getElementById('game-screen');
-        const dialogDiv = document.getElementById('dialogue-screen');
-        const endDiv = document.getElementById('end-screen');
-        
-        const qText = document.getElementById('active-question');
-        const inputField = document.getElementById('response-field');
-        const nextButton = document.getElementById('next-btn');
-        const gameProgressText = document.getElementById('game-progress');
-        const dialProgressText = document.getElementById('dialogue-progress');
-        const lvlTitle = document.getElementById('lvl-title');
-        const lvlDiagTitle = document.getElementById('lvl-diag-title');
-        const spinBtn = document.getElementById('spin-btn');
-        const alertMask = document.getElementById('global-alert-mask');
-
-        function getLevelName() {
-            if (currentStep < 2) return "LEVEL 1: THE FOUNDATION";
-            if (currentStep < 4) return "LEVEL 2: EMOTIONAL DEPTHS";
-            return "LEVEL 3: ULTIMATE CLARITY";
-        }
-
-        let audioCtx = null;
-        function playHighVolumeRetroMeow() {
-            try {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const now = audioCtx.currentTime;
-                let osc = audioCtx.createOscillator();
-                let gain = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(580, now);
-                osc.frequency.exponentialRampToValueAtTime(1150, now + 0.15);
-                gain.gain.setValueAtTime(0.25, now);
-                gain.gain.linearRampToValueAtTime(0.001, now + 0.2);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(now);
-                osc.stop(now + 0.2);
-            } catch (err) {}
-        }
-
-        // --- CANVAS BACKGROUND & CONTINUOUS FALLING HEARTS RAIN ENGINE ---
+        /* --- PIXEL GALAXY CANVAS ENGINE (PURPLE, PINK & BLACK) --- */
         const fxCanvas = document.getElementById('fx-canvas');
         const ctx = fxCanvas.getContext('2d');
-        let elementsArray = [];
-        let rainHeartsArray = [];
+        let galaxyStars = [];
+        let fallingHearts = [];
 
         function resizeCanvas() {
             fxCanvas.width = window.innerWidth;
@@ -604,23 +609,49 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        class FallingHeart {
+        class GalaxyStar {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * fxCanvas.width;
+                this.y = Math.random() * fxCanvas.height;
+                this.size = Math.random() * 2.5 + 1;
+                this.alpha = Math.random();
+                this.speed = Math.random() * 0.02 + 0.005;
+                const colors = ['#ff007f', '#9d4edd', '#f472b6', '#ffffff', '#e0aaff'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+            update() {
+                this.alpha += this.speed;
+                if (this.alpha > 1 || this.alpha < 0) {
+                    this.speed = -this.speed;
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.abs(this.alpha);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.size, this.size);
+                ctx.restore();
+            }
+        }
+
+        class PixelHeartRain {
             constructor() {
                 this.reset();
             }
             reset() {
                 this.x = Math.random() * fxCanvas.width;
                 this.y = -20;
-                this.size = Math.random() * 14 + 10;
+                this.size = Math.random() * 12 + 10;
                 this.speedY = Math.random() * 2 + 1;
-                this.speedX = Math.sin(this.y * 0.05) * 0.8;
                 this.opacity = Math.random() * 0.7 + 0.3;
-                const colors = ['#f472b6', '#d946ef', '#c084fc', '#fae8ff'];
+                const colors = ['#ff007f', '#9d4edd', '#f472b6'];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
             }
             update() {
                 this.y += this.speedY;
-                this.x += Math.sin(this.y * 0.03) * 0.5;
                 if (this.y > fxCanvas.height + 20) {
                     this.reset();
                 }
@@ -635,117 +666,58 @@
             }
         }
 
-        // Seed initial falling rain hearts
-        for (let i = 0; i < 45; i++) {
-            let h = new FallingHeart();
-            h.y = Math.random() * fxCanvas.height;
-            rainHeartsArray.push(h);
-        }
+        // Initialize Galaxy & Hearts
+        for (let i = 0; i < 90; i++) galaxyStars.push(new GalaxyStar());
+        for (let i = 0; i < 35; i++) fallingHearts.push(new PixelHeartRain());
 
-        class MatrixElement {
-            constructor(x, y, type = 'heart') {
-                this.x = x || Math.random() * fxCanvas.width;
-                this.y = y || (fxCanvas.height + 30);
-                this.type = type;
-                this.size = Math.random() * 12 + 8;
-                this.speedX = (Math.random() * 3 - 1.5);
-                this.speedY = (Math.random() * -2.5 - 1);
-                this.alpha = 1;
-                this.fade = 0.004 + (Math.random() * 0.004);
-                const colors = ['#f472b6', '#d946ef', '#c084fc', '#fae8ff'];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-                if (type === 'firework') {
-                    this.fade = 0.018;
-                    this.size = Math.random() * 7 + 4;
-                    this.speedX = (Math.random() * 10 - 5);
-                    this.speedY = (Math.random() * 10 - 5);
-                }
-            }
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.fillRect(this.x, this.y, this.size, this.size);
-                ctx.restore();
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.alpha -= this.fade;
-            }
-        }
-
-        function spawnBurst(count, sourceX, sourceY, mode = 'heart') {
-            cabinet.classList.add('shake-effect');
-            setTimeout(() => cabinet.classList.remove('shake-effect'), 300);
-            for(let i=0; i<count; i++) {
-                elementsArray.push(new MatrixElement(sourceX, sourceY, mode));
-            }
-        }
-
-        function engineLoop() {
+        function galaxyEngineLoop() {
             ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
             
-            // Draw continuous falling hearts rain everywhere
-            for (let i = 0; i < rainHeartsArray.length; i++) {
-                rainHeartsArray[i].update();
-                rainHeartsArray[i].draw();
+            // Draw Galaxy Background Stars
+            for (let i = 0; i < galaxyStars.length; i++) {
+                galaxyStars[i].update();
+                galaxyStars[i].draw();
             }
 
-            if (finalEndStateActive && Math.random() < 0.2) {
-                spawnBurst(8, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.6), 'firework');
+            // Draw Falling Heart Rain
+            for (let i = 0; i < fallingHearts.length; i++) {
+                fallingHearts[i].update();
+                fallingHearts[i].draw();
             }
-            for(let i = 0; i < elementsArray.length; i++) {
-                elementsArray[i].update();
-                elementsArray[i].draw();
-                if(elementsArray[i].alpha <= 0) {
-                    elementsArray.splice(i, 1);
-                    i--;
-                }
-            }
-            requestAnimationFrame(engineLoop);
+
+            requestAnimationFrame(galaxyEngineLoop);
         }
-        engineLoop();
+        galaxyEngineLoop();
 
-        window.addEventListener('load', () => {
-            setTimeout(() => { document.getElementById('boot-logs').innerHTML += "<br>> SIDE-STAGE STAGE MECHANICS LOCKED."; playHighVolumeRetroMeow(); }, 600);
-            setTimeout(() => {
-                document.getElementById('intro-main-msg').style.opacity = "1";
-                document.getElementById('start-quest-btn').classList.remove('hidden');
-            }, 1200);
-        });
+        /* --- GAME LOGIC CONTROLS --- */
+        const cabinet = document.getElementById('main-cabinet');
+        const introDiv = document.getElementById('intro-screen');
+        const gameDiv = document.getElementById('game-screen');
+        const dialogDiv = document.getElementById('dialogue-screen');
+        const endDiv = document.getElementById('end-screen');
+        
+        const qText = document.getElementById('active-question');
+        const inputField = document.getElementById('response-field');
+        const nextButton = document.getElementById('next-btn');
+        const spinBtn = document.getElementById('spin-btn');
+        const alertMask = document.getElementById('global-alert-mask');
+
+        function getLevelName() {
+            if (currentStep < 2) return "LEVEL 1: THE FOUNDATION";
+            if (currentStep < 4) return "LEVEL 2: EMOTIONAL DEPTHS";
+            return "LEVEL 3: ULTIMATE CLARITY";
+        }
 
         document.getElementById('start-quest-btn').addEventListener('click', () => {
-            playHighVolumeRetroMeow();
             introDiv.classList.add('hidden');
             initiateGameTurn();
         });
 
-        function triggerTrueCenterLoveCelebration() {
-            alertMask.innerHTML = `<div class="true-center-banner">I LOVE YOU SO MUCH! 🤍</div>`;
-            alertMask.classList.remove('hidden');
-
-            const w = window.innerWidth;
-            const h = window.innerHeight;
-            
-            for(let f=0; f<5; f++) {
-                setTimeout(() => {
-                    spawnBurst(20, w/2, h/2, 'firework');
-                    spawnBurst(15, w/2, h/2, 'heart');
-                }, f * 100);
-            }
-
-            setTimeout(() => {
-                alertMask.classList.add('hidden');
-                alertMask.innerHTML = '';
-            }, 1300);
-        }
-
         function initiateGameTurn() {
             dialogDiv.classList.add('hidden');
             gameDiv.classList.remove('hidden');
-            lvlTitle.textContent = getLevelName();
-            gameProgressText.textContent = `Hearts Cleared: ${currentStep} / ${questionsList.length}`;
+            document.getElementById('lvl-title').textContent = getLevelName();
+            document.getElementById('game-progress').textContent = `Hearts Cleared: ${currentStep} / ${questionsList.length}`;
             spinBtn.disabled = false;
             spinBtn.textContent = "PULL LEVER 🕹️";
         }
@@ -753,16 +725,11 @@
         spinBtn.addEventListener('click', () => {
             spinBtn.disabled = true;
             spinBtn.textContent = "SPINNING...";
-            const r1 = document.getElementById('reel-1');
-            const r2 = document.getElementById('reel-2');
-            const r3 = document.getElementById('reel-3');
-            r1.classList.add('spinning'); r2.classList.add('spinning'); r3.classList.add('spinning');
-
-            setTimeout(() => { r1.classList.remove('spinning'); r1.textContent = "💖"; }, 300);
-            setTimeout(() => { r2.classList.remove('spinning'); r2.textContent = "🐱"; }, 600);
+            
+            setTimeout(() => { document.getElementById('reel-1').textContent = "💖"; }, 300);
+            setTimeout(() => { document.getElementById('reel-2').textContent = "🐱"; }, 600);
             setTimeout(() => {
-                r3.classList.remove('spinning'); r3.textContent = "💖";
-                playHighVolumeRetroMeow();
+                document.getElementById('reel-3').textContent = "💖";
                 setTimeout(revealDialogue, 400);
             }, 900);
         });
@@ -770,8 +737,8 @@
         function revealDialogue() {
             gameDiv.classList.add('hidden');
             dialogDiv.classList.remove('hidden');
-            lvlDiagTitle.textContent = getLevelName();
-            dialProgressText.textContent = `Data Node ${currentStep + 1} of ${questionsList.length} Unlocked`;
+            document.getElementById('lvl-diag-title').textContent = getLevelName();
+            document.getElementById('dialogue-progress').textContent = `Data Node ${currentStep + 1} of ${questionsList.length} Unlocked`;
             qText.textContent = questionsList[currentStep];
             inputField.value = '';
             setTimeout(() => inputField.focus(), 50);
@@ -791,16 +758,23 @@
             }
 
             compiledData[`[${getLevelName()}] Q${currentStep + 1}: ${questionsList[currentStep]}`] = answerStr;
-            triggerTrueCenterLoveCelebration();
+            
+            // Pop banner
+            alertMask.innerHTML = `<div class="true-center-banner">I LOVE YOU SO MUCH! 🤍</div>`;
+            alertMask.classList.remove('hidden');
+
+            cabinet.classList.add('shake-effect');
+            setTimeout(() => cabinet.classList.remove('shake-effect'), 300);
 
             currentStep++;
             setTimeout(() => {
+                alertMask.classList.add('hidden');
                 if (currentStep < questionsList.length) {
                     initiateGameTurn();
                 } else {
                     dispatchResults();
                 }
-            }, 1300);
+            }, 1200);
         });
 
         async function dispatchResults() {
@@ -809,7 +783,7 @@
 
             const payload = new FormData();
             payload.append("access_key", WEB3FORMS_ACCESS_KEY);
-            payload.append("subject", "🎮 Core Quest Cleared! Her Deep Answers! ✨");
+            payload.append("subject", "🎮 Kitty Quest Cleared! Her Answers! ✨");
             for(const [q, a] of Object.entries(compiledData)) {
                 payload.append(q, a);
             }
@@ -818,9 +792,12 @@
                 const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: payload });
                 if (res.ok) {
                     dialogDiv.classList.add('hidden');
+                    
+                    // Assign Real Sketch Image
+                    document.getElementById('sketch-img-element').src = SKETCH_BASE64_URI;
+                    
                     endDiv.classList.remove('hidden');
-                    finalEndStateActive = true;
-                    setup50LineCreditsStory();
+                    setupCreditsStory();
                 } else {
                     alert("Pipeline error. Recheck network.");
                     nextButton.disabled = false;
@@ -831,45 +808,24 @@
             }
         }
 
-        function setup50LineCreditsStory() {
+        function setupCreditsStory() {
             const container = document.getElementById('credits-loop-element');
-            const funnyLoveStoryText = `
+            const storyText = `
                 <div class="story-chapter">CHAPTER 1: THE DISCOVERY</div>
-                <div class="story-line">Once upon a time, in a neon pixelated world...</div>
-                <div class="story-line">Usman met his partner in her cozy bear hoodie near an arcade.</div>
-                <div class="story-line">Usman tried to look cool but accidentally dropped his coffee.</div>
-                <div class="story-line">She just laughed and offered to share hers.</div>
-                <div class="story-line">It was a critical hit directly to the heart!</div>
+                <div class="story-line">Once upon a time in a pixel galaxy...</div>
+                <div class="story-line">Usman met his favorite person in her cozy bear hoodie.</div>
+                <div class="story-line">They unlocked the ultimate co-op adventure together.</div>
 
-                <div class="story-chapter">CHAPTER 2: THE GLITCHY JOURNEY</div>
-                <div class="story-line">They decided to team up for co-op mode.</div>
-                <div class="story-line">Usman wasn't very good at jumping over obstacles...</div>
-                <div class="story-line">And she kept accidentally throwing shields at walls instead of bad guys.</div>
-                <div class="story-line">But somehow, they kept winning anyway!</div>
-                <div class="story-line">Because team dynamics were perfectly synced.</div>
+                <div class="story-chapter">CHAPTER 2: INFINITE HIGH SCORES</div>
+                <div class="story-line">Through every mini-game, puzzle, and challenge...</div>
+                <div class="story-line">They held hands and defeated all boss levels!</div>
 
-                <div class="story-chapter">CHAPTER 3: THE CONFESSION MODULATION</div>
-                <div class="story-line">One night under a low-res digital starry sky...</div>
-                <div class="story-line">Usman typed: "I think my code has a bug."</div>
-                <div class="story-line">She panicked and checked the system logs.</div>
-                <div class="story-line">Usman smiled and said: "Yeah, it keeps looping 'I love you'."</div>
-                <div class="story-line">The system completely overheated with cuteness.</div>
-
-                <div class="story-chapter">CHAPTER 4: INFINITE HIGH SCORES</div>
-                <div class="story-line">Now, they have cleared every single hidden boss level.</div>
-                <div class="story-line">No matter how many weird glitches or monsters appear...</div>
-                <div class="story-line">They have the ultimate cheat code: Forever Trust.</div>
-                <div class="story-line">And they lived happily, collecting hearts until the end of time.</div>
-
-                <div class="story-chapter">APPENDIX LOG: CORE DECREES</div>
+                <div class="story-chapter">CORE DECREES</div>
                 <div class="story-line">I LOVE YOU SO MUCH USMAN 🤍</div>
-                <div class="story-line">I LOVE YOU I LOVE YOU I LOVE YOU</div>
-                <div class="story-line">YOU ARE MY WORLD AND MY ENTIRE HIGH SCORE</div>
-                <div class="story-line">THANK YOU FOR FINISHING THIS RETRO QUEST WITH ME!</div>
-                <div class="story-line">GAME STATUS: PERFECTLY SEALED WITH FOREVER DEVOTION</div>
+                <div class="story-line">YOU ARE MY WORLD AND MY ENTIRE HIGH SCORE!</div>
                 <div class="story-line">❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤</div>
             `;
-            container.innerHTML = funnyLoveStoryText + funnyLoveStoryText;
+            container.innerHTML = storyText + storyText;
         }
     </script>
 </body>
