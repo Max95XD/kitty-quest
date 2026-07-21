@@ -47,12 +47,12 @@
             pointer-events: none;
         }
 
-        /* --- MAXIMIZED FREAKY ANIMATING SIDE STAGES --- */
+        /* --- MAXIMIZED ANIMATED SIDE CAT STAGES --- */
         .giant-cat-stage {
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 24vw;
+            width: 25vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -66,20 +66,20 @@
 
         .freaky-cat-screen {
             font-family: monospace;
-            font-size: 15px;
-            line-height: 1.2;
+            font-size: 16px;
+            line-height: 1.25;
             color: #d946ef;
             white-space: pre;
-            text-shadow: 0 0 12px #d946ef;
-            background: rgba(11, 7, 30, 0.85);
-            padding: 25px 15px;
+            text-shadow: 0 0 14px #d946ef, 0 0 25px #f472b6;
+            background: rgba(11, 7, 30, 0.9);
+            padding: 25px 20px;
             border-radius: 12px;
-            border: 3px dashed var(--accent-lavender);
+            border: 3px double var(--accent-lavender);
             text-align: center;
             transition: transform 0.1s ease-out;
         }
 
-        /* --- TRUE CENTER OVERLAY LAYER --- */
+        /* --- GLOBAL TRUE CENTER OVERLAY BANNER --- */
         .global-overlay-container {
             position: fixed;
             top: 0;
@@ -112,23 +112,24 @@
             100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
 
-        /* --- ARCADE PLATFORM INTERFACE --- */
+        /* --- ARCADE CABINET WRAPPER --- */
         .arcade-cabinet {
             position: relative;
             z-index: 10;
-            width: 50%;
-            max-width: 620px;
+            width: 52%;
+            max-width: 680px;
             min-width: 380px;
-            min-height: 560px;
+            max-height: 92vh;
             background: var(--arcade-panel);
             border: 4px solid var(--border-pixel);
-            border-radius: 4px; 
-            padding: 25px;
+            border-radius: 6px; 
+            padding: 20px;
             box-shadow: 0 0 0 4px #1e1b4b, 0 20px 60px rgba(0,0,0,0.9), 0 0 40px rgba(192, 132, 252, 0.3);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            overflow-y: auto;
         }
 
         .shake-effect {
@@ -192,44 +193,42 @@
             100% { transform: translateY(-8px); opacity: 0.6; }
         }
 
-        /* --- PIXEL ART COUPLE PORTRAIT CARD --- */
-        .pixel-art-card {
+        /* --- LARGE & PROMINENT ENDING PIXEL COUPLE CARD --- */
+        .large-ending-card {
+            width: 100%;
+            max-width: 480px;
             background: #090518;
-            border: 3px double var(--border-pixel);
-            padding: 12px;
-            border-radius: 6px;
-            box-shadow: 0 0 15px rgba(244, 114, 182, 0.4);
-            margin: 10px 0;
-            animation: floatPixelArt 3s ease-in-out infinite;
+            border: 4px double var(--border-pixel);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 25px rgba(244, 114, 182, 0.6), inset 0 0 15px rgba(217, 70, 239, 0.3);
+            margin: 10px 0 15px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            animation: floatEndingCard 3s ease-in-out infinite;
         }
 
-        @keyframes floatPixelArt {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
+        @keyframes floatEndingCard {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-8px) scale(1.02); }
         }
 
-        .pixel-art-display {
-            font-family: monospace;
-            font-size: 9px;
-            line-height: 1;
-            white-space: pre;
-            color: #f472b6;
-            text-shadow: 0 0 5px #d946ef;
-            user-select: none;
+        .pixel-drawing-canvas {
+            width: 100%;
+            height: auto;
+            max-height: 240px;
         }
 
-        /* --- CINEMATIC REVERSED DOWN-SCROLL FILM ROLL --- */
+        /* --- SCROLLING MOVIE STORY TRACK (TOP TO BOTTOM) --- */
         .movie-credits-container {
             width: 100%;
-            height: 220px;
+            height: 200px;
             overflow: hidden;
             position: relative;
             border: 2px dashed var(--accent-lavender);
             background: #090518;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         .credits-scroll-track {
@@ -243,8 +242,8 @@
         }
 
         @keyframes scrollMovieStory {
-            0% { transform: translateY(-2400px); }
-            100% { transform: translateY(220px); }
+            0% { transform: translateY(-2200px); }
+            100% { transform: translateY(200px); }
         }
 
         .story-chapter {
@@ -263,7 +262,7 @@
             padding: 0 10px;
         }
 
-        /* --- WORKSPACE CORE CONTROLS --- */
+        /* --- CONTROL BUTTONS & INPUTS --- */
         .level-badge {
             font-size: 1rem;
             color: var(--border-pixel);
@@ -299,7 +298,7 @@
             font-family: var(--font-retro);
             font-size: 1.05rem;
             resize: none;
-            min-height: 120px;
+            min-height: 110px;
             margin-bottom: 25px;
         }
 
@@ -361,9 +360,9 @@
         <!-- INTRO INIT LOG VIEW -->
         <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:20px; width: 100%;">
             <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 85%; text-align: left; background: #090518; padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
-                > DEPLOYING EXTRA LARGE SIDE STAGE CAR MATRIX...<br>
-                > LOADING PIXELATED ENDING ARTWORK (USMAN & BEAR HOODIE)...<br>
-                > HARDWARE RUNNING FLUIDLY. READY TO PROCEED.
+                > INITIALIZING CONTINUOUS RAIN OF HEARTS...<br>
+                > RENDERING LARGE PIXEL ART SKETCH (USMAN & BEAR HOODIE)...<br>
+                > SYSTEM ONLINE. READY TO PROCEED.
             </div>
             <div class="glitch-title" id="intro-main-msg" style="opacity: 0;">
                 PLAYER 1 ONLINE !<br>
@@ -378,7 +377,7 @@
             <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 5</div>
             
             <div class="slots-machine">
-                <div class="sys-alert">🎰 Accessing upcoming text vector modules...</div>
+                <div class="sys-alert">🎰 Unlocking upcoming text vector modules...</div>
                 <div class="slots-window">
                     <div class="slot-reel" id="reel-1">🐱</div>
                     <div class="slot-reel" id="reel-2">💜</div>
@@ -397,25 +396,76 @@
             <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
         </div>
 
-        <!-- TOP-DOWN SCROLLING STORYBOARD THEATER WITH PIXEL COUPLE PORTRAIT -->
+        <!-- TOP-DOWN SCROLLING STORYBOARD THEATER WITH LARGE COUPLE PORTRAIT -->
         <div id="end-screen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-            <h1 style="font-size: 1.1rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 2px;">🏆 QUEST CLEAR: FOREVER MATRIX ENGAGED 🏆</h1>
+            <h1 style="font-size: 1.1rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 5px;">🏆 QUEST CLEAR: FOREVER MATRIX ENGAGED 🏆</h1>
             
-            <!-- REAL PIXEL ART CONVERTED SKETCH -->
-            <div class="pixel-art-card">
-                <div class="pixel-art-display">
-    (⌒_⌒)            ʕ •ᴥ• ʔ  
-    /   \           /       \ 
-   | Usman|        | Bear  |  
-   (______)===♥===(________) 
-  /|      |\      /|      |\ 
- / |  ♥   | \    / |  ♥   | \
-   |______|        |______|  
-   /      \        /      \  
-  /________\      /________\ 
- 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
- [I love you so much usman <3 muah~♡]
-                </div>
+            <!-- LARGE HIGH-VISIBILITY PIXEL ART RECREATION OF THE COUPLE SKETCH -->
+            <div class="large-ending-card">
+                <svg class="pixel-drawing-canvas" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background Glow -->
+                    <rect width="500" height="300" fill="#090518" rx="8" />
+                    
+                    <!-- Paper Grid Lines (Retro Notebook Style) -->
+                    <line x1="0" y1="50" x2="500" y2="50" stroke="#1e1b4b" stroke-width="1"/>
+                    <line x1="0" y1="100" x2="500" y2="100" stroke="#1e1b4b" stroke-width="1"/>
+                    <line x1="0" y1="150" x2="500" y2="150" stroke="#1e1b4b" stroke-width="1"/>
+                    <line x1="0" y1="200" x2="500" y2="200" stroke="#1e1b4b" stroke-width="1"/>
+                    <line x1="0" y1="250" x2="500" y2="250" stroke="#1e1b4b" stroke-width="1"/>
+
+                    <!-- USMAN (Left Figure) -->
+                    <g fill="none" stroke="#f472b6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Spiky Hair -->
+                        <path d="M 160 80 Q 170 50 185 40 Q 200 42 210 50 Q 220 40 230 55 Q 235 70 230 85" fill="#d946ef" opacity="0.3"/>
+                        <path d="M 160 80 Q 170 50 185 40 Q 200 42 210 50 Q 220 40 230 55 Q 235 70 230 85" />
+                        <!-- Face & Closed Eyes -->
+                        <path d="M 165 85 C 165 120 225 120 225 85" />
+                        <path d="M 175 90 Q 185 85 190 90" stroke="#ffffff" stroke-width="2.5"/> <!-- Eye L -->
+                        <path d="M 200 90 Q 205 85 215 90" stroke="#ffffff" stroke-width="2.5"/> <!-- Eye R -->
+                        <path d="M 190 102 Q 195 106 200 102" stroke="#ffffff" opacity="0.8"/> <!-- Smile -->
+                        <!-- Sweater / Body -->
+                        <path d="M 170 120 L 160 170 L 175 220 L 215 220 L 225 170 L 215 120 Z" fill="#2e1065" />
+                        <path d="M 160 170 L 125 180" /> <!-- Left Arm -->
+                        <path d="M 225 170 L 255 190" stroke-width="4"/> <!-- Right Arm holding hands -->
+                    </g>
+
+                    <!-- PARTNER IN BEAR HOODIE (Right Figure) -->
+                    <g fill="none" stroke="#c084fc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Bear Ears -->
+                        <circle cx="280" cy="55" r="12" fill="#701a75" />
+                        <circle cx="360" cy="55" r="12" fill="#701a75" />
+                        <!-- Big Fluffy Hoodie Outline -->
+                        <path d="M 265 85 C 255 35 385 35 375 85 C 385 140 370 170 355 220 L 285 220 C 270 170 255 140 265 85 Z" fill="#1e1b4b" />
+                        <!-- Face inside hoodie -->
+                        <path d="M 285 90 C 285 130 355 130 355 90 Z" fill="#090518" stroke="#f472b6"/>
+                        <path d="M 295 95 Q 305 100 310 95" stroke="#ffffff" stroke-width="2.5"/> <!-- Eye L -->
+                        <path d="M 330 95 Q 335 100 345 95" stroke="#ffffff" stroke-width="2.5"/> <!-- Eye R -->
+                        <path d="M 315 110 Q 320 114 325 110" stroke="#ffffff"/> <!-- Smile -->
+                        <!-- Long Hair Braid -->
+                        <path d="M 335 115 Q 345 150 340 180" stroke="#e879f9" stroke-width="4"/>
+                        <!-- Holding Hands Link -->
+                        <path d="M 270 170 L 255 190" stroke="#f472b6" stroke-width="4"/>
+                    </g>
+
+                    <!-- Heart linkage between them -->
+                    <text x="246" y="185" fill="#f472b6" font-size="18" text-anchor="middle">♥</text>
+
+                    <!-- Flowers around seating base -->
+                    <g fill="#f472b6" font-size="12">
+                        <text x="130" y="225">🌸</text><text x="150" y="228">🌸</text><text x="170" y="225">🌸</text>
+                        <text x="220" y="226">🌸</text><text x="240" y="228">🌸</text><text x="260" y="225">🌸</text>
+                        <text x="310" y="226">🌸</text><text x="330" y="228">🌸</text><text x="350" y="225">🌸</text>
+                    </g>
+
+                    <!-- Banner Ribbon at Bottom -->
+                    <rect x="50" y="235" width="400" height="50" rx="6" fill="#d946ef" stroke="#ffffff" stroke-width="3"/>
+                    <text x="250" y="258" fill="#ffffff" font-family="Courier Prime, monospace" font-weight="bold" font-size="16" text-anchor="middle">
+                        I love you so much usman &lt;3
+                    </text>
+                    <text x="250" y="276" fill="#fae8ff" font-family="Courier Prime, monospace" font-size="13" text-anchor="middle">
+                        muah~♡
+                    </text>
+                </svg>
             </div>
 
             <div class="movie-credits-container">
@@ -445,17 +495,17 @@
         const rightCatElement = document.getElementById('right-freak-cat');
 
         const freakyCatPosesLeft = [
-`    (っ◕‿‿◕)っ ✨
-   /\\━━━━━━/\\ 💖
-  <  (  O.O  )  >
+`  💖 (っ◕‿‿◕)っ 💖
+   /\\━━━━━━/\\ 
+  <  (  O.O  )  >  ✨
      \\   V   /
       (  "|"  )
      /___|_|___\\
  [BOUNCING ENERGY: 200%]`
 ,
-`    (つ✧益✧)つ ✨
-   /\\━━━━━━/\\ 💜
-  <  (  o.o  )  >
+`  💜 (つ✧益✧)つ 💜
+   /\\━━━━━━/\\ 
+  <  (  o.o  )  >  ✨
      /   Y   \\
       (  "|"  )
      \\___|_|___/
@@ -465,7 +515,7 @@
         const freakyCatPosesRight = [
 `       💖   /\\_/\\  
      ✨    ( >.< ) 
-   (つ━━〇━━━〇━━つ)
+   (つ━━〇━━━〇━━つ) 💖
      |           |
      |   ♥   ♥   |
      |_____  ____|
@@ -474,7 +524,7 @@
 ,
 `       💜   /\\_/\\  
      ✨    ( ʘ.ʘ ) 
-   (つ━━〇━━━〇━━つ)
+   (つ━━〇━━━〇━━つ) 💜
      |    💥     |
      |   ♥   ♥   |
      |_____  ____|
@@ -489,9 +539,9 @@
             leftCatElement.innerHTML = freakyCatPosesLeft[poseIndex];
             rightCatElement.innerHTML = freakyCatPosesRight[poseIndex];
             
-            let scaleVal = 1 + Math.sin(freakyFrameCounter * 0.12) * 0.05;
-            let rotateVal = Math.cos(freakyFrameCounter * 0.08) * 6;
-            let slideVal = Math.sin(freakyFrameCounter * 0.05) * 10;
+            let scaleVal = 1 + Math.sin(freakyFrameCounter * 0.12) * 0.06;
+            let rotateVal = Math.cos(freakyFrameCounter * 0.08) * 8;
+            let slideVal = Math.sin(freakyFrameCounter * 0.05) * 12;
             
             leftCatElement.style.transform = `translateY(${slideVal}px) scale(${scaleVal}) rotate(${rotateVal}deg)`;
             rightCatElement.style.transform = `translateY(${-slideVal}px) scale(${scaleVal}) rotate(${-rotateVal}deg)`;
@@ -541,9 +591,11 @@
             } catch (err) {}
         }
 
+        // --- CANVAS BACKGROUND & CONTINUOUS FALLING HEARTS RAIN ENGINE ---
         const fxCanvas = document.getElementById('fx-canvas');
         const ctx = fxCanvas.getContext('2d');
         let elementsArray = [];
+        let rainHeartsArray = [];
 
         function resizeCanvas() {
             fxCanvas.width = window.innerWidth;
@@ -551,6 +603,44 @@
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
+
+        class FallingHeart {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * fxCanvas.width;
+                this.y = -20;
+                this.size = Math.random() * 14 + 10;
+                this.speedY = Math.random() * 2 + 1;
+                this.speedX = Math.sin(this.y * 0.05) * 0.8;
+                this.opacity = Math.random() * 0.7 + 0.3;
+                const colors = ['#f472b6', '#d946ef', '#c084fc', '#fae8ff'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += Math.sin(this.y * 0.03) * 0.5;
+                if (this.y > fxCanvas.height + 20) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.font = `${this.size}px monospace`;
+                ctx.fillText("♥", this.x, this.y);
+                ctx.restore();
+            }
+        }
+
+        // Seed initial falling rain hearts
+        for (let i = 0; i < 45; i++) {
+            let h = new FallingHeart();
+            h.y = Math.random() * fxCanvas.height;
+            rainHeartsArray.push(h);
+        }
 
         class MatrixElement {
             constructor(x, y, type = 'heart') {
@@ -595,7 +685,14 @@
 
         function engineLoop() {
             ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
-            if (finalEndStateActive && Math.random() < 0.15) {
+            
+            // Draw continuous falling hearts rain everywhere
+            for (let i = 0; i < rainHeartsArray.length; i++) {
+                rainHeartsArray[i].update();
+                rainHeartsArray[i].draw();
+            }
+
+            if (finalEndStateActive && Math.random() < 0.2) {
                 spawnBurst(8, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.6), 'firework');
             }
             for(let i = 0; i < elementsArray.length; i++) {
