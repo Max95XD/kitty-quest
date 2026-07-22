@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitty Quest: Galaxy Edition ♡</title>
-    <!-- Pixel & Retro Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <title>Usman's Violet Enigma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #0d0118;
-            --purple-deep: #1b0230;
-            --purple-card: #280545;
-            --purple-border: #621893;
-            --purple-glow: #9d4edd;
-            --pink-neon: #ff007f;
-            --pink-light: #ff77bc;
-            --pink-soft: #ffb7d5;
-            --gold-bright: #ffcc00;
-            --text-white: #ffffff;
-            --font-pixel: 'Press Start 2P', monospace;
-            --font-retro: 'VT323', monospace;
+            --bg-dark: #0a0014;
+            --purple-dark: #240046;
+            --purple-mid: #5a189a;
+            --purple-neon: #9d4edd;
+            --purple-light: #c77dff;
+            --text-main: #e0aaff;
+            --text-glow: #ffffff;
+            --error-red: #ff3366;
+            --success-green: #00f5d4;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
         }
 
         * {
@@ -30,930 +28,347 @@
             user-select: none;
         }
 
-        body, html {
-            width: 100%;
-            height: 100%;
+        body {
             background-color: var(--bg-dark);
-            color: var(--text-white);
-            font-family: var(--font-pixel);
-            overflow-x: hidden;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        /* --- STARRY GALAXY CANVAS BACKGROUND --- */
-        #galaxy-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* --- MAIN WRAPPER CONTAINER --- */
-        .game-wrapper {
-            position: relative;
-            z-index: 10;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* --- TOP HEADER ROW --- */
-        .top-header-grid {
-            display: grid;
-            grid-template-columns: 280px 1fr 280px;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .pixel-box {
-            background: var(--purple-card);
-            border: 4px solid var(--purple-border);
-            box-shadow: inset 0 0 10px rgba(157, 78, 221, 0.4), 0 0 12px rgba(255, 0, 127, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            position: relative;
-        }
-
-        /* PLAYER PROFILE */
-        .player-info {
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(36, 0, 70, 0.4), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(90, 24, 154, 0.3), transparent 25%);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-        .cat-avatar {
-            font-size: 2.2rem;
-            background: #110022;
-            border: 2px solid var(--pink-neon);
-            border-radius: 6px;
-            padding: 4px;
-        }
-        .player-stats {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            font-size: 0.6rem;
-            width: 100%;
-        }
-        .bar-container {
-            width: 100%;
-            height: 10px;
-            background: #100020;
-            border: 1px solid var(--purple-glow);
-            border-radius: 3px;
+            justify-content: center;
             overflow: hidden;
         }
-        .hp-fill { width: 90%; height: 100%; background: var(--pink-neon); box-shadow: 0 0 6px var(--pink-neon); }
-        .xp-fill { width: 40%; height: 100%; background: #00d4ff; box-shadow: 0 0 6px #00d4ff; }
 
-        /* CENTER MAIN TITLE */
-        .title-banner {
+        .game-container {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(16, 0, 32, 0.7);
+            border: 2px solid var(--purple-mid);
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(157, 78, 221, 0.2), inset 0 0 20px rgba(36, 0, 70, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 40px;
             text-align: center;
-            background: linear-gradient(180deg, #320857 0%, #1a0233 100%);
-            border: 4px double var(--pink-neon);
-            box-shadow: 0 0 20px var(--pink-neon), inset 0 0 15px var(--purple-glow);
-            padding: 12px 20px;
-            border-radius: 12px;
-        }
-        .title-banner h1 {
-            font-size: 1.1rem;
-            color: #ffffff;
-            text-shadow: 3px 3px var(--pink-neon), 0 0 10px var(--purple-glow);
-            letter-spacing: 2px;
-        }
-        .title-banner .subtitle {
-            font-size: 0.65rem;
-            color: var(--pink-light);
-            margin-top: 6px;
-            letter-spacing: 3px;
-        }
-
-        /* TOP INVENTORY */
-        .inventory-box {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .inv-title {
-            font-size: 0.6rem;
-            color: var(--pink-light);
-            text-align: center;
-        }
-        .inv-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            font-size: 0.65rem;
-        }
-        .inv-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: #120024;
-            padding: 4px 6px;
-            border-radius: 4px;
-            border: 1px solid var(--purple-border);
-        }
-
-        /* --- MAIN 3-COLUMN GAME LAYOUT --- */
-        .main-stage-grid {
-            display: grid;
-            grid-template-columns: 280px 1fr 280px;
-            gap: 15px;
-        }
-
-        /* LEFT & RIGHT SIDE PANELS */
-        .side-col {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .section-header {
-            font-size: 0.65rem;
-            color: var(--pink-light);
-            text-align: center;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            text-shadow: 0 0 5px var(--pink-neon);
-        }
-
-        /* LOVE METER */
-        .love-meter-box {
-            text-align: center;
-        }
-        .heart-pulse {
-            font-size: 2.8rem;
-            color: var(--pink-neon);
-            text-shadow: 0 0 18px var(--pink-neon);
-            animation: pulse 1.2s infinite ease-in-out;
-            margin: 6px 0;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-        .meter-percent {
-            font-size: 0.85rem;
-            color: var(--gold-bright);
-            margin-bottom: 6px;
-        }
-
-        /* STREAK & ACHIEVEMENTS */
-        .streak-row {
-            display: flex;
-            justify-content: space-around;
-            font-size: 0.65rem;
-            margin-top: 4px;
-        }
-        .achieve-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            font-size: 0.55rem;
-        }
-        .achieve-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--pink-soft);
-        }
-
-        /* MINI GAME LIST */
-        .game-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            font-size: 0.55rem;
-        }
-        .game-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 8px;
-            background: #140129;
-            border: 1px solid var(--purple-border);
-            border-radius: 4px;
-        }
-        .game-item.active {
-            border-color: var(--pink-neon);
-            background: #2b0448;
-            box-shadow: 0 0 8px var(--pink-neon);
-        }
-
-        /* MUSIC PLAYER */
-        .audio-player-box {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            font-size: 0.55rem;
-        }
-        .audio-controls {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-top: 4px;
-        }
-
-        /* --- CENTER MAIN ARCADE CONTAINER --- */
-        .arcade-screen-card {
-            background: #140228;
-            border: 4px solid var(--pink-neon);
-            box-shadow: 0 0 25px rgba(255, 0, 127, 0.4), inset 0 0 20px rgba(157, 78, 221, 0.5);
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             position: relative;
         }
 
-        .screen-header {
-            text-align: center;
+        /* Header Styles */
+        .header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--purple-mid);
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--text-glow);
+            text-shadow: 0 0 15px var(--purple-neon);
+            letter-spacing: 2px;
             margin-bottom: 10px;
         }
-        .screen-header h2 {
-            font-size: 0.8rem;
-            color: var(--pink-light);
-            letter-spacing: 2px;
-        }
-        .screen-header p {
-            font-size: 0.55rem;
-            color: var(--gold-bright);
-            margin-top: 4px;
+
+        .level-indicator {
+            font-size: 1.2rem;
+            color: var(--purple-light);
+            letter-spacing: 4px;
+            text-transform: uppercase;
         }
 
-        /* CATCH HEARTS GAME CANVAS CONTAINER */
-        .game-canvas-area {
-            width: 100%;
-            height: 260px;
-            background: linear-gradient(180deg, #090014 0%, #1e033a 80%, #122805 80%, #0d1f03 100%);
-            border: 3px double var(--purple-glow);
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 15px #000;
-        }
-
-        /* GAME SPRITES */
-        #player-cat {
-            position: absolute;
-            bottom: 22px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2.2rem;
-            transition: left 0.08s linear;
-            filter: drop-shadow(0 0 8px var(--pink-neon));
-        }
-
-        .falling-heart {
-            position: absolute;
-            font-size: 1.5rem;
-            filter: drop-shadow(0 0 8px var(--pink-neon));
-        }
-
-        .score-hud {
-            position: absolute;
-            bottom: 8px;
-            width: 100%;
-            text-align: center;
-            font-size: 0.65rem;
-            color: #ffffff;
-            text-shadow: 0 0 6px #000;
-        }
-
-        /* CONTROLS AREA */
-        .controls-info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            width: 100%;
-            margin-top: 12px;
-        }
-        .control-btn-card {
-            background: #1b0336;
-            border: 2px solid var(--purple-border);
-            border-radius: 6px;
-            padding: 8px;
-            text-align: center;
-            font-size: 0.5rem;
+        /* Puzzle Content */
+        .puzzle-area {
+            min-height: 250px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-        .control-btn-card:hover {
-            border-color: var(--pink-neon);
-            box-shadow: 0 0 8px var(--pink-neon);
-        }
-        .arrow-keys {
-            display: flex;
-            gap: 6px;
-            font-size: 0.9rem;
-        }
-
-        /* OVERLAY QUESTION CONTAINER */
-        .question-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 1, 24, 0.95);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            padding: 20px;
-            text-align: center;
-            z-index: 20;
         }
-        .question-text {
-            font-size: 0.75rem;
+
+        .story-text {
+            font-size: 1.4rem;
             line-height: 1.6;
-            color: #ffffff;
-            margin-bottom: 14px;
-        }
-        .ans-input {
-            width: 90%;
-            background: #090014;
-            border: 2px solid var(--purple-glow);
-            color: #fff;
-            padding: 10px;
-            font-family: var(--font-pixel);
-            font-size: 0.6rem;
-            border-radius: 6px;
-            margin-bottom: 14px;
-            resize: none;
-            height: 70px;
-        }
-        .ans-input:focus {
-            outline: none;
-            border-color: var(--pink-neon);
-            box-shadow: 0 0 10px var(--pink-neon);
-        }
-        .submit-btn {
-            background: linear-gradient(135deg, var(--pink-neon), var(--purple-glow));
-            color: #fff;
-            border: none;
-            padding: 10px 24px;
-            font-family: var(--font-pixel);
-            font-size: 0.6rem;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0 0 12px var(--pink-neon);
+            margin-bottom: 30px;
+            color: var(--text-glow);
         }
 
-        /* --- BOTTOM NAV BAR --- */
-        .bottom-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-top: 8px;
-        }
-        .nav-btn {
-            background: var(--purple-card);
-            border: 2px solid var(--purple-border);
-            padding: 8px 16px;
-            font-size: 0.55rem;
-            border-radius: 6px;
-            cursor: pointer;
-            color: var(--pink-light);
-        }
-        .nav-btn.active-main {
-            background: linear-gradient(135deg, var(--pink-neon), var(--purple-glow));
-            color: #ffffff;
-            border-color: #ffffff;
-            box-shadow: 0 0 15px var(--pink-neon);
-            transform: scale(1.1);
-        }
-
-        /* --- BOTTOM ROW PANELS --- */
-        .bottom-row-grid {
+        /* Choice Buttons */
+        .choices-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 340px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
+            margin-top: 20px;
         }
 
-        /* QUEST PROGRESS STEPPER */
-        .progress-stepper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 5px;
-            position: relative;
+        .choice-btn {
+            background: rgba(36, 0, 70, 0.5);
+            border: 1px solid var(--purple-neon);
+            color: var(--purple-light);
+            font-family: var(--font-display);
+            font-size: 1rem;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .step-node {
-            display: flex;
+
+        .choice-btn:hover {
+            background: var(--purple-mid);
+            color: var(--text-glow);
+            box-shadow: 0 0 15px var(--purple-neon);
+            transform: translateY(-2px);
+        }
+
+        .choice-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Feedback Message */
+        .feedback {
+            margin-top: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            min-height: 30px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feedback.show {
+            opacity: 1;
+        }
+
+        .feedback.correct { color: var(--success-green); text-shadow: 0 0 10px var(--success-green); }
+        .feedback.wrong { color: var(--error-red); text-shadow: 0 0 10px var(--error-red); }
+
+        /* End Screen Elements */
+        .end-screen {
+            display: none;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
-            font-size: 0.45rem;
-            color: var(--pink-soft);
-            z-index: 2;
-        }
-        .step-circle {
-            width: 26px;
-            height: 26px;
-            background: #110022;
-            border: 2px solid var(--purple-border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.6rem;
-        }
-        .step-node.active .step-circle {
-            border-color: var(--pink-neon);
-            background: var(--pink-neon);
-            color: #fff;
-            box-shadow: 0 0 10px var(--pink-neon);
         }
 
-        /* FINAL PIXEL ART COUPLE CARD */
-        .couple-card {
-            background: #120124;
-            border: 3px double var(--pink-neon);
-            box-shadow: 0 0 18px rgba(255, 0, 127, 0.4);
-            border-radius: 10px;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .couple-art-box {
-            width: 100%;
-            height: 140px;
-            background: #090014;
-            border: 2px solid var(--purple-glow);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .couple-svg {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .couple-banner {
-            margin-top: 8px;
-            background: linear-gradient(90deg, #ff007f, #9d4edd);
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 0.5rem;
-            color: #ffffff;
-            border: 1px solid #fff;
-            box-shadow: 0 0 8px var(--pink-neon);
+        .end-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
         }
 
-        /* UTILITY */
-        .hidden { display: none !important; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(45deg, var(--purple-dark), var(--purple-mid));
+            border: 2px solid var(--purple-light);
+            color: var(--text-glow);
+            font-family: var(--font-display);
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--purple-neon);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--text-glow);
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- STARRY GALAXY CANVAS -->
-    <canvas id="galaxy-bg"></canvas>
-
-    <div class="game-wrapper">
-
-        <!-- TOP HEADER ROW -->
-        <div class="top-header-grid">
-            
-            <!-- PLAYER STATS -->
-            <div class="pixel-box player-info">
-                <div class="cat-avatar">🐱</div>
-                <div class="player-stats">
-                    <div style="color: var(--pink-light);">USMAN'S QUEST</div>
-                    <div>HP <span class="bar-container" style="display:inline-block; width:100px; vertical-align:middle;"><span class="hp-fill"></span></span></div>
-                    <div>XP <span class="bar-container" style="display:inline-block; width:100px; vertical-align:middle;"><span class="xp-fill"></span></span></div>
-                    <div style="display:flex; justify-content:space-between; color:var(--gold-bright);">
-                        <span>LVL 1</span>
-                        <span>40/100</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CENTER MAIN TITLE -->
-            <div class="title-banner">
-                <h1>👑 KITTY QUEST 👑</h1>
-                <div class="subtitle">✨ GALAXY EDITION ✨</div>
-            </div>
-
-            <!-- INVENTORY -->
-            <div class="pixel-box inventory-box">
-                <div class="inv-title">+ INVENTORY</div>
-                <div class="inv-grid">
-                    <div class="inv-item">💖 x14</div>
-                    <div class="inv-item">🌸 x09</div>
-                    <div class="inv-item">⭐ x03</div>
-                    <div class="inv-item">💎 x02</div>
-                </div>
-            </div>
-
+    <div class="game-container">
+        <div class="header">
+            <h1>USMAN'S ENIGMA</h1>
+            <div class="level-indicator" id="level-text">Stage 1 / 5</div>
         </div>
 
-        <!-- MAIN 3-COLUMN STAGE -->
-        <div class="main-stage-grid">
+        <!-- Main Puzzle Area -->
+        <div class="puzzle-area" id="puzzle-area">
+            <div class="story-text" id="story-text">Loading the first anomaly...</div>
             
-            <!-- LEFT COLUMN -->
-            <div class="side-col">
-                
-                <!-- LOVE METER -->
-                <div class="pixel-box love-meter-box">
-                    <div class="section-header">LOVE METER</div>
-                    <div class="heart-pulse">💖</div>
-                    <div class="meter-percent">92 %</div>
-                    <div class="bar-container"><div class="hp-fill" style="width: 92%;"></div></div>
-                </div>
-
-                <!-- STREAK -->
-                <div class="pixel-box">
-                    <div class="section-header">✦ STREAK ✦</div>
-                    <div class="streak-row">
-                        <span>🔥 x 5</span>
-                        <span style="color: var(--gold-bright);">BEST: 12</span>
-                    </div>
-                </div>
-
-                <!-- ACHIEVEMENTS -->
-                <div class="pixel-box">
-                    <div class="section-header">ACHIEVEMENTS</div>
-                    <div class="achieve-list">
-                        <div class="achieve-item">⭐ FIRST ANSWER</div>
-                        <div class="achieve-item">💖 LOVE COLLECTOR</div>
-                        <div class="achieve-item">💎 PERFECT PLAYER</div>
-                        <div class="achieve-item" style="opacity: 0.5;">🔒 ???</div>
-                    </div>
-                </div>
-
-                <!-- DAILY BONUS -->
-                <div class="pixel-box" style="text-align: center;">
-                    <div style="font-size: 0.5rem; color: var(--pink-light);">DAILY BONUS</div>
-                    <div style="font-size: 0.75rem; color: var(--gold-bright); margin-top: 4px;">🎁 23:59:59</div>
-                </div>
-
+            <div class="choices-grid" id="choices-container">
+                <!-- Buttons injected via JS -->
             </div>
 
-            <!-- CENTER ARCADE STAGE -->
-            <div class="arcade-screen-card">
-                
-                <div class="screen-header">
-                    <h2 id="stage-title">♥ LEVEL 1 ♥</h2>
-                    <p id="stage-subtitle">🌸 LOVE FOREST 🌸</p>
-                    <p style="color: var(--pink-light); margin-top: 6px; font-size: 0.5rem;">BEAT THE GAME TO UNLOCK THE QUESTION!</p>
-                </div>
-
-                <!-- GAME CANVAS -->
-                <div class="game-canvas-area" id="game-arena">
-                    <div id="player-cat">🐱</div>
-                    <div class="score-hud">HEARTS CAUGHT: <span id="heart-count" style="color:var(--pink-neon);">0</span> / 5</div>
-
-                    <!-- QUESTION OVERLAY (Shown when 5 hearts caught) -->
-                    <div class="question-overlay hidden" id="question-box">
-                        <div style="font-size: 0.6rem; color: var(--pink-light); margin-bottom: 6px;">QUEST UNLOCKED! ✨</div>
-                        <div class="question-text" id="q-prompt-text">Question text loads here...</div>
-                        <textarea class="ans-input" id="q-answer-field" placeholder="Type your answer here hun bun... 🤍"></textarea>
-                        <button class="submit-btn" id="submit-ans-btn">SUBMIT ANSWER ♡</button>
-                    </div>
-                </div>
-
-                <!-- CONTROLS & HOW TO PLAY -->
-                <div class="controls-info-grid">
-                    <div class="control-btn-card" id="move-left-btn">
-                        <span>MOVE LEFT</span>
-                        <div class="arrow-keys">⬅️</div>
-                    </div>
-                    <div class="control-btn-card">
-                        <span>CATCH HEARTS</span>
-                        <div style="font-size:1.1rem;">💖</div>
-                    </div>
-                    <div class="control-btn-card" id="move-right-btn">
-                        <span>MOVE RIGHT</span>
-                        <div class="arrow-keys">➡️</div>
-                    </div>
-                </div>
-
-                <!-- BOTTOM NAV -->
-                <div class="bottom-nav">
-                    <button class="nav-btn">MAP</button>
-                    <button class="nav-btn">QUESTS</button>
-                    <button class="nav-btn active-main">PLAY 💖</button>
-                    <button class="nav-btn">SHOP</button>
-                    <button class="nav-btn">SETTINGS</button>
-                </div>
-
-            </div>
-
-            <!-- RIGHT COLUMN -->
-            <div class="side-col">
-                
-                <!-- MINI GAMES LIST -->
-                <div class="pixel-box">
-                    <div class="section-header">MINI GAMES</div>
-                    <div class="game-list">
-                        <div class="game-item active"><span>1 💖</span><span>HEART CATCH</span></div>
-                        <div class="game-item"><span>2 🎴</span><span>MEMORY MATCH</span></div>
-                        <div class="game-item"><span>3 🌀</span><span>MAZE RUN</span></div>
-                        <div class="game-item"><span>4 💗</span><span>LOVE METER</span></div>
-                        <div class="game-item"><span>5 👾</span><span>BOSS BATTLE</span></div>
-                    </div>
-                </div>
-
-                <!-- TIPS CARD -->
-                <div class="pixel-box" style="text-align: center;">
-                    <div class="section-header">TIPS 🐱</div>
-                    <div style="font-size: 0.5rem; color: var(--pink-soft); line-height: 1.4;">
-                        Collect more hearts to unlock cool rewards! ✨
-                    </div>
-                </div>
-
-                <!-- NOW PLAYING MUSIC PLAYER -->
-                <div class="pixel-box audio-player-box">
-                    <div class="section-header">🎵 NOW PLAYING</div>
-                    <div style="text-align: center; color: var(--pink-light); font-size: 0.55rem;">Pixel Love Theme</div>
-                    <div class="audio-controls">
-                        <span>⏮️</span>
-                        <span>▶️</span>
-                        <span>⏭️</span>
-                    </div>
-                </div>
-
-            </div>
-
+            <div class="feedback" id="feedback-msg"></div>
         </div>
 
-        <!-- BOTTOM ROW PANELS -->
-        <div class="bottom-row-grid">
-            
-            <!-- STAGE PROGRESS STEPPER -->
-            <div class="pixel-box">
-                <div class="section-header">QUEST PROGRESS</div>
-                <div class="progress-stepper">
-                    <div class="step-node active"><div class="step-circle">1</div><span>HEARTS</span></div>
-                    <div class="step-node"><div class="step-circle">2</div><span>MEMORY</span></div>
-                    <div class="step-node"><div class="step-circle">3</div><span>MAZE</span></div>
-                    <div class="step-node"><div class="step-circle">4</div><span>METER</span></div>
-                    <div class="step-node"><div class="step-circle">5</div><span>BOSS</span></div>
-                    <div class="step-node"><div class="step-circle">?</div><span>FINAL</span></div>
-                </div>
+        <!-- End Screen Area -->
+        <div class="end-screen" id="end-screen">
+            <div class="end-icon">🌌</div>
+            <div class="story-text" style="color: var(--success-green);">
+                Sequence Complete.<br>You have successfully navigated the Violet Void.
             </div>
-
-            <!-- FINAL REWARD BOX -->
-            <div class="pixel-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-                <div class="section-header">COMPLETE QUEST</div>
-                <div style="font-size: 1.8rem; margin: 4px 0;">🎁</div>
-                <div style="font-size: 0.55rem; color: var(--gold-bright);">GET LOVE ∞</div>
-            </div>
-
-            <!-- FINAL ART COUPLE CARD -->
-            <div class="couple-card">
-                <div class="couple-art-box">
-                    <!-- Pixel Art Couple Illustration -->
-                    <svg class="couple-svg" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" fill="#0a0018"/>
-                        <!-- Stars in SVG background -->
-                        <circle cx="20" cy="20" r="1.5" fill="#fff"/>
-                        <circle cx="80" cy="35" r="2" fill="#ff007f"/>
-                        <circle cx="220" cy="25" r="1.5" fill="#fff"/>
-                        <circle cx="270" cy="40" r="2" fill="#9d4edd"/>
-                        
-                        <!-- Guy character (Spiky dark hair) -->
-                        <rect x="100" y="70" width="30" height="30" fill="#3d2314" rx="4"/>
-                        <circle cx="115" cy="75" r="14" fill="#fce0d6"/>
-                        <rect x="102" y="60" width="26" height="12" fill="#2b170c"/> <!-- hair -->
-                        <rect x="100" y="88" width="30" height="35" fill="#4a3e6d" rx="4"/> <!-- hoodie -->
-
-                        <!-- Girl character (Bear Hoodie) -->
-                        <rect x="150" y="70" width="30" height="30" fill="#fce0d6" rx="4"/>
-                        <circle cx="165" cy="75" r="16" fill="#fce0d6"/>
-                        <!-- Bear Hoodie ears & body -->
-                        <circle cx="148" cy="58" r="6" fill="#ffffff"/>
-                        <circle cx="182" cy="58" r="6" fill="#ffffff"/>
-                        <path d="M 145 62 Q 165 50 185 62 L 185 125 L 145 125 Z" fill="#ffffff"/>
-                        <circle cx="158" cy="76" r="2" fill="#000"/> <!-- eyes -->
-                        <circle cx="172" cy="76" r="2" fill="#000"/>
-
-                        <!-- Holding Hands Heart -->
-                        <path d="M 145 95 Q 150 90 155 95 Q 150 105 145 95" fill="#ff007f"/>
-                        
-                        <!-- Roses at bottom -->
-                        <circle cx="60" cy="135" r="6" fill="#ff007f"/>
-                        <circle cx="80" cy="138" r="5" fill="#9d4edd"/>
-                        <circle cx="220" cy="135" r="6" fill="#ff007f"/>
-                        <circle cx="240" cy="138" r="5" fill="#9d4edd"/>
-                    </svg>
-                </div>
-                <div class="couple-banner">
-                    I love you so much usman &lt;3 muah~♡
-                </div>
-            </div>
-
+            <button class="restart-btn" onclick="startGame()">INITIATE RESTART</button>
         </div>
 
     </div>
 
     <script>
-        // WEB3FORMS ACCESS KEY
-        const WEB3FORMS_ACCESS_KEY = "2e120831-8dcc-42cf-b1ca-904ad12ea316";
-
-        const questionsList = [
-            "Do you promise to answer these questions completely honestly, directly from your heart? I want to know the real, raw you.",
-            "Just so you know... once you click next, you can't go back to edit or change your answer. Ready for this?",
-            "Before we start, I need you to know how deeply I love you. None of this is to catch you out—it's just to understand your beautiful mind better. Okay?",
-            "What is something I do that secretly makes you fall in love with me all over again?",
-            "Is there anything I do, even a small habit, that accidentally hurts your feelings or bothers you but you haven't told me?"
+        // Puzzle Data Structure
+        const puzzles = [
+            {
+                story: "You stand before a glowing violet door. A terminal requires a bypass protocol. What is always coming but never arrives?",
+                choices: [
+                    { text: "The Future", isCorrect: false },
+                    { text: "Tomorrow", isCorrect: true },
+                    { text: "The End", isCorrect: false }
+                ],
+                success: "Bypass accepted. The door phases out of existence.",
+                fail: "Access Denied. The system hums menacingly."
+            },
+            {
+                story: "A chasm of dark energy blocks your path. Three floating runestones offer a bridge. Which stone holds the memory of a flame?",
+                choices: [
+                    { text: "Obsidian", isCorrect: true },
+                    { text: "Amethyst", isCorrect: false },
+                    { text: "Sapphire", isCorrect: false }
+                ],
+                success: "The Obsidian expands, forming a solid bridge across the void.",
+                fail: "The stone shatters, dropping into the abyss. Try another."
+            },
+            {
+                story: "A holographic projection asks: 'I can be cracked, made, told, and played. What am I?'",
+                choices: [
+                    { text: "A Secret", isCorrect: false },
+                    { text: "A Record", isCorrect: false },
+                    { text: "A Joke", isCorrect: true }
+                ],
+                success: "The hologram laughs in synthesized tones and fades away.",
+                fail: "The hologram remains silent and static."
+            },
+            {
+                story: "You find a locked chest radiating neon purple light. The inscription reads: 'The more you take, the more you leave behind.'",
+                choices: [
+                    { text: "Footsteps", isCorrect: true },
+                    { text: "Memories", isCorrect: false },
+                    { text: "Time", isCorrect: false }
+                ],
+                success: "The lock clicks open, revealing a glowing key.",
+                fail: "The chest shocks you with a mild static pulse."
+            },
+            {
+                story: "The final gateway. To stabilize the core, you must identify the paradox: 'What belongs to you, but is used more by others?'",
+                choices: [
+                    { text: "Your Time", isCorrect: false },
+                    { text: "Your Name", isCorrect: true },
+                    { text: "Your Wealth", isCorrect: false }
+                ],
+                success: "Core stabilized. The Violet Enigma is solved.",
+                fail: "Warning: Core destabilization imminent. Recalibrate your answer."
+            }
         ];
 
+        // Game State Variables
         let currentStage = 0;
-        let heartsCaught = 0;
-        let catPosPercent = 50;
-        const compiledAnswers = {};
+        let isTransitioning = false;
 
-        /* --- STARRY GALAXY CANVAS ENGINE --- */
-        const canvas = document.getElementById('galaxy-bg');
-        const ctx = canvas.getContext('2d');
-        let stars = [];
+        // DOM Elements
+        const levelText = document.getElementById('level-text');
+        const storyText = document.getElementById('story-text');
+        const choicesContainer = document.getElementById('choices-container');
+        const feedbackMsg = document.getElementById('feedback-msg');
+        const puzzleArea = document.getElementById('puzzle-area');
+        const endScreen = document.getElementById('end-screen');
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Star {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.alpha = Math.random();
-                this.speed = Math.random() * 0.02 + 0.005;
-                const colors = ['#ff007f', '#9d4edd', '#ff77bc', '#ffffff'];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-            }
-            update() {
-                this.alpha += this.speed;
-                if (this.alpha > 1 || this.alpha < 0) this.speed = -this.speed;
-            }
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = Math.abs(this.alpha);
-                ctx.fillStyle = this.color;
-                ctx.fillRect(this.x, this.y, this.size, this.size);
-                ctx.restore();
-            }
+        // Initialize Game
+        function startGame() {
+            currentStage = 0;
+            isTransitioning = false;
+            puzzleArea.style.display = 'flex';
+            endScreen.style.display = 'none';
+            loadStage();
         }
 
-        for (let i = 0; i < 100; i++) stars.push(new Star());
+        // Load a specific stage
+        function loadStage() {
+            const currentPuzzle = puzzles[currentStage];
+            
+            // Update UI
+            levelText.textContent = `Stage ${currentStage + 1} / ${puzzles.length}`;
+            storyText.textContent = currentPuzzle.story;
+            feedbackMsg.className = 'feedback';
+            feedbackMsg.textContent = '';
+            
+            // Clear old buttons
+            choicesContainer.innerHTML = '';
 
-        function animateGalaxy() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let s of stars) {
-                s.update();
-                s.draw();
-            }
-            requestAnimationFrame(animateGalaxy);
-        }
-        animateGalaxy();
-
-        /* --- HEART CATCH GAME LOGIC --- */
-        const playerCat = document.getElementById('player-cat');
-        const gameArena = document.getElementById('game-arena');
-        const heartCountDisplay = document.getElementById('heart-count');
-        const questionBox = document.getElementById('question-box');
-        const qPromptText = document.getElementById('q-prompt-text');
-        const qAnswerField = document.getElementById('q-answer-field');
-        const submitAnsBtn = document.getElementById('submit-ans-btn');
-
-        // Movement Controls
-        function moveLeft() {
-            if (catPosPercent > 10) {
-                catPosPercent -= 12;
-                playerCat.style.left = catPosPercent + '%';
-            }
+            // Generate new choice buttons
+            currentPuzzle.choices.forEach((choice) => {
+                const btn = document.createElement('button');
+                btn.className = 'choice-btn';
+                btn.textContent = choice.text;
+                btn.onclick = () => handleChoice(choice.isCorrect, currentPuzzle);
+                choicesContainer.appendChild(btn);
+            });
         }
 
-        function moveRight() {
-            if (catPosPercent < 90) {
-                catPosPercent += 12;
-                playerCat.style.left = catPosPercent + '%';
-            }
-        }
+        // Handle user selection
+        function handleChoice(isCorrect, puzzleData) {
+            if (isTransitioning) return; // Prevent rapid clicking
 
-        document.getElementById('move-left-btn').addEventListener('click', moveLeft);
-        document.getElementById('move-right-btn').addEventListener('click', moveRight);
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') moveLeft();
-            if (e.key === 'ArrowRight') moveRight();
-        });
-
-        // Falling Hearts Generator
-        function spawnFallingHeart() {
-            if (heartsCaught >= 5 || !questionBox.classList.contains('hidden')) return;
-
-            const heart = document.createElement('div');
-            heart.className = 'falling-heart';
-            heart.textContent = Math.random() > 0.3 ? '💖' : '🌸';
-            const leftPos = Math.floor(Math.random() * 80 + 10);
-            heart.style.left = leftPos + '%';
-            heart.style.top = '0px';
-
-            gameArena.appendChild(heart);
-
-            let topPos = 0;
-            const dropInterval = setInterval(() => {
-                topPos += 5;
-                heart.style.top = topPos + 'px';
-
-                // Collision Check with Cat
-                if (topPos > 200 && topPos < 230) {
-                    if (Math.abs(leftPos - catPosPercent) < 15) {
-                        heartsCaught++;
-                        heartCountDisplay.textContent = heartsCaught;
-                        if (heart.parentNode) gameArena.removeChild(heart);
-                        clearInterval(dropInterval);
-
-                        if (heartsCaught >= 5) {
-                            openQuestionModal();
-                        }
-                    }
-                }
-
-                if (topPos > 250) {
-                    if (heart.parentNode) gameArena.removeChild(heart);
-                    clearInterval(dropInterval);
-                }
-            }, 50);
-        }
-
-        setInterval(spawnFallingHeart, 1200);
-
-        // QUESTION & SUBMISSION FLOW
-        function openQuestionModal() {
-            qPromptText.textContent = questionsList[currentStage];
-            qAnswerField.value = '';
-            questionBox.classList.remove('hidden');
-        }
-
-        submitAnsBtn.addEventListener('click', async () => {
-            const answer = qAnswerField.value.trim();
-            if (!answer) {
-                alert("Please write an answer first hun bun! 🤍");
-                return;
-            }
-
-            compiledAnswers[`Q${currentStage + 1}: ${questionsList[currentStage]}`] = answer;
-            currentStage++;
-
-            if (currentStage < questionsList.length) {
-                // Next Stage Reset
-                heartsCaught = 0;
-                heartCountDisplay.textContent = 0;
-                questionBox.classList.add('hidden');
-                document.getElementById('stage-title').textContent = `♥ LEVEL ${currentStage + 1} ♥`;
+            const buttons = document.querySelectorAll('.choice-btn');
+            
+            if (isCorrect) {
+                isTransitioning = true;
                 
-                // Update Progress Nodes
-                const nodes = document.querySelectorAll('.step-node');
-                if (nodes[currentStage]) nodes[currentStage].classList.add('active');
-            } else {
-                // Final Game Clear Submission
-                submitAnsBtn.disabled = true;
-                submitAnsBtn.textContent = "UPLOADING...";
+                // Show Success Feedback
+                feedbackMsg.textContent = puzzleData.success;
+                feedbackMsg.className = 'feedback show correct';
+                
+                // Disable buttons visually
+                buttons.forEach(b => b.style.opacity = '0.5');
 
-                const payload = new FormData();
-                payload.append("access_key", WEB3FORMS_ACCESS_KEY);
-                payload.append("subject", "🎮 Kitty Quest Cleared! Her Answers! ✨");
-                for (const [q, a] of Object.entries(compiledAnswers)) {
-                    payload.append(q, a);
-                }
-
-                try {
-                    const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: payload });
-                    if (res.ok) {
-                        qPromptText.textContent = "🏆 QUEST COMPLETED! ALL ANSWERS SUBMITTED WITH LOVE! 🏆";
-                        qAnswerField.classList.add('hidden');
-                        submitAnsBtn.classList.add('hidden');
+                // Move to next stage after delay
+                setTimeout(() => {
+                    currentStage++;
+                    if (currentStage < puzzles.length) {
+                        loadStage();
+                        isTransitioning = false;
+                    } else {
+                        showEndScreen();
                     }
-                } catch(e) {
-                    alert("Submission failed. Please check internet connection.");
-                    submitAnsBtn.disabled = false;
-                }
+                }, 2000);
+
+            } else {
+                // Show Failure Feedback
+                feedbackMsg.textContent = puzzleData.fail;
+                feedbackMsg.className = 'feedback show wrong';
+                
+                // Shake effect on container
+                const container = document.querySelector('.game-container');
+                container.style.transform = 'translateX(-10px)';
+                setTimeout(() => container.style.transform = 'translateX(10px)', 100);
+                setTimeout(() => container.style.transform = 'translateX(-10px)', 200);
+                setTimeout(() => container.style.transform = 'translateX(0)', 300);
+
+                // Hide error message after a moment
+                setTimeout(() => {
+                    if(!isTransitioning) {
+                        feedbackMsg.classList.remove('show');
+                    }
+                }, 1500);
             }
-        });
+        }
+
+        // Display End Screen
+        function showEndScreen() {
+            puzzleArea.style.display = 'none';
+            levelText.textContent = "SYSTEM NOMINAL";
+            endScreen.style.display = 'flex';
+        }
+
+        // Start the game on load
+        window.onload = startGame;
+
     </script>
 </body>
 </html>
