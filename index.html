@@ -781,7 +781,7 @@
         let catPosPercent = 50;
         const compiledAnswers = {};
 
-        /* --- GALAXY STAR CANVAS ENGINE --- */
+        /* --- STARRY GALAXY CANVAS ENGINE --- */
         const canvas = document.getElementById('galaxy-bg');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -862,7 +862,6 @@
         });
 
         // Falling Hearts Generator
-        let activeHearts = [];
         function spawnFallingHeart() {
             if (heartsCaught >= 5 || !questionBox.classList.contains('hidden')) return;
 
@@ -885,7 +884,7 @@
                     if (Math.abs(leftPos - catPosPercent) < 15) {
                         heartsCaught++;
                         heartCountDisplay.textContent = heartsCaught;
-                        gameArena.removeChild(heart);
+                        if (heart.parentNode) gameArena.removeChild(heart);
                         clearInterval(dropInterval);
 
                         if (heartsCaught >= 5) {
