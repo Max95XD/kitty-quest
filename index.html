@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usman's Violet Enigma</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <title>Love Quest - Usman's Journey</title>
+    <!-- Pixel Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #0a0014;
-            --purple-dark: #240046;
-            --purple-mid: #5a189a;
-            --purple-neon: #9d4edd;
-            --purple-light: #c77dff;
-            --text-main: #e0aaff;
-            --text-glow: #ffffff;
-            --error-red: #ff3366;
-            --success-green: #00f5d4;
-            --font-display: 'Orbitron', sans-serif;
-            --font-body: 'Rajdhani', sans-serif;
+            --neon-pink: #ff66b2;
+            --neon-purple: #b366ff;
+            --dark-purple: #2a0845;
+            --bg-overlay: rgba(20, 0, 30, 0.85);
         }
 
         * {
@@ -29,346 +23,257 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(36, 0, 70, 0.4), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(90, 24, 154, 0.3), transparent 25%);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            /* Using your reference image as the perfect background */
+            background-image: url('ChatGPT Image Jul 22, 2026, 04_21_14 AM.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Press Start 2P', monospace;
+            color: #fff;
+            height: 100vh;
+            width: 100vw;
             overflow: hidden;
-        }
-
-        .game-container {
-            width: 90%;
-            max-width: 800px;
-            background: rgba(16, 0, 32, 0.7);
-            border: 2px solid var(--purple-mid);
-            border-radius: 16px;
-            box-shadow: 0 0 30px rgba(157, 78, 221, 0.2), inset 0 0 20px rgba(36, 0, 70, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            text-align: center;
-            position: relative;
-        }
-
-        /* Header Styles */
-        .header {
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--purple-mid);
-            padding-bottom: 20px;
-        }
-
-        .header h1 {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            color: var(--text-glow);
-            text-shadow: 0 0 15px var(--purple-neon);
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        .level-indicator {
-            font-size: 1.2rem;
-            color: var(--purple-light);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-
-        /* Puzzle Content */
-        .puzzle-area {
-            min-height: 250px;
             display: flex;
-            flex-direction: column;
             justify-content: center;
+            align-items: center;
         }
 
-        .story-text {
-            font-size: 1.4rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            color: var(--text-glow);
+        /* --- START SCREEN --- */
+        #start-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.5s ease-out;
         }
 
-        /* Choice Buttons */
-        .choices-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .choice-btn {
-            background: rgba(36, 0, 70, 0.5);
-            border: 1px solid var(--purple-neon);
-            color: var(--purple-light);
-            font-family: var(--font-display);
-            font-size: 1rem;
-            padding: 15px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .choice-btn:hover {
-            background: var(--purple-mid);
-            color: var(--text-glow);
-            box-shadow: 0 0 15px var(--purple-neon);
-            transform: translateY(-2px);
-        }
-
-        .choice-btn:active {
-            transform: translateY(1px);
-        }
-
-        /* Feedback Message */
-        .feedback {
-            margin-top: 25px;
+        /* Interactive Pulsing Heart Button */
+        .start-btn {
+            background: rgba(255, 102, 178, 0.2);
+            border: 4px solid var(--neon-pink);
+            box-shadow: 
+                0 0 15px var(--neon-pink), 
+                inset 0 0 15px var(--neon-pink),
+                0 0 30px #ff1a8c,
+                inset 0 0 30px #ff1a8c;
+            color: #fff;
+            text-shadow: 2px 2px 0px #ff007f, 0 0 10px #fff;
+            padding: 30px 40px;
+            font-family: 'Press Start 2P', monospace;
             font-size: 1.2rem;
-            font-weight: bold;
-            min-height: 30px;
+            line-height: 1.8;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            animation: pulse 1.5s infinite alternate;
+            
+            /* Creating a slightly hexagonal/pixelated shape using clip-path */
+            clip-path: polygon(10% 0, 90% 0, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0 90%, 0 10%);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            background: rgba(255, 102, 178, 0.4);
+        }
+
+        .start-btn:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes pulse {
+            0% { filter: brightness(1); transform: scale(1); }
+            100% { filter: brightness(1.3); transform: scale(1.03); box-shadow: 0 0 25px var(--neon-pink), inset 0 0 25px var(--neon-pink), 0 0 50px #ff1a8c; }
+        }
+
+        /* --- QUEST/QUESTION MODAL --- */
+        #quest-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in;
+            z-index: 100;
         }
 
-        .feedback.show {
+        #quest-overlay.active {
             opacity: 1;
+            pointer-events: all;
         }
 
-        .feedback.correct { color: var(--success-green); text-shadow: 0 0 10px var(--success-green); }
-        .feedback.wrong { color: var(--error-red); text-shadow: 0 0 10px var(--error-red); }
+        .quest-box {
+            background: var(--dark-purple);
+            border: 6px solid var(--neon-purple);
+            box-shadow: 0 0 20px var(--neon-purple), inset 0 0 20px var(--neon-purple);
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            clip-path: polygon(5% 0, 95% 0, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0 95%, 0 5%);
+        }
 
-        /* End Screen Elements */
-        .end-screen {
+        .quest-title {
+            color: var(--neon-pink);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #660033, 0 0 10px var(--neon-pink);
+        }
+
+        .quest-text {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #ffd9e6;
+        }
+
+        .quest-input {
+            width: 100%;
+            background: #1a0026;
+            border: 2px solid var(--neon-pink);
+            color: #fff;
+            padding: 15px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            outline: none;
+            text-align: center;
+        }
+
+        .quest-input:focus {
+            box-shadow: 0 0 15px var(--neon-pink);
+        }
+
+        .submit-btn {
+            background: linear-gradient(90deg, #ff007f, #b366ff);
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+            cursor: pointer;
+            box-shadow: 0 0 10px #fff;
+            transition: all 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px #fff, 0 0 10px var(--neon-pink);
+        }
+
+        .error-msg {
+            color: #ff3333;
+            font-size: 0.6rem;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        /* --- SUCCESS SCREEN --- */
+        #success-box {
             display: none;
             flex-direction: column;
             align-items: center;
+            animation: fadeIn 1s;
         }
 
-        .end-icon {
-            font-size: 4rem;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .heart-icon {
+            font-size: 3rem;
             margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
+            animation: pulse 1s infinite alternate;
         }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .restart-btn {
-            margin-top: 30px;
-            background: linear-gradient(45deg, var(--purple-dark), var(--purple-mid));
-            border: 2px solid var(--purple-light);
-            color: var(--text-glow);
-            font-family: var(--font-display);
-            padding: 12px 30px;
-            font-size: 1.2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 0 20px var(--purple-neon);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .restart-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--text-glow);
-        }
-
     </style>
 </head>
 <body>
 
-    <div class="game-container">
-        <div class="header">
-            <h1>USMAN'S ENIGMA</h1>
-            <div class="level-indicator" id="level-text">Stage 1 / 5</div>
+    <!-- STAGE 1: Start Button over the background -->
+    <div id="start-container">
+        <div class="start-btn" id="start-btn" onclick="startQuest()">
+            CLICK<br><br>TO<br><br>START
         </div>
+    </div>
 
-        <!-- Main Puzzle Area -->
-        <div class="puzzle-area" id="puzzle-area">
-            <div class="story-text" id="story-text">Loading the first anomaly...</div>
+    <!-- STAGE 2: Interactive Question Overlay -->
+    <div id="quest-overlay">
+        
+        <!-- Question Form -->
+        <div class="quest-box" id="question-box">
+            <h2 class="quest-title">✦ STAGE 1 ✦</h2>
+            <p class="quest-text">Before the journey continues, you must answer this:<br><br>What is the most beautiful memory we've made so far?</p>
             
-            <div class="choices-grid" id="choices-container">
-                <!-- Buttons injected via JS -->
-            </div>
-
-            <div class="feedback" id="feedback-msg"></div>
+            <div class="error-msg" id="error-msg">You must enter an answer to proceed!</div>
+            
+            <input type="text" class="quest-input" id="answer-input" placeholder="Type your answer...">
+            <button class="submit-btn" onclick="checkAnswer()">SUBMIT ♡</button>
         </div>
 
-        <!-- End Screen Area -->
-        <div class="end-screen" id="end-screen">
-            <div class="end-icon">🌌</div>
-            <div class="story-text" style="color: var(--success-green);">
-                Sequence Complete.<br>You have successfully navigated the Violet Void.
-            </div>
-            <button class="restart-btn" onclick="startGame()">INITIATE RESTART</button>
+        <!-- Success Message -->
+        <div class="quest-box" id="success-box">
+            <div class="heart-icon">💖</div>
+            <h2 class="quest-title">QUEST CLEARED!</h2>
+            <p class="quest-text">Answer saved successfully.<br><br>Welcome to the next level, Usman. The journey of love continues forever and always.</p>
         </div>
 
     </div>
 
     <script>
-        // Puzzle Data Structure
-        const puzzles = [
-            {
-                story: "You stand before a glowing violet door. A terminal requires a bypass protocol. What is always coming but never arrives?",
-                choices: [
-                    { text: "The Future", isCorrect: false },
-                    { text: "Tomorrow", isCorrect: true },
-                    { text: "The End", isCorrect: false }
-                ],
-                success: "Bypass accepted. The door phases out of existence.",
-                fail: "Access Denied. The system hums menacingly."
-            },
-            {
-                story: "A chasm of dark energy blocks your path. Three floating runestones offer a bridge. Which stone holds the memory of a flame?",
-                choices: [
-                    { text: "Obsidian", isCorrect: true },
-                    { text: "Amethyst", isCorrect: false },
-                    { text: "Sapphire", isCorrect: false }
-                ],
-                success: "The Obsidian expands, forming a solid bridge across the void.",
-                fail: "The stone shatters, dropping into the abyss. Try another."
-            },
-            {
-                story: "A holographic projection asks: 'I can be cracked, made, told, and played. What am I?'",
-                choices: [
-                    { text: "A Secret", isCorrect: false },
-                    { text: "A Record", isCorrect: false },
-                    { text: "A Joke", isCorrect: true }
-                ],
-                success: "The hologram laughs in synthesized tones and fades away.",
-                fail: "The hologram remains silent and static."
-            },
-            {
-                story: "You find a locked chest radiating neon purple light. The inscription reads: 'The more you take, the more you leave behind.'",
-                choices: [
-                    { text: "Footsteps", isCorrect: true },
-                    { text: "Memories", isCorrect: false },
-                    { text: "Time", isCorrect: false }
-                ],
-                success: "The lock clicks open, revealing a glowing key.",
-                fail: "The chest shocks you with a mild static pulse."
-            },
-            {
-                story: "The final gateway. To stabilize the core, you must identify the paradox: 'What belongs to you, but is used more by others?'",
-                choices: [
-                    { text: "Your Time", isCorrect: false },
-                    { text: "Your Name", isCorrect: true },
-                    { text: "Your Wealth", isCorrect: false }
-                ],
-                success: "Core stabilized. The Violet Enigma is solved.",
-                fail: "Warning: Core destabilization imminent. Recalibrate your answer."
-            }
-        ];
-
-        // Game State Variables
-        let currentStage = 0;
-        let isTransitioning = false;
-
-        // DOM Elements
-        const levelText = document.getElementById('level-text');
-        const storyText = document.getElementById('story-text');
-        const choicesContainer = document.getElementById('choices-container');
-        const feedbackMsg = document.getElementById('feedback-msg');
-        const puzzleArea = document.getElementById('puzzle-area');
-        const endScreen = document.getElementById('end-screen');
-
-        // Initialize Game
-        function startGame() {
-            currentStage = 0;
-            isTransitioning = false;
-            puzzleArea.style.display = 'flex';
-            endScreen.style.display = 'none';
-            loadStage();
+        // Start Game Transition
+        function startQuest() {
+            const startContainer = document.getElementById('start-container');
+            const questOverlay = document.getElementById('quest-overlay');
+            
+            // Fade out the start button
+            startContainer.style.opacity = '0';
+            
+            // Wait for fade out, then show the question modal
+            setTimeout(() => {
+                startContainer.style.display = 'none';
+                questOverlay.classList.add('active');
+            }, 500);
         }
 
-        // Load a specific stage
-        function loadStage() {
-            const currentPuzzle = puzzles[currentStage];
-            
-            // Update UI
-            levelText.textContent = `Stage ${currentStage + 1} / ${puzzles.length}`;
-            storyText.textContent = currentPuzzle.story;
-            feedbackMsg.className = 'feedback';
-            feedbackMsg.textContent = '';
-            
-            // Clear old buttons
-            choicesContainer.innerHTML = '';
+        // Answer Submission Logic
+        function checkAnswer() {
+            const answerInput = document.getElementById('answer-input').value.trim();
+            const errorMsg = document.getElementById('error-msg');
+            const questionBox = document.getElementById('question-box');
+            const successBox = document.getElementById('success-box');
 
-            // Generate new choice buttons
-            currentPuzzle.choices.forEach((choice) => {
-                const btn = document.createElement('button');
-                btn.className = 'choice-btn';
-                btn.textContent = choice.text;
-                btn.onclick = () => handleChoice(choice.isCorrect, currentPuzzle);
-                choicesContainer.appendChild(btn);
-            });
-        }
-
-        // Handle user selection
-        function handleChoice(isCorrect, puzzleData) {
-            if (isTransitioning) return; // Prevent rapid clicking
-
-            const buttons = document.querySelectorAll('.choice-btn');
-            
-            if (isCorrect) {
-                isTransitioning = true;
+            if (answerInput === "") {
+                // If they try to submit nothing
+                errorMsg.style.display = 'block';
                 
-                // Show Success Feedback
-                feedbackMsg.textContent = puzzleData.success;
-                feedbackMsg.className = 'feedback show correct';
-                
-                // Disable buttons visually
-                buttons.forEach(b => b.style.opacity = '0.5');
-
-                // Move to next stage after delay
-                setTimeout(() => {
-                    currentStage++;
-                    if (currentStage < puzzles.length) {
-                        loadStage();
-                        isTransitioning = false;
-                    } else {
-                        showEndScreen();
-                    }
-                }, 2000);
-
+                // Add a little shake effect
+                questionBox.style.transform = 'translateX(-10px)';
+                setTimeout(() => questionBox.style.transform = 'translateX(10px)', 100);
+                setTimeout(() => questionBox.style.transform = 'translateX(-10px)', 200);
+                setTimeout(() => questionBox.style.transform = 'translateX(0)', 300);
             } else {
-                // Show Failure Feedback
-                feedbackMsg.textContent = puzzleData.fail;
-                feedbackMsg.className = 'feedback show wrong';
-                
-                // Shake effect on container
-                const container = document.querySelector('.game-container');
-                container.style.transform = 'translateX(-10px)';
-                setTimeout(() => container.style.transform = 'translateX(10px)', 100);
-                setTimeout(() => container.style.transform = 'translateX(-10px)', 200);
-                setTimeout(() => container.style.transform = 'translateX(0)', 300);
-
-                // Hide error message after a moment
-                setTimeout(() => {
-                    if(!isTransitioning) {
-                        feedbackMsg.classList.remove('show');
-                    }
-                }, 1500);
+                // Success path
+                errorMsg.style.display = 'none';
+                questionBox.style.display = 'none';
+                successBox.style.display = 'flex';
             }
         }
-
-        // Display End Screen
-        function showEndScreen() {
-            puzzleArea.style.display = 'none';
-            levelText.textContent = "SYSTEM NOMINAL";
-            endScreen.style.display = 'flex';
-        }
-
-        // Start the game on load
-        window.onload = startGame;
-
+        
+        // Allow pressing "Enter" to submit
+        document.getElementById('answer-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
     </script>
 </body>
 </html>
