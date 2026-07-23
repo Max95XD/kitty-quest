@@ -29,6 +29,12 @@
             height: 100%;
             font-family: var(--font-retro);
             background-color: var(--bg-color);
+            /* --- ADDED BACKGROUND IMAGE --- */
+            background-image: url('5409128263113710451.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
             color: var(--text-color);
             overflow: hidden;
             display: flex;
@@ -66,7 +72,7 @@
 
         .freaky-cat-screen {
             font-family: monospace;
-            font-size: 15px; /* Boosted scale size */
+            font-size: 15px;
             line-height: 1.2;
             color: #d946ef;
             white-space: pre;
@@ -129,6 +135,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(4px); /* Added slight blur to make panel pop against new background */
         }
 
         .shake-effect {
@@ -154,7 +161,7 @@
 
         .slots-machine {
             width: 100%;
-            background: #120b2e;
+            background: rgba(18, 11, 46, 0.9);
             border: 3px double var(--accent-lavender);
             padding: 25px;
             margin-bottom: 25px;
@@ -199,14 +206,13 @@
             overflow: hidden;
             position: relative;
             border: 2px dashed var(--accent-lavender);
-            background: #090518;
+            background: rgba(9, 5, 24, 0.85);
             margin-top: 15px;
         }
 
         .credits-scroll-track {
             position: absolute;
             width: 100%;
-            /* Modified to slide fluidly from TOP to BOTTOM */
             animation: scrollMovieStory 45s infinite linear;
             text-align: center;
             display: flex;
@@ -264,7 +270,7 @@
 
         .input-box {
             width: 100%;
-            background: #090518;
+            background: rgba(9, 5, 24, 0.9);
             border: 2px solid #4c1d95;
             color: #fff;
             padding: 15px;
@@ -304,7 +310,7 @@
         .sys-alert {
             font-size: 0.8rem;
             color: var(--accent-lavender);
-            background: #2e1065;
+            background: rgba(46, 16, 101, 0.9);
             padding: 8px 14px;
             border-radius: 2px;
             margin-bottom: 10px;
@@ -332,7 +338,7 @@
         
         <!-- INTRO INIT LOG VIEW -->
         <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:20px; width: 100%;">
-            <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 85%; text-align: left; background: #090518; padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
+            <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 85%; text-align: left; background: rgba(9, 5, 24, 0.85); padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
                 > DEPLOYING EXTRA LARGE SIDE STAGE CAR MATRIX...<br>
                 > INVERTING CREDITS ENGINE TO TOP-DOWN SCROLL VECTOR...<br>
                 > HARDWARE RUNNING FLUIDLY. READY TO PROCEED.
@@ -398,7 +404,6 @@
         const leftCatElement = document.getElementById('left-freak-cat');
         const rightCatElement = document.getElementById('right-freak-cat');
 
-        // Big, energetic structural poses
         const freakyCatPosesLeft = [
 `    (っ◕‿‿◕)っ ✨
    /\\━━━━━━/\\ 💖
@@ -430,14 +435,13 @@
 `       💜   /\\_/\\  
      ✨    ( ʘ.ʘ ) 
    (つ━━〇━━━〇━━つ)
-     |    💥     |
+     |   💥      |
      |   ♥   ♥   |
      |_____  ____|
          \\\\\\\\\\
    [DANCING FOREVER]`
 ];
 
-        // Running uninterrupted from start to finish
         function runFreakyCatsEngine() {
             freakyFrameCounter++;
             let poseIndex = Math.floor(freakyFrameCounter / 18) % 2; 
@@ -445,7 +449,6 @@
             leftCatElement.innerHTML = freakyCatPosesLeft[poseIndex];
             rightCatElement.innerHTML = freakyCatPosesRight[poseIndex];
             
-            // Expanded swinging physics movement modifiers
             let scaleVal = 1 + Math.sin(freakyFrameCounter * 0.12) * 0.05;
             let rotateVal = Math.cos(freakyFrameCounter * 0.08) * 6;
             let slideVal = Math.sin(freakyFrameCounter * 0.05) * 10;
@@ -457,7 +460,6 @@
         }
         runFreakyCatsEngine();
 
-        // Element Selectors
         const cabinet = document.getElementById('main-cabinet');
         const introDiv = document.getElementById('intro-screen');
         const gameDiv = document.getElementById('game-screen');
@@ -551,8 +553,40 @@
             }
         }
 
+        // --- ADDED FALLING STARS ARRAY INIT ---
+        const backgroundStars = [];
+        for (let i = 0; i < 60; i++) {
+            backgroundStars.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                size: Math.random() * 2 + 1,
+                speedX: (Math.random() - 0.5) * 0.8,
+                speedY: Math.random() * 2.5 + 0.5,
+                opacity: Math.random() * 0.6 + 0.2
+            });
+        }
+
         function engineLoop() {
             ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+            
+            // --- ADDED FALLING STARS ANIMATION RENDER ---
+            ctx.fillStyle = '#ffffff';
+            backgroundStars.forEach(star => {
+                star.y += star.speedY;
+                star.x += star.speedX;
+                
+                // Wrap around to top when falling past bottom
+                if (star.y > fxCanvas.height) {
+                    star.y = -10;
+                    star.x = Math.random() * fxCanvas.width;
+                }
+                
+                ctx.globalAlpha = star.opacity;
+                ctx.fillRect(star.x, star.y, star.size, star.size);
+            });
+            ctx.globalAlpha = 1.0; // Reset global alpha for foreground effects
+            // ---------------------------------------------
+
             if (finalEndStateActive && Math.random() < 0.15) {
                 spawnBurst(8, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.6), 'firework');
             }
@@ -692,7 +726,6 @@
             }
         }
 
-        // --- CUTE & FUNNY ARCADE STORY SCROLL (TOP-TO-BOTTOM COMPREHENSIVE TEXT BLOCK) ---
         function setup50LineCreditsStory() {
             const container = document.getElementById('credits-loop-element');
             const funnyLoveStoryText = `
@@ -731,7 +764,6 @@
                 <div class="story-line">GAME STATUS: PERFECTLY SEALED WITH FOREVER DEVOTION</div>
                 <div class="story-line">❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤</div>
             `;
-            // Loop array duplication to support flawless seamless cycle boundaries
             container.innerHTML = funnyLoveStoryText + funnyLoveStoryText;
         }
     </script>
