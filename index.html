@@ -3,21 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Hearts: Level Select ♡</title>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-    
+    <title>Starry Pixel Night</title>
     <style>
-        :root {
-            --bg-color: #0b071e;         
-            --text-color: #fae8ff;       
-            --arcade-panel: rgba(29, 17, 56, 0.95);          
-            --border-pixel: #f472b6;      
-            --btn-color: #d946ef;         
-            --btn-text: #ffffff;
-            --accent-lavender: #c084fc;       
-            --font-retro: 'Courier Prime', monospace; 
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -27,745 +14,140 @@
         body, html {
             width: 100%;
             height: 100%;
-            font-family: var(--font-retro);
-            background-color: var(--bg-color);
-            /* --- ADDED BACKGROUND IMAGE --- */
-            background-image: url('5409128263113710451.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            
-            color: var(--text-color);
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0d021a;
         }
 
-        #fx-canvas {
+        /* Fullscreen Background Image */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Make sure 'bg.png' matches your uploaded file name */
+            background: url('bg.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: 1;
+        }
+
+        /* Animated Shooting Stars Overlay */
+        .sky-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* --- MAXIMIZED FREAKY ANIMATING SIDE STAGES --- */
-        .giant-cat-stage {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 24vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             z-index: 2;
             pointer-events: none;
-            overflow: hidden;
-        }
-        .left-stage { left: 0; }
-        .right-stage { right: 0; }
-
-        .freaky-cat-screen {
-            font-family: monospace;
-            font-size: 15px;
-            line-height: 1.2;
-            color: #d946ef;
-            white-space: pre;
-            text-shadow: 0 0 12px #d946ef;
-            background: rgba(11, 7, 30, 0.85);
-            padding: 25px 15px;
-            border-radius: 12px;
-            border: 3px dashed var(--accent-lavender);
-            text-align: center;
-            transition: transform 0.1s ease-out;
         }
 
-        /* --- TRUE CENTER OVERLAY LAYER --- */
-        .global-overlay-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999999;
-            pointer-events: none;
-        }
-
-        .true-center-banner {
-            background: #d946ef;
-            border: 6px double #ffffff;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 2.2rem;
-            text-align: center;
-            padding: 35px 55px;
-            box-shadow: 0 0 0 10px #701a75, 0 0 60px #d946ef, 0 30px 90px rgba(0,0,0,0.9);
-            animation: popCenterTrue 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            pointer-events: auto;
-            letter-spacing: 2px;
-        }
-
-        @keyframes popCenterTrue {
-            0% { transform: scale(0.3) rotate(-5deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-
-        /* --- ARCADE PLATFORM INTERFACE --- */
-        .arcade-cabinet {
-            position: relative;
-            z-index: 10;
-            width: 50%;
-            max-width: 620px;
-            min-width: 380px;
-            min-height: 560px;
-            background: var(--arcade-panel);
-            border: 4px solid var(--border-pixel);
-            border-radius: 4px; 
-            padding: 30px;
-            box-shadow: 0 0 0 4px #1e1b4b, 0 20px 60px rgba(0,0,0,0.9), 0 0 40px rgba(192, 132, 252, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(4px); /* Added slight blur to make panel pop against new background */
-        }
-
-        .shake-effect {
-            animation: shakeCabinet 0.3s ease-in-out;
-        }
-
-        @keyframes shakeCabinet {
-            0% { transform: translate(0, 0); }
-            20% { transform: translate(-8px, 5px); }
-            40% { transform: translate(7px, -6px); }
-            60% { transform: translate(-5px, 4px); }
-            100% { transform: translate(0, 0); }
-        }
-
-        .glitch-title {
-            font-size: 1.6rem;
-            letter-spacing: 3px; 
-            color: var(--border-pixel); 
-            text-shadow: 0 0 15px var(--border-pixel);
-            text-align: center;
-            line-height: 1.5;
-        }
-
-        .slots-machine {
-            width: 100%;
-            background: rgba(18, 11, 46, 0.9);
-            border: 3px double var(--accent-lavender);
-            padding: 25px;
-            margin-bottom: 25px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .slots-window {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin: 10px 0;
-        }
-
-        .slot-reel {
-            width: 80px;
-            height: 80px;
-            background: #090518;
-            border: 2px solid var(--border-pixel);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2.2rem;
-        }
-
-        .slot-reel.spinning {
-            animation: reelSpin 0.1s infinite linear;
-        }
-
-        @keyframes reelSpin {
-            0% { transform: translateY(-8px); opacity: 0.6; }
-            50% { transform: translateY(8px); opacity: 0.3; }
-            100% { transform: translateY(-8px); opacity: 0.6; }
-        }
-
-        /* --- CINEMATIC REVERSED DOWN-SCROLL FILM ROLL --- */
-        .movie-credits-container {
-            width: 100%;
-            height: 350px;
-            overflow: hidden;
-            position: relative;
-            border: 2px dashed var(--accent-lavender);
-            background: rgba(9, 5, 24, 0.85);
-            margin-top: 15px;
-        }
-
-        .credits-scroll-track {
+        .shooting-star {
             position: absolute;
-            width: 100%;
-            animation: scrollMovieStory 45s infinite linear;
-            text-align: center;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, #ffffff, rgba(255, 182, 255, 0));
+            border-radius: 50%;
+            filter: drop-shadow(0 0 8px #e08aff);
+            opacity: 0;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate(0, 0) rotate(-35deg);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-900px, 900px) rotate(-35deg);
+                opacity: 0;
+            }
+        }
+
+        /* Content Card Overlay */
+        .content {
+            position: relative;
+            z-index: 3;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: #fbcfe8;
+            text-align: center;
+            padding: 20px;
         }
 
-        @keyframes scrollMovieStory {
-            0% { transform: translateY(-2400px); }
-            100% { transform: translateY(350px); }
+        .card {
+            background: rgba(25, 10, 40, 0.75);
+            backdrop-filter: blur(4px);
+            border: 2px solid #c084fc;
+            box-shadow: 0 0 15px rgba(192, 132, 252, 0.4);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 450px;
         }
 
-        .story-chapter {
-            font-size: 0.8rem;
-            color: var(--border-pixel);
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px #581c87;
         }
 
-        .story-line {
-            font-size: 1.1rem;
-            color: #ffffff;
-            font-weight: bold;
-            margin-top: -10px;
-            text-shadow: 0 0 8px var(--accent-lavender);
-            padding: 0 10px;
-        }
-
-        /* --- WORKSPACE CORE CONTROLS --- */
-        .level-badge {
+        p {
             font-size: 1rem;
-            color: var(--border-pixel);
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 5px;
-        }
-
-        .step-counter {
-            font-size: 0.85rem;
-            color: var(--accent-lavender);
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        .prompt-text {
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 25px;
-            min-height: 4em;
-            line-height: 1.6;
-            color: #ffffff;
-        }
-
-        .input-box {
-            width: 100%;
-            background: rgba(9, 5, 24, 0.9);
-            border: 2px solid #4c1d95;
-            color: #fff;
-            padding: 15px;
-            font-family: var(--font-retro);
-            font-size: 1.05rem;
-            resize: none;
-            min-height: 120px;
-            margin-bottom: 25px;
-        }
-
-        .input-box:focus {
-            outline: none;
-            border-color: var(--border-pixel);
-        }
-
-        .action-btn {
-            background: var(--btn-color);
-            color: var(--btn-text);
-            border: none;
-            font-family: var(--font-retro);
-            font-weight: bold;
-            font-size: 1.1rem;
-            padding: 14px 45px;
-            cursor: pointer;
-            box-shadow: 4px 4px 0px #701a75;
-            transition: all 0.1s;
-        }
-
-        .action-btn:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px #701a75;
-        }
-
-        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .hidden { display: none !important; opacity: 0; }
-        
-        .sys-alert {
-            font-size: 0.8rem;
-            color: var(--accent-lavender);
-            background: rgba(46, 16, 101, 0.9);
-            padding: 8px 14px;
-            border-radius: 2px;
-            margin-bottom: 10px;
-            text-align: center;
+            line-height: 1.5;
+            color: #f472b6;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="fx-canvas"></canvas>
+    <!-- Background Image Container -->
+    <div class="bg-container"></div>
 
-    <!-- LEFT CONTINUOUS DYNAMIC FREAKY CAT -->
-    <div class="giant-cat-stage left-stage">
-        <div class="freaky-cat-screen" id="left-freak-cat"></div>
-    </div>
+    <!-- Shooting Stars Field -->
+    <div class="sky-overlay" id="star-field"></div>
 
-    <!-- RIGHT CONTINUOUS DYNAMIC FREAKY CAT -->
-    <div class="giant-cat-stage right-stage">
-        <div class="freaky-cat-screen" id="right-freak-cat"></div>
-    </div>
-
-    <div id="global-alert-mask" class="global-overlay-container hidden"></div>
-
-    <div class="arcade-cabinet" id="main-cabinet">
-        
-        <!-- INTRO INIT LOG VIEW -->
-        <div id="intro-screen" style="display: flex; flex-direction: column; align-items: center; gap:20px; width: 100%;">
-            <div id="boot-logs" style="font-size: 0.8rem; color: var(--accent-lavender); width: 85%; text-align: left; background: rgba(9, 5, 24, 0.85); padding: 15px; border: 1px solid #4c1d95; min-height: 90px; line-height: 1.6;">
-                > DEPLOYING EXTRA LARGE SIDE STAGE CAR MATRIX...<br>
-                > INVERTING CREDITS ENGINE TO TOP-DOWN SCROLL VECTOR...<br>
-                > HARDWARE RUNNING FLUIDLY. READY TO PROCEED.
-            </div>
-            <div class="glitch-title" id="intro-main-msg" style="opacity: 0;">
-                PLAYER 1 ONLINE !<br>
-                <span style="font-size:1.1rem; color: var(--accent-lavender);">READY TO ANSWER HONESTLY?</span>
-            </div>
-            <button class="action-btn hidden" id="start-quest-btn">START QUEST 🕹️</button>
+    <!-- Website Text / Content -->
+    <div class="content">
+        <div class="card">
+            <h1>Under the Stars</h1>
+            <p>Welcome to our pixel paradise!</p>
         </div>
-
-        <!-- ARCADE LEVEL SELECTION HUB -->
-        <div id="game-screen" class="hidden" style="width:100%;">
-            <div class="level-badge" id="lvl-title">LEVEL 1: THE FOUNDATION</div>
-            <div class="step-counter" id="game-progress">Hearts Cleared: 0 / 5</div>
-            
-            <div class="slots-machine">
-                <div class="sys-alert">🎰 Accessing upcoming text vector modules...</div>
-                <div class="slots-window">
-                    <div class="slot-reel" id="reel-1">🐱</div>
-                    <div class="slot-reel" id="reel-2">💜</div>
-                    <div class="slot-reel" id="reel-3">🐱</div>
-                </div>
-                <button class="action-btn" id="spin-btn">PULL LEVER 🕹️</button>
-            </div>
-        </div>
-
-        <!-- DIALOGUE ENTRY ELEMENT -->
-        <div id="dialogue-screen" class="hidden" style="width:100%; display: flex; flex-direction: column;">
-            <div class="level-badge" id="lvl-diag-title">LEVEL 1: THE FOUNDATION</div>
-            <div class="step-counter" id="dialogue-progress">Data Node 1 of 5 Unlocked</div>
-            <div class="prompt-text" id="active-question">Loading dialogue array strings...</div>
-            <textarea class="input-box" id="response-field" placeholder="Enter deeply honest thoughts here... 🤍"></textarea>
-            <button class="action-btn" id="next-btn">SUBMIT DATA →</button>
-        </div>
-
-        <!-- TOP-DOWN SCROLLING STORYBOARD THEATER -->
-        <div id="end-screen" class="hidden" style="width: 100%;">
-            <h1 style="font-size: 1.1rem; color: var(--border-pixel); text-align:center; letter-spacing: 2px; margin-bottom: 5px;">🏆 THE COZY ARCADE CHRONICLES: SUCCESS! 🏆</h1>
-            <div class="movie-credits-container">
-                <div class="credits-scroll-track" id="credits-loop-element"></div>
-            </div>
-        </div>
-
     </div>
 
     <script>
-        const questionsList = [
-            "Do you promise to answer these questions completely honestly, directly from your heart? I want to know the real, raw you.",
-            "Just so you know... once you click next, you can't go back to edit or change your answer. Ready for this?",
-            "Before we start, I need you to know how deeply I love you. None of this is to catch you out—it's just to understand your beautiful mind better. Okay?",
-            "What is something I do that secretly makes you fall in love with me all over again?",
-            "Is there anything I do, even a small habit, that accidentally hurts your feelings or bothers you but you haven't told me?"
-        ];
+        function spawnStar() {
+            const starField = document.getElementById('star-field');
+            const star = document.createElement('div');
+            star.classList.add('shooting-star');
 
-        const WEB3FORMS_ACCESS_KEY = "2e120831-8dcc-42cf-b1ca-904ad12ea316";
+            const startX = Math.random() * (window.innerWidth + 300);
+            const startY = Math.random() * (window.innerHeight / 2) - 100;
 
-        let currentStep = 0;
-        let finalEndStateActive = false;
-        const compiledData = {};
+            star.style.left = `${startX}px`;
+            star.style.top = `${startY}px`;
 
-        let freakyFrameCounter = 0;
-        const leftCatElement = document.getElementById('left-freak-cat');
-        const rightCatElement = document.getElementById('right-freak-cat');
+            const duration = Math.random() * 2 + 1.5;
+            const delay = Math.random() * 3;
 
-        const freakyCatPosesLeft = [
-`    (っ◕‿‿◕)っ ✨
-   /\\━━━━━━/\\ 💖
-  <  (  O.O  )  >
-     \\   V   /
-      (  "|"  )
-     /___|_|___\\
- [BOUNCING ENERGY: 200%]`
-,
-`    (つ✧益✧)つ ✨
-   /\\━━━━━━/\\ 💜
-  <  (  o.o  )  >
-     /   Y   \\
-      (  "|"  )
-     \\___|_|___/
- [FREAKY MODE ACTIVE]`
-];
+            star.style.animationDuration = `${duration}s`;
+            star.style.animationDelay = `${delay}s`;
 
-        const freakyCatPosesRight = [
-`       💖   /\\_/\\  
-     ✨    ( >.< ) 
-   (つ━━〇━━━〇━━つ)
-     |           |
-     |   ♥   ♥   |
-     |_____  ____|
-         |||||
-   [THE ULTRA LOVE BOT]`
-,
-`       💜   /\\_/\\  
-     ✨    ( ʘ.ʘ ) 
-   (つ━━〇━━━〇━━つ)
-     |   💥      |
-     |   ♥   ♥   |
-     |_____  ____|
-         \\\\\\\\\\
-   [DANCING FOREVER]`
-];
-
-        function runFreakyCatsEngine() {
-            freakyFrameCounter++;
-            let poseIndex = Math.floor(freakyFrameCounter / 18) % 2; 
-            
-            leftCatElement.innerHTML = freakyCatPosesLeft[poseIndex];
-            rightCatElement.innerHTML = freakyCatPosesRight[poseIndex];
-            
-            let scaleVal = 1 + Math.sin(freakyFrameCounter * 0.12) * 0.05;
-            let rotateVal = Math.cos(freakyFrameCounter * 0.08) * 6;
-            let slideVal = Math.sin(freakyFrameCounter * 0.05) * 10;
-            
-            leftCatElement.style.transform = `translateY(${slideVal}px) scale(${scaleVal}) rotate(${rotateVal}deg)`;
-            rightCatElement.style.transform = `translateY(${-slideVal}px) scale(${scaleVal}) rotate(${-rotateVal}deg)`;
-            
-            requestAnimationFrame(runFreakyCatsEngine);
-        }
-        runFreakyCatsEngine();
-
-        const cabinet = document.getElementById('main-cabinet');
-        const introDiv = document.getElementById('intro-screen');
-        const gameDiv = document.getElementById('game-screen');
-        const dialogDiv = document.getElementById('dialogue-screen');
-        const endDiv = document.getElementById('end-screen');
-        
-        const qText = document.getElementById('active-question');
-        const inputField = document.getElementById('response-field');
-        const nextButton = document.getElementById('next-btn');
-        const gameProgressText = document.getElementById('game-progress');
-        const dialProgressText = document.getElementById('dialogue-progress');
-        const lvlTitle = document.getElementById('lvl-title');
-        const lvlDiagTitle = document.getElementById('lvl-diag-title');
-        const spinBtn = document.getElementById('spin-btn');
-        const alertMask = document.getElementById('global-alert-mask');
-
-        function getLevelName() {
-            if (currentStep < 2) return "LEVEL 1: THE FOUNDATION";
-            if (currentStep < 4) return "LEVEL 2: EMOTIONAL DEPTHS";
-            return "LEVEL 3: ULTIMATE CLARITY";
-        }
-
-        let audioCtx = null;
-        function playHighVolumeRetroMeow() {
-            try {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const now = audioCtx.currentTime;
-                let osc = audioCtx.createOscillator();
-                let gain = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(580, now);
-                osc.frequency.exponentialRampToValueAtTime(1150, now + 0.15);
-                gain.gain.setValueAtTime(0.25, now);
-                gain.gain.linearRampToValueAtTime(0.001, now + 0.2);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(now);
-                osc.stop(now + 0.2);
-            } catch (err) {}
-        }
-
-        const fxCanvas = document.getElementById('fx-canvas');
-        const ctx = fxCanvas.getContext('2d');
-        let elementsArray = [];
-
-        function resizeCanvas() {
-            fxCanvas.width = window.innerWidth;
-            fxCanvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class MatrixElement {
-            constructor(x, y, type = 'heart') {
-                this.x = x || Math.random() * fxCanvas.width;
-                this.y = y || (fxCanvas.height + 30);
-                this.type = type;
-                this.size = Math.random() * 12 + 8;
-                this.speedX = (Math.random() * 3 - 1.5);
-                this.speedY = (Math.random() * -2.5 - 1);
-                this.alpha = 1;
-                this.fade = 0.004 + (Math.random() * 0.004);
-                const colors = ['#f472b6', '#d946ef', '#c084fc', '#fae8ff'];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-                if (type === 'firework') {
-                    this.fade = 0.018;
-                    this.size = Math.random() * 7 + 4;
-                    this.speedX = (Math.random() * 10 - 5);
-                    this.speedY = (Math.random() * 10 - 5);
-                }
-            }
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.fillRect(this.x, this.y, this.size, this.size);
-                ctx.restore();
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.alpha -= this.fade;
-            }
-        }
-
-        function spawnBurst(count, sourceX, sourceY, mode = 'heart') {
-            cabinet.classList.add('shake-effect');
-            setTimeout(() => cabinet.classList.remove('shake-effect'), 300);
-            for(let i=0; i<count; i++) {
-                elementsArray.push(new MatrixElement(sourceX, sourceY, mode));
-            }
-        }
-
-        // --- ADDED FALLING STARS ARRAY INIT ---
-        const backgroundStars = [];
-        for (let i = 0; i < 60; i++) {
-            backgroundStars.push({
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                size: Math.random() * 2 + 1,
-                speedX: (Math.random() - 0.5) * 0.8,
-                speedY: Math.random() * 2.5 + 0.5,
-                opacity: Math.random() * 0.6 + 0.2
-            });
-        }
-
-        function engineLoop() {
-            ctx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
-            
-            // --- ADDED FALLING STARS ANIMATION RENDER ---
-            ctx.fillStyle = '#ffffff';
-            backgroundStars.forEach(star => {
-                star.y += star.speedY;
-                star.x += star.speedX;
-                
-                // Wrap around to top when falling past bottom
-                if (star.y > fxCanvas.height) {
-                    star.y = -10;
-                    star.x = Math.random() * fxCanvas.width;
-                }
-                
-                ctx.globalAlpha = star.opacity;
-                ctx.fillRect(star.x, star.y, star.size, star.size);
-            });
-            ctx.globalAlpha = 1.0; // Reset global alpha for foreground effects
-            // ---------------------------------------------
-
-            if (finalEndStateActive && Math.random() < 0.15) {
-                spawnBurst(8, Math.random() * fxCanvas.width, Math.random() * (fxCanvas.height * 0.6), 'firework');
-            }
-            for(let i = 0; i < elementsArray.length; i++) {
-                elementsArray[i].update();
-                elementsArray[i].draw();
-                if(elementsArray[i].alpha <= 0) {
-                    elementsArray.splice(i, 1);
-                    i--;
-                }
-            }
-            requestAnimationFrame(engineLoop);
-        }
-        engineLoop();
-
-        window.addEventListener('load', () => {
-            setTimeout(() => { document.getElementById('boot-logs').innerHTML += "<br>> SIDE-STAGE STAGE MECHANICS LOCKED."; playHighVolumeRetroMeow(); }, 600);
-            setTimeout(() => {
-                document.getElementById('intro-main-msg').style.opacity = "1";
-                document.getElementById('start-quest-btn').classList.remove('hidden');
-            }, 1200);
-        });
-
-        document.getElementById('start-quest-btn').addEventListener('click', () => {
-            playHighVolumeRetroMeow();
-            introDiv.classList.add('hidden');
-            initiateGameTurn();
-        });
-
-        function triggerTrueCenterLoveCelebration() {
-            alertMask.innerHTML = `<div class="true-center-banner">I LOVE YOU SO MUCH! 🤍</div>`;
-            alertMask.classList.remove('hidden');
-
-            const w = window.innerWidth;
-            const h = window.innerHeight;
-            
-            for(let f=0; f<5; f++) {
-                setTimeout(() => {
-                    spawnBurst(20, w/2, h/2, 'firework');
-                    spawnBurst(15, w/2, h/2, 'heart');
-                }, f * 100);
-            }
+            starField.appendChild(star);
 
             setTimeout(() => {
-                alertMask.classList.add('hidden');
-                alertMask.innerHTML = '';
-            }, 1300);
+                star.remove();
+            }, (duration + delay) * 1000);
         }
 
-        function initiateGameTurn() {
-            dialogDiv.classList.add('hidden');
-            gameDiv.classList.remove('hidden');
-            lvlTitle.textContent = getLevelName();
-            gameProgressText.textContent = `Hearts Cleared: ${currentStep} / ${questionsList.length}`;
-            spinBtn.disabled = false;
-            spinBtn.textContent = "PULL LEVER 🕹️";
-        }
-
-        spinBtn.addEventListener('click', () => {
-            spinBtn.disabled = true;
-            spinBtn.textContent = "SPINNING...";
-            const r1 = document.getElementById('reel-1');
-            const r2 = document.getElementById('reel-2');
-            const r3 = document.getElementById('reel-3');
-            r1.classList.add('spinning'); r2.classList.add('spinning'); r3.classList.add('spinning');
-
-            setTimeout(() => { r1.classList.remove('spinning'); r1.textContent = "💖"; }, 300);
-            setTimeout(() => { r2.classList.remove('spinning'); r2.textContent = "🐱"; }, 600);
-            setTimeout(() => {
-                r3.classList.remove('spinning'); r3.textContent = "💖";
-                playHighVolumeRetroMeow();
-                setTimeout(revealDialogue, 400);
-            }, 900);
-        });
-
-        function revealDialogue() {
-            gameDiv.classList.add('hidden');
-            dialogDiv.classList.remove('hidden');
-            lvlDiagTitle.textContent = getLevelName();
-            dialProgressText.textContent = `Data Node ${currentStep + 1} of ${questionsList.length} Unlocked`;
-            qText.textContent = questionsList[currentStep];
-            inputField.value = '';
-            setTimeout(() => inputField.focus(), 50);
-
-            if (currentStep === questionsList.length - 1) {
-                nextButton.textContent = "CLEAR GAME ♡";
-            } else {
-                nextButton.textContent = "SUBMIT DATA →";
-            }
-        }
-
-        nextButton.addEventListener('click', () => {
-            const answerStr = inputField.value.trim();
-            if(answerStr === "") {
-                alert("Input parameters cannot be blank.");
-                return;
-            }
-
-            compiledData[`[${getLevelName()}] Q${currentStep + 1}: ${questionsList[currentStep]}`] = answerStr;
-            triggerTrueCenterLoveCelebration();
-
-            currentStep++;
-            setTimeout(() => {
-                if (currentStep < questionsList.length) {
-                    initiateGameTurn();
-                } else {
-                    dispatchResults();
-                }
-            }, 1300);
-        });
-
-        async function dispatchResults() {
-            nextButton.disabled = true;
-            nextButton.textContent = "UPLOADING...";
-
-            const payload = new FormData();
-            payload.append("access_key", WEB3FORMS_ACCESS_KEY);
-            payload.append("subject", "🎮 Core Quest Cleared! Her Deep Answers! ✨");
-            for(const [q, a] of Object.entries(compiledData)) {
-                payload.append(q, a);
-            }
-
-            try {
-                const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: payload });
-                if (res.ok) {
-                    dialogDiv.classList.add('hidden');
-                    endDiv.classList.remove('hidden');
-                    finalEndStateActive = true;
-                    setup50LineCreditsStory();
-                } else {
-                    alert("Pipeline error. Recheck network.");
-                    nextButton.disabled = false;
-                }
-            } catch(e) {
-                alert("Connection failed.");
-                nextButton.disabled = false;
-            }
-        }
-
-        function setup50LineCreditsStory() {
-            const container = document.getElementById('credits-loop-element');
-            const funnyLoveStoryText = `
-                <div class="story-chapter">CHAPTER 1: THE DISCOVERY</div>
-                <div class="story-line">Once upon a time, in a neon pixelated world...</div>
-                <div class="story-line">Player 1 met Player 2 near a buggy arcade machine.</div>
-                <div class="story-line">Player 1 tried to look cool but accidentally dropped their coffee.</div>
-                <div class="story-line">Player 2 just laughed and offered to share theirs.</div>
-                <div class="story-line">It was a critical hit directly to the feelings!</div>
-
-                <div class="story-chapter">CHAPTER 2: THE GLITCHY JOURNEY</div>
-                <div class="story-line">They decided to team up for co-op mode.</div>
-                <div class="story-line">Player 1 wasn't very good at jumping over obstacles...</div>
-                <div class="story-line">And Player 2 kept accidentally throwing shields at walls instead of bad guys.</div>
-                <div class="story-line">But somehow, they kept winning anyway!</div>
-                <div class="story-line">Because team dynamics were perfectly synced.</div>
-
-                <div class="story-chapter">CHAPTER 3: THE CONFESSION MODULATION</div>
-                <div class="story-line">One night under a low-res digital starry sky...</div>
-                <div class="story-line">Player 1 typed: "I think my code has a bug."</div>
-                <div class="story-line">Player 2 panicked and checked the system logs.</div>
-                <div class="story-line">Player 1 smiled and said: "Yeah, it keeps looping 'I love you'."</div>
-                <div class="story-line">The system completely overheated with cuteness.</div>
-
-                <div class="story-chapter">CHAPTER 4: INFINITE HIGH SCORES</div>
-                <div class="story-line">Now, they have cleared every single hidden boss level.</div>
-                <div class="story-line">No matter how many weird glitches or monsters appear...</div>
-                <div class="story-line">They have the ultimate cheat code: Forever Trust.</div>
-                <div class="story-line">And they lived happily, collecting hearts until the end of time.</div>
-
-                <div class="story-chapter">APPENDIX LOG: CORE DECREES</div>
-                <div class="story-line">I LOVE YOU SO MUCH 🤍</div>
-                <div class="story-line">I LOVE YOU I LOVE YOU I LOVE YOU</div>
-                <div class="story-line">YOU ARE MY WORLD AND MY ENTIRE HIGH SCORE</div>
-                <div class="story-line">THANK YOU FOR FINISHING THIS RETRO QUEST WITH ME!</div>
-                <div class="story-line">GAME STATUS: PERFECTLY SEALED WITH FOREVER DEVOTION</div>
-                <div class="story-line">❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤</div>
-            `;
-            container.innerHTML = funnyLoveStoryText + funnyLoveStoryText;
-        }
+        setInterval(spawnStar, 900);
     </script>
+
 </body>
 </html>
