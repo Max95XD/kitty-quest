@@ -3,151 +3,720 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starry Pixel Night</title>
+    <title>Our Starlight Adventure 🌟💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-deep: #060919;
+            --bg-mid: #131836;
+            --bg-card: #1c234a;
+            --accent-pink: #ff5c8a;
+            --accent-purple: #8b5cf6;
+            --accent-gold: #ffd166;
+            --lavender: #e2d9fc;
+            --paper-bg: #0f1228;
+            --paper-border: #7c3aed;
+            --paper-text: #f5f0ff;
+            --border-pixel: 4px solid var(--accent-pink);
+            --shadow-pixel: 8px 8px 0px rgba(0, 0, 0, 0.85);
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            user-select: none;
         }
 
-        body, html {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #0d021a;
-        }
-
-        /* Fullscreen Background Image */
-        .bg-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Make sure 'bg.png' matches your uploaded file name */
-            background: url('bg.jpg') no-repeat center center;
+        body {
+            font-family: 'Press Start 2P', monospace;
+            height: 100vh;
+            background: url('bg.jpg') no-repeat center center fixed;
             background-size: cover;
-            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Animated Shooting Stars Overlay */
-        .sky-overlay {
+        /* Subtle overlay to keep text readable against the background */
+        .bg-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 2;
+            background: rgba(6, 9, 25, 0.35);
+            z-index: 1;
             pointer-events: none;
         }
 
-        .shooting-star {
+        /* Background Scattered Hearts */
+        .bg-heart {
             position: absolute;
-            width: 120px;
-            height: 2px;
-            background: linear-gradient(90deg, #ffffff, rgba(255, 182, 255, 0));
-            border-radius: 50%;
-            filter: drop-shadow(0 0 8px #e08aff);
-            opacity: 0;
-            animation: fall linear infinite;
+            z-index: 2;
+            opacity: 0.5;
+            pointer-events: none;
+            animation: pulseHeart 3s infinite alternate ease-in-out;
         }
 
-        @keyframes fall {
-            0% {
-                transform: translate(0, 0) rotate(-35deg);
-                opacity: 1;
-            }
-            70% {
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-900px, 900px) rotate(-35deg);
-                opacity: 0;
-            }
+        @keyframes pulseHeart {
+            0% { transform: scale(0.8); opacity: 0.3; }
+            100% { transform: scale(1.2); opacity: 0.7; filter: drop-shadow(0 0 6px var(--accent-pink)); }
         }
 
-        /* Content Card Overlay */
-        .content {
-            position: relative;
-            z-index: 3;
+        /* Interactive Fun Pixel Cat Companion Widget (Left) */
+        .cat-companion-widget {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            z-index: 5;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100%;
-            color: #fbcfe8;
+            background: rgba(19, 24, 54, 0.9);
+            border: 4px solid var(--accent-pink);
+            padding: 16px;
+            border-radius: 10px;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.85);
+            cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s, border-color 0.2s;
+            animation: catBreathe 2s infinite ease-in-out alternate;
+        }
+
+        @keyframes catBreathe {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-6px) scale(1.03); }
+        }
+
+        .cat-companion-widget:hover {
+            transform: scale(1.15) rotate(-3deg) translateY(-8px);
+            background: rgba(28, 35, 74, 0.98);
+            border-color: var(--accent-gold);
+            box-shadow: 10px 10px 0px var(--accent-pink);
+        }
+
+        .cat-companion-widget:hover svg {
+            animation: catWiggle 0.35s infinite alternate ease-in-out;
+        }
+
+        @keyframes catWiggle {
+            0% { transform: rotate(-6deg) scale(1.05); }
+            100% { transform: rotate(6deg) scale(1.05); }
+        }
+
+        .cat-label {
+            font-size: 8px;
+            color: var(--lavender);
+            margin-top: 8px;
             text-align: center;
+        }
+
+        /* Start Screen */
+        #start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            cursor: pointer;
+            animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .start-bat-container {
+            animation: bounceBat 1.8s infinite alternate ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        @keyframes bounceBat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-18px); }
+        }
+
+        .gate-text {
+            color: var(--lavender);
+            font-size: 10px;
+            text-shadow: 2px 2px 0px #000;
+            letter-spacing: 1px;
+            line-height: 2.6;
+            max-width: 500px;
+            background: rgba(10, 13, 31, 0.95);
             padding: 20px;
+            border: var(--border-pixel);
+            border-radius: 8px;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.8);
+            white-space: pre-line;
         }
 
-        .card {
-            background: rgba(25, 10, 40, 0.75);
-            backdrop-filter: blur(4px);
-            border: 2px solid #c084fc;
-            box-shadow: 0 0 15px rgba(192, 132, 252, 0.4);
-            border-radius: 16px;
-            padding: 30px;
-            max-width: 450px;
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 12px;
-            text-shadow: 2px 2px #581c87;
+        /* Draggable Music Player Widget */
+        .music-player {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 25;
+            width: 340px;
+            background-color: var(--bg-mid);
+            border: var(--border-pixel);
+            box-shadow: var(--shadow-pixel);
+            display: none;
+            flex-direction: column;
         }
 
-        p {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #f472b6;
+        .music-player.pop-open {
+            display: flex;
+            animation: popIn 0.4s ease forwards;
         }
+
+        .player-header {
+            height: 38px;
+            background: linear-gradient(to right, var(--accent-pink), var(--accent-purple));
+            border-bottom: 3px solid var(--accent-pink);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+            font-size: 9px;
+            color: #fff;
+            cursor: grab;
+        }
+
+        .player-header:active { cursor: grabbing; }
+
+        .player-body {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: var(--bg-deep);
+        }
+
+        /* Main Chamber Window */
+        #question-window {
+            display: none;
+            position: absolute;
+            z-index: 15;
+            width: 660px;
+            min-height: 540px;
+            background-color: var(--bg-mid);
+            border: var(--border-pixel);
+            box-shadow: 16px 20px 0px rgba(0,0,0,0.85);
+            opacity: 0;
+        }
+
+        #question-window.fade-in {
+            display: block;
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .q-header {
+            background: linear-gradient(to bottom, var(--accent-pink), #581c87);
+            border-bottom: 4px solid var(--accent-pink);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--lavender);
+            font-size: 11px;
+        }
+
+        .q-inner {
+            margin: 20px;
+            border: 4px solid var(--paper-border);
+            background-color: var(--paper-bg);
+            background-image: radial-gradient(circle, rgba(124, 58, 237, 0.15) 1px, transparent 1px);
+            background-size: 16px 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 400px;
+            justify-content: space-between;
+            color: var(--paper-text);
+        }
+
+        .q-stats {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            color: var(--lavender);
+            margin-bottom: 14px;
+        }
+
+        .q-badge {
+            background-color: #3b0764;
+            border: 2px solid var(--paper-border);
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: var(--paper-text);
+        }
+
+        .q-text {
+            font-size: 11px;
+            color: var(--paper-text);
+            text-align: center;
+            line-height: 2.5;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px rgba(255, 92, 138, 0.3);
+        }
+
+        .pixel-input {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            width: 100%;
+            padding: 16px;
+            background-color: #080b18;
+            border: 3px solid var(--paper-border);
+            color: var(--lavender);
+            outline: none;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .pixel-input::placeholder { color: #8b5cf6; }
+
+        .pixel-btn {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            padding: 15px 20px;
+            background-color: var(--accent-pink);
+            border: 3px solid var(--paper-border);
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 5px 5px 0px #000;
+            transition: transform 0.2s, background-color 0.1s;
+        }
+
+        .pixel-btn:hover {
+            background-color: #ff759d;
+            transform: translateY(-2px);
+        }
+
+        .pixel-btn:active {
+            transform: translateY(1px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        /* Chaotic Varied Love Spam Overlays */
+        .love-spam-box {
+            position: fixed;
+            z-index: 300;
+            background: var(--bg-mid);
+            border: 3px solid var(--accent-pink);
+            color: var(--lavender);
+            font-size: 9px;
+            padding: 14px 18px;
+            box-shadow: 6px 6px 0px #000;
+            pointer-events: none;
+            text-align: center;
+            animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Achievement Popup */
+        #achievement-popup {
+            position: fixed;
+            bottom: -130px;
+            left: 20px;
+            z-index: 100;
+            background-color: var(--bg-mid);
+            border: var(--border-pixel);
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.85);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        #achievement-popup.show { bottom: 24px; }
     </style>
 </head>
 <body>
 
-    <!-- Background Image Container -->
-    <div class="bg-container"></div>
+    <div class="bg-overlay"></div>
 
-    <!-- Shooting Stars Field -->
-    <div class="sky-overlay" id="star-field"></div>
+    <!-- Crisp Pixel Art SVGs -->
+    <svg style="display:none;">
+        <g id="svg-bat">
+            <svg width="64" height="48" viewBox="0 0 20 14" shape-rendering="crispEdges">
+                <path d="M1,2 h3 v1 h2 v1 h1 v1 h2 v-1 h2 v1 h1 v-1 h2 v-1 h3 v1 h1 v2 h-1 v1 h-1 v1 h-1 v1 h-1 v1 h-2 v-1 h-2 v-1 h-1 v-1 h-1 v-1 h-1 v-1 z" fill="#ffd166"/>
+                <rect x="6" y="5" width="2" height="2" fill="#060919"/>
+                <rect x="12" y="5" width="2" height="2" fill="#060919"/>
+                <rect x="9" y="8" width="2" height="1" fill="#ff5c8a"/>
+            </svg>
+        </g>
+        <g id="svg-heart">
+            <svg width="40" height="36" viewBox="0 0 18 16" shape-rendering="crispEdges">
+                <path d="M3,1 h4 v1 h2 v1 h2 v-1 h4 v1 h1 v4 h-1 v2 h-1 v1 h-1 v1 h-1 v1 h-1 v1 h-2 v-1 h-1 v-1 h-1 v-1 h-1 v-1 h-1 v-2 h-1 z" fill="#ff5c8a"/>
+                <rect x="4" y="3" width="3" height="3" fill="#ffd166"/>
+            </svg>
+        </g>
+        <!-- Fun Pixel Art Cat Sprite -->
+        <g id="svg-cat">
+            <svg width="88" height="76" viewBox="0 0 22 19" shape-rendering="crispEdges">
+                <path d="M4,4 h3 v1 h2 v1 h4 v-1 h2 v-1 h3 v1 h1 v3 h-1 v1 h-1 v1 h-1 v1 h-1 v1 h-1 v1 h-2 v1 h-6 v-1 h-2 v-1 h-1 v-1 h-1 v-1 h-1 v-1 h-1 v-3 h1 v-1 z" fill="#ffd166"/>
+                <path d="M5,5 h2 v1 h-2 z" fill="#ff5c8a"/>
+                <path d="M15,5 h2 v1 h-2 z" fill="#ff5c8a"/>
+                <rect x="7" y="7" width="2" height="2" fill="#060919"/>
+                <rect x="13" y="7" width="2" height="2" fill="#060919"/>
+                <rect x="10" y="9" width="2" height="1" fill="#ff5c8a"/>
+                <path d="M3,9 h3 v1 h-3 z" fill="#e2d9fc"/>
+                <path d="M16,9 h3 v1 h-3 z" fill="#e2d9fc"/>
+                <path d="M7,12 h8 v6 h-8 z" fill="#ffd166"/>
+                <path d="M15,14 h2 v1 h2 v1 h1 v2 h-1 v-1 h-2 v-1 h-2 z" fill="#ff5c8a"/>
+            </svg>
+        </g>
+    </svg>
 
-    <!-- Website Text / Content -->
-    <div class="content">
-        <div class="card">
-            <h1>Under the Stars</h1>
-            <p>Welcome to our pixel paradise!</p>
+    <!-- Scattered Hearts Everywhere -->
+    <div class="bg-heart" style="top: 15%; left: 10%;"><svg width="30" height="28"><use href="#svg-heart"/></svg></div>
+    <div class="bg-heart" style="top: 25%; right: 12%; animation-delay: 1s;"><svg width="24" height="22"><use href="#svg-heart"/></svg></div>
+    <div class="bg-heart" style="bottom: 18%; left: 28%; animation-delay: 0.5s;"><svg width="32" height="30"><use href="#svg-heart"/></svg></div>
+    <div class="bg-heart" style="bottom: 22%; right: 18%; animation-delay: 1.5s;"><svg width="26" height="24"><use href="#svg-heart"/></svg></div>
+    <div class="bg-heart" style="top: 50%; left: 5%; animation-delay: 0.8s;"><svg width="28" height="26"><use href="#svg-heart"/></svg></div>
+    <div class="bg-heart" style="top: 45%; right: 6%; animation-delay: 1.2s;"><svg width="30" height="28"><use href="#svg-heart"/></svg></div>
+
+    <!-- Interactive Pixel Cat Companion Widget (Left) -->
+    <div class="cat-companion-widget" onclick="showAchievement('🐱 Purrfect!', 'You gave your kitty a headpat!')">
+        <svg width="88" height="76"><use href="#svg-cat"/></svg>
+        <div class="cat-label">Kitty Companion 🐱✨</div>
+    </div>
+
+    <!-- Start Screen with your exact intro text -->
+    <div id="start-screen" onclick="launchKingdomDomain()">
+        <div class="start-bat-container">
+            <svg width="110" height="84"><use href="#svg-bat"/></svg>
+            <div class="gate-text">💜 Hey, welcome to my little game, Hun Bun! -3-
+Let's see how much you love me... or maybe how much I annoy you. 🤭
+Don't worry—this isn't a test you can fail. I just want to understand you better, learn about your thoughts, and hopefully make our relationship even stronger.
+
+[ Click this little bat to begin ]</div>
+        </div>
+    </div>
+
+    <!-- Draggable Spotify Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <div class="player-header" id="playerHeader">
+            <span>🎵 Starlight Playlist</span>
+            <span style="cursor:pointer;" onclick="togglePlayerMinimize()">_</span>
+        </div>
+        <div class="player-body" id="playerBody">
+            <iframe style="border-radius:10px" src="https://open.spotify.com/embed/playlist/3ZHqsnqyBoFmt5lkzS7fOg?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <div id="question-window">
+        <div class="q-header">
+            <span id="chamberTitle">Our Little Game</span>
+            <span style="cursor:pointer;" onclick="closeWindow()">X</span>
+        </div>
+        <div class="q-inner" id="chamberContent"></div>
+    </div>
+
+    <form action="https://api.web3forms.com/submit" method="POST" id="emailForm" style="display:none;">
+        <input type="hidden" name="apikey" value="2e120831-8dcc-42cf-b1ca-904ad12ea316">
+        <input type="hidden" name="subject" value="✨ New Game Answers from Hun Bun!">
+        <input type="hidden" name="from_name" value="Starlight Adventure Website">
+        <input type="hidden" name="message" id="emailMessageContent">
+    </form>
+
+    <div id="achievement-popup">
+        <svg width="46" height="46"><use href="#svg-bat"/></svg>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+            <span style="font-size:9px; color:var(--accent-pink);" id="achTitle">Magical Badge Unlocked!</span>
+            <span style="font-size:8px; color:#fff;" id="achSubtitle">Welcome to the game</span>
         </div>
     </div>
 
     <script>
-        function spawnStar() {
-            const starField = document.getElementById('star-field');
-            const star = document.createElement('div');
-            star.classList.add('shooting-star');
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (!audioCtx) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            const now = audioCtx.currentTime;
 
-            const startX = Math.random() * (window.innerWidth + 300);
-            const startY = Math.random() * (window.innerHeight / 2) - 100;
-
-            star.style.left = `${startX}px`;
-            star.style.top = `${startY}px`;
-
-            const duration = Math.random() * 2 + 1.5;
-            const delay = Math.random() * 3;
-
-            star.style.animationDuration = `${duration}s`;
-            star.style.animationDelay = `${delay}s`;
-
-            starField.appendChild(star);
-
-            setTimeout(() => {
-                star.remove();
-            }, (duration + delay) * 1000);
+            if (type === 'click') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(330, now);
+                osc.frequency.exponentialRampToValueAtTime(660, now + 0.06);
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+                osc.start(now); osc.stop(now + 0.06);
+            } else if (type === 'success') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(440, now);
+                osc.frequency.setValueAtTime(554.37, now + 0.08);
+                osc.frequency.setValueAtTime(659.25, now + 0.16);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                osc.start(now); osc.stop(now + 0.35);
+            }
         }
 
-        setInterval(spawnStar, 900);
-    </script>
+        /* Draggable Music Player Logic */
+        const player = id('musicPlayer');
+        const header = id('playerHeader');
+        let isDragging = false, startX, startY, initialX, initialY;
 
+        header.addEventListener('mousedown', dragStart);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', dragEnd);
+        header.addEventListener('touchstart', dragStart, {passive: true});
+        document.addEventListener('touchmove', drag, {passive: true});
+        document.addEventListener('touchend', dragEnd);
+
+        function dragStart(e) {
+            isDragging = true;
+            startX = e.clientX || e.touches[0].clientX;
+            startY = e.clientY || e.touches[0].clientY;
+            initialX = player.offsetLeft;
+            initialY = player.offsetTop;
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            const clientX = e.clientX || e.touches[0].clientX;
+            const clientY = e.clientY || e.touches[0].clientY;
+            player.style.left = (initialX + (clientX - startX)) + 'px';
+            player.style.top = (initialY + (clientY - startY)) + 'px';
+            player.style.right = 'auto';
+        }
+
+        function dragEnd() { isDragging = false; }
+
+        /* First 3 Yes/No Intro Questions with Shrinking & Disappearing 'No' Button */
+        const introQuestions = [
+            "Are you ready to play my little game and answer honestly, Hun Bun?",
+            "Do you promise to take your time and answer every question truthfully?",
+            "Even if some questions get serious, do you promise to stay open and love me?"
+        ];
+        let introIndex = 0;
+        let noClickCount = 0;
+
+        /* All 29 of Your Questions */
+        const gameSequence = [
+            { text: "1. Before we start... I hope none of these questions make you upset or uncomfortable. Please take your time and answer every question honestly. I promise I'll appreciate the truth more than the answer I want to hear." },
+            { text: "2. Let's start with something simple...\nHow do you honestly feel about me right now, at this point in our relationship?" },
+            { text: "3. Do you feel like we truly listen to each other and treat each other equally, or do you ever feel like you have to hide your thoughts or feelings for my sake?" },
+            { text: "4. How often do you hold back your real feelings because you're afraid it might start an argument or hurt me?" },
+            { text: "5. Hmm... now let's get into something a little more serious. These are the kinds of thoughts that scare me sometimes, even though I try to stay positive." },
+            { text: "6. Have you ever genuinely been afraid that we might not make it to the future we've dreamed about? If yes, what made you feel that way?" },
+            { text: "7. Is there anything about my past that still quietly bothers you, even if you've told me it doesn't?" },
+            { text: "8. What's one flaw or habit of mine that worries you the most? Do you ever fear it could become a bigger problem for us one day?" },
+            { text: "9. Do you ever worry that I'll lose feelings for you someday? If yes, what makes you think that?" },
+            { text: "10. Is there something you wish I told you more often, even if it's something small?" },
+            { text: "11. Do you ever compare yourself to someone I dated before? If you do, what thoughts usually go through your mind?" },
+            { text: "12. Do you feel like my past still affects our relationship today? In what ways?" },
+            { text: "13. Do you truly believe we can make long distance work? What's your biggest hope... and your biggest fear about it?" },
+            { text: "14. Okay... enough serious stuff for now. Let's ask some random questions I'm genuinely curious about." },
+            { text: "15. If one day I disappeared from your life forever without saying goodbye... what would be the last thing you'd want to say to me?" },
+            { text: "16. What do you honestly think about my friends? Is there anyone you're secretly uncomfortable with, even if you've never said it?" },
+            { text: "17. What's one thing about my personality that unintentionally makes you feel insecure, even though you know I probably don't mean it that way?" },
+            { text: "18. What's one thing I do that makes you feel the most loved... and what's one thing I do that accidentally makes you feel unnoticed or unimportant?" },
+            { text: "19. Is there anything about yourself that you're afraid I'll stop loving once I know you even better?" },
+            { text: "20. Do you ever get jealous when I spend time talking to other people, even if you know there's nothing romantic happening? Why?" },
+            { text: "21. You always tell me you'd do anything for me... so now I'm curious. Where would you personally draw the line? What's something you would never do, even for me?" },
+            { text: "22. After everything I've shared with you about my friendship, do you still have doubts or worries about it? Why or why not?" },
+            { text: "23. Have you ever thought I was lying to you or hiding something from you? If yes, what made you feel that way?" },
+            { text: "24. When I say I'm sick, busy, sleeping, or mentally exhausted... do you ever secretly think I'm avoiding you?" },
+            { text: "25. You know I can be pretty clueless sometimes and say things without realizing how they sound. Do those moments hurt you? Can you remember one that stayed with you?" },
+            { text: "26. You've done things for me that you've never done for anyone else, and I'll always appreciate that. If one day I kept asking for more and more from you... what would you do? Would you tell me to stop, or would you keep giving until you couldn't anymore?" },
+            { text: "27. You know I struggle with hurting myself sometimes, and I'm trying really hard to stop. If one day I relapsed and didn't tell you until later... how would you honestly feel? Would you be angry, heartbroken, disappointed, or something else?" },
+            { text: "28. This is probably the hardest question. Please tell me everything you honestly dislike about me—my habits, my attitude, the way I communicate, the things that frustrate you, or anything you've been keeping inside. Don't worry about hurting my feelings. I'd rather know the truth than stay unaware." },
+            { text: "29. Last question... After answering everything, how do you honestly see our relationship? What do you think we're doing well, what needs to change, and what message would you like to leave me after finishing this little game?" }
+        ];
+
+        let currentIndex = 0;
+        let userResponses = [];
+
+        function launchKingdomDomain() {
+            playSound('success');
+            id('start-screen').style.display = 'none';
+            player.classList.add('pop-open');
+            showAchievement("✨ Game Started", "Have fun, Hun Bun!");
+            setTimeout(() => {
+                id('question-window').classList.add('fade-in');
+                loadIntroStep();
+            }, 600);
+        }
+
+        function loadIntroStep() {
+            const container = id('chamberContent');
+            if (introIndex >= introQuestions.length) {
+                loadStep();
+                return;
+            }
+
+            noClickCount = 0;
+            id('chamberTitle').innerText = `Intro Check (${introIndex + 1} / 3)`;
+            container.innerHTML = `
+                <div class="q-stats">
+                    <span class="q-badge">Pledge</span>
+                    <span class="q-badge">Hun Bun 💜</span>
+                </div>
+                <div class="q-text">${introQuestions[introIndex]}</div>
+                <div style="display:flex; gap: 16px; width: 100%; justify-content: center; align-items: center; margin-top: 16px;">
+                    <button class="pixel-btn" style="flex:1;" onclick="answerIntro('Yes! ✨')">Yes! ✨</button>
+                    <button class="pixel-btn" id="noBtn" style="flex:1; background-color: #551a38;" onclick="handleNoClick()">No 😢</button>
+                </div>
+            `;
+        }
+
+        function handleNoClick() {
+            playSound('click');
+            noClickCount++;
+            const noBtn = id('noBtn');
+            if (noClickCount === 1) {
+                noBtn.style.transform = 'scale(0.7)';
+            } else if (noClickCount === 2) {
+                noBtn.style.transform = 'scale(0.4)';
+            } else if (noClickCount >= 3) {
+                noBtn.style.display = 'none';
+                showAchievement("✨ Nice Try!", "The 'No' button vanished because only Yes is allowed!");
+            }
+        }
+
+        function answerIntro(ans) {
+            playSound('success');
+            userResponses.push({
+                question: `Intro Q${introIndex + 1}: ${introQuestions[introIndex]}`,
+                answer: ans
+            });
+            introIndex++;
+            checkLoveSpam();
+            loadIntroStep();
+        }
+
+        function loadStep() {
+            const container = id('chamberContent');
+            if (currentIndex >= gameSequence.length) {
+                finalizeAndSendEmail();
+                return;
+            }
+
+            const current = gameSequence[currentIndex];
+            id('chamberTitle').innerText = `Question (${currentIndex + 1} / ${gameSequence.length})`;
+            container.innerHTML = `
+                <div class="q-stats">
+                    <span class="q-badge">Question ${currentIndex + 1}</span>
+                    <span class="q-badge">Love Level: 100% 💖</span>
+                </div>
+                <div class="q-text">${current.text}</div>
+                <div style="width: 100%;">
+                    <input type="text" class="pixel-input" id="userInput" placeholder="Inscribe your answer here...">
+                    <button class="pixel-btn" style="width: 100%;" onclick="submitAnswer()">Save Answer 💖</button>
+                </div>
+            `;
+        }
+
+        function submitAnswer() {
+            const val = id('userInput').value.trim();
+            if (!val) {
+                playSound('click');
+                alert("Please write your response first!");
+                return;
+            }
+            playSound('success');
+            userResponses.push({
+                question: gameSequence[currentIndex].text,
+                answer: val
+            });
+            currentIndex++;
+            checkLoveSpam();
+            loadStep();
+        }
+
+        /* Love Spam Storm Triggered after every 4 questions with Varied Sentences */
+        const spamPhrases = [
+            "💖 I love you! 💖",
+            "✨ You're the love of my life! ✨",
+            "☀️ You're my sunshine! ☀️",
+            "💜 You're my hunbun! 💜"
+        ];
+
+        function checkLoveSpam() {
+            const totalDone = introIndex + currentIndex;
+            if (totalDone > 0 && totalDone % 4 === 0 && currentIndex < gameSequence.length) {
+                setTimeout(() => {
+                    triggerLoveSpamStorm();
+                }, 400);
+            }
+        }
+
+        function triggerLoveSpamStorm() {
+            playSound('success');
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    const spam = document.createElement('div');
+                    spam.className = 'love-spam-box';
+                    const randomMsg = spamPhrases[Math.floor(Math.random() * spamPhrases.length)];
+                    spam.innerHTML = randomMsg;
+                    spam.style.top = (Math.random() * 70 + 15) + 'vh';
+                    spam.style.left = (Math.random() * 70 + 15) + 'vw';
+                    spam.style.transform = `rotate(${Math.random() * 40 - 20}deg) scale(${Math.random() * 0.3 + 0.85})`;
+                    document.body.appendChild(spam);
+                    setTimeout(() => spam.remove(), 3500);
+                }, i * 70);
+            }
+        }
+
+        function finalizeAndSendEmail() {
+            const container = id('chamberContent');
+            container.innerHTML = `
+                <div class="q-text" style="font-size: 11px; line-height: 2.6;">
+                    Thank you for answering all of these. ❤️<br><br>
+                    No matter what you wrote, thank you for trusting me enough to be honest. That's all I ever wanted. 💌✨
+                </div>
+            `;
+            
+            let formattedText = "Here are all the answers from your game:\n\n";
+            userResponses.forEach((item, idx) => {
+                formattedText += `${idx + 1}. ${item.question}\nAnswer: ${item.answer}\n\n`;
+            });
+
+            id('emailMessageContent').value = formattedText;
+            const formData = new FormData(id('emailForm'));
+            fetch("https://api.web3forms.com/submit", { method: "POST", body: formData })
+                .then(() => showAchievement("💌 Delivered Successfully!", "All your answers have arrived!"))
+                .catch(err => console.log("Submission error:", err));
+        }
+
+        function togglePlayerMinimize() {
+            playSound('click');
+            const body = id('playerBody');
+            body.style.display = body.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function closeWindow() {
+            playSound('click');
+            id('question-window').style.display = 'none';
+        }
+
+        function showAchievement(title, subtitle) {
+            const popup = id('achievement-popup');
+            id('achTitle').innerText = title;
+            id('achSubtitle').innerText = subtitle;
+            popup.classList.add('show');
+            setTimeout(() => popup.classList.remove('show'), 3500);
+        }
+
+        function id(elementId) { return document.getElementById(elementId); }
+    </script>
 </body>
 </html>
