@@ -7,18 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #060919;
-            --bg-mid: #131836;
-            --bg-card: #1c234a;
+            --bg-deep: #100826;
+            --bg-mid: #1a103c;
+            --bg-card: #271655;
             --accent-pink: #ff5c8a;
-            --accent-purple: #8b5cf6;
+            --accent-purple: #9333ea;
             --accent-gold: #ffd166;
-            --lavender: #e2d9fc;
-            --paper-bg: #0f1228;
-            --paper-border: #7c3aed;
-            --paper-text: #f5f0ff;
+            --lavender: #f3e8ff;
+            --paper-bg: #140c2b;
+            --paper-border: #a855f7;
+            --paper-text: #fdf4ff;
             --border-pixel: 4px solid var(--accent-pink);
-            --shadow-pixel: 8px 8px 0px rgba(0, 0, 0, 0.85);
+            --shadow-pixel: 8px 8px 0px rgba(10, 4, 25, 0.9);
         }
 
         * {
@@ -40,14 +40,14 @@
             position: relative;
         }
 
-        /* Subtle overlay to keep text readable against the background */
+        /* Ambient overlay matching the deep purple/magenta tones of bg.jpg */
         .bg-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(6, 9, 25, 0.35);
+            background: rgba(16, 8, 38, 0.25);
             z-index: 1;
             pointer-events: none;
         }
@@ -56,14 +56,14 @@
         .bg-heart {
             position: absolute;
             z-index: 2;
-            opacity: 0.5;
+            opacity: 0.6;
             pointer-events: none;
             animation: pulseHeart 3s infinite alternate ease-in-out;
         }
 
         @keyframes pulseHeart {
-            0% { transform: scale(0.8); opacity: 0.3; }
-            100% { transform: scale(1.2); opacity: 0.7; filter: drop-shadow(0 0 6px var(--accent-pink)); }
+            0% { transform: scale(0.8); opacity: 0.4; }
+            100% { transform: scale(1.2); opacity: 0.8; filter: drop-shadow(0 0 8px var(--accent-pink)); }
         }
 
         /* Interactive Fun Pixel Cat Companion Widget (Left) */
@@ -75,11 +75,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(19, 24, 54, 0.9);
+            background: rgba(26, 16, 60, 0.92);
             border: 4px solid var(--accent-pink);
             padding: 16px;
             border-radius: 10px;
-            box-shadow: 6px 6px 0px rgba(0,0,0,0.85);
+            box-shadow: 6px 6px 0px rgba(10, 4, 25, 0.9);
             cursor: pointer;
             transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s, border-color 0.2s;
             animation: catBreathe 2s infinite ease-in-out alternate;
@@ -92,7 +92,7 @@
 
         .cat-companion-widget:hover {
             transform: scale(1.15) rotate(-3deg) translateY(-8px);
-            background: rgba(28, 35, 74, 0.98);
+            background: rgba(39, 22, 85, 0.98);
             border-color: var(--accent-gold);
             box-shadow: 10px 10px 0px var(--accent-pink);
         }
@@ -111,6 +111,7 @@
             color: var(--lavender);
             margin-top: 8px;
             text-align: center;
+            text-shadow: 1px 1px 0px #000;
         }
 
         /* Start Screen */
@@ -146,11 +147,11 @@
             letter-spacing: 1px;
             line-height: 2.6;
             max-width: 500px;
-            background: rgba(10, 13, 31, 0.95);
+            background: rgba(16, 8, 38, 0.95);
             padding: 20px;
             border: var(--border-pixel);
             border-radius: 8px;
-            box-shadow: 6px 6px 0px rgba(0,0,0,0.8);
+            box-shadow: 6px 6px 0px rgba(10, 4, 25, 0.9);
             white-space: pre-line;
         }
 
@@ -189,6 +190,7 @@
             font-size: 9px;
             color: #fff;
             cursor: grab;
+            text-shadow: 1px 1px 0px #000;
         }
 
         .player-header:active { cursor: grabbing; }
@@ -210,7 +212,7 @@
             min-height: 540px;
             background-color: var(--bg-mid);
             border: var(--border-pixel);
-            box-shadow: 16px 20px 0px rgba(0,0,0,0.85);
+            box-shadow: 16px 20px 0px rgba(10, 4, 25, 0.9);
             opacity: 0;
         }
 
@@ -220,7 +222,7 @@
         }
 
         .q-header {
-            background: linear-gradient(to bottom, var(--accent-pink), #581c87);
+            background: linear-gradient(to bottom, var(--accent-pink), #6b21a8);
             border-bottom: 4px solid var(--accent-pink);
             padding: 16px 20px;
             display: flex;
@@ -228,13 +230,14 @@
             align-items: center;
             color: var(--lavender);
             font-size: 11px;
+            text-shadow: 1px 1px 0px #000;
         }
 
         .q-inner {
             margin: 20px;
             border: 4px solid var(--paper-border);
             background-color: var(--paper-bg);
-            background-image: radial-gradient(circle, rgba(124, 58, 237, 0.15) 1px, transparent 1px);
+            background-image: radial-gradient(circle, rgba(168, 85, 247, 0.18) 1px, transparent 1px);
             background-size: 16px 16px;
             padding: 24px;
             display: flex;
@@ -255,11 +258,12 @@
         }
 
         .q-badge {
-            background-color: #3b0764;
+            background-color: #4c1d95;
             border: 2px solid var(--paper-border);
             padding: 6px 12px;
             border-radius: 4px;
             color: var(--paper-text);
+            text-shadow: 1px 1px 0px #000;
         }
 
         .q-text {
@@ -268,7 +272,7 @@
             text-align: center;
             line-height: 2.5;
             margin-bottom: 20px;
-            text-shadow: 0 0 8px rgba(255, 92, 138, 0.3);
+            text-shadow: 0 0 10px rgba(255, 92, 138, 0.4);
         }
 
         .pixel-input {
@@ -276,16 +280,17 @@
             font-size: 10px;
             width: 100%;
             padding: 16px;
-            background-color: #080b18;
+            background-color: #0b051c;
             border: 3px solid var(--paper-border);
             color: var(--lavender);
             outline: none;
             border-radius: 6px;
             text-align: center;
             margin-bottom: 18px;
+            box-shadow: inset 2px 2px 0px rgba(0,0,0,0.5);
         }
 
-        .pixel-input::placeholder { color: #8b5cf6; }
+        .pixel-input::placeholder { color: #a855f7; }
 
         .pixel-btn {
             font-family: 'Press Start 2P', monospace;
@@ -295,7 +300,8 @@
             border: 3px solid var(--paper-border);
             color: #fff;
             cursor: pointer;
-            box-shadow: 5px 5px 0px #000;
+            box-shadow: 5px 5px 0px #0b051c;
+            text-shadow: 1px 1px 0px #000;
             transition: transform 0.2s, background-color 0.1s;
         }
 
@@ -306,7 +312,7 @@
 
         .pixel-btn:active {
             transform: translateY(1px);
-            box-shadow: 2px 2px 0px #000;
+            box-shadow: 2px 2px 0px #0b051c;
         }
 
         /* Chaotic Varied Love Spam Overlays */
@@ -318,9 +324,10 @@
             color: var(--lavender);
             font-size: 9px;
             padding: 14px 18px;
-            box-shadow: 6px 6px 0px #000;
+            box-shadow: 6px 6px 0px #0b051c;
             pointer-events: none;
             text-align: center;
+            text-shadow: 1px 1px 0px #000;
             animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
@@ -332,7 +339,7 @@
             z-index: 100;
             background-color: var(--bg-mid);
             border: var(--border-pixel);
-            box-shadow: 8px 8px 0px rgba(0,0,0,0.85);
+            box-shadow: 8px 8px 0px rgba(10, 4, 25, 0.9);
             padding: 16px 20px;
             display: flex;
             align-items: center;
@@ -352,8 +359,8 @@
         <g id="svg-bat">
             <svg width="64" height="48" viewBox="0 0 20 14" shape-rendering="crispEdges">
                 <path d="M1,2 h3 v1 h2 v1 h1 v1 h2 v-1 h2 v1 h1 v-1 h2 v-1 h3 v1 h1 v2 h-1 v1 h-1 v1 h-1 v1 h-1 v1 h-2 v-1 h-2 v-1 h-1 v-1 h-1 v-1 h-1 v-1 z" fill="#ffd166"/>
-                <rect x="6" y="5" width="2" height="2" fill="#060919"/>
-                <rect x="12" y="5" width="2" height="2" fill="#060919"/>
+                <rect x="6" y="5" width="2" height="2" fill="#100826"/>
+                <rect x="12" y="5" width="2" height="2" fill="#100826"/>
                 <rect x="9" y="8" width="2" height="1" fill="#ff5c8a"/>
             </svg>
         </g>
@@ -369,11 +376,11 @@
                 <path d="M4,4 h3 v1 h2 v1 h4 v-1 h2 v-1 h3 v1 h1 v3 h-1 v1 h-1 v1 h-1 v1 h-1 v1 h-1 v1 h-2 v1 h-6 v-1 h-2 v-1 h-1 v-1 h-1 v-1 h-1 v-1 h-1 v-3 h1 v-1 z" fill="#ffd166"/>
                 <path d="M5,5 h2 v1 h-2 z" fill="#ff5c8a"/>
                 <path d="M15,5 h2 v1 h-2 z" fill="#ff5c8a"/>
-                <rect x="7" y="7" width="2" height="2" fill="#060919"/>
-                <rect x="13" y="7" width="2" height="2" fill="#060919"/>
+                <rect x="7" y="7" width="2" height="2" fill="#100826"/>
+                <rect x="13" y="7" width="2" height="2" fill="#100826"/>
                 <rect x="10" y="9" width="2" height="1" fill="#ff5c8a"/>
-                <path d="M3,9 h3 v1 h-3 z" fill="#e2d9fc"/>
-                <path d="M16,9 h3 v1 h-3 z" fill="#e2d9fc"/>
+                <path d="M3,9 h3 v1 h-3 z" fill="#f3e8ff"/>
+                <path d="M16,9 h3 v1 h-3 z" fill="#f3e8ff"/>
                 <path d="M7,12 h8 v6 h-8 z" fill="#ffd166"/>
                 <path d="M15,14 h2 v1 h2 v1 h1 v2 h-1 v-1 h-2 v-1 h-2 z" fill="#ff5c8a"/>
             </svg>
@@ -388,8 +395,8 @@
     <div class="bg-heart" style="top: 50%; left: 5%; animation-delay: 0.8s;"><svg width="28" height="26"><use href="#svg-heart"/></svg></div>
     <div class="bg-heart" style="top: 45%; right: 6%; animation-delay: 1.2s;"><svg width="30" height="28"><use href="#svg-heart"/></svg></div>
 
-    <!-- Interactive Pixel Cat Companion Widget (Left) -->
-    <div class="cat-companion-widget" onclick="showAchievement('🐱 Purrfect!', 'You gave your kitty a headpat!')">
+    <!-- Interactive Pixel Cat Companion Widget (Left) with Meow Sound -->
+    <div class="cat-companion-widget" onclick="petTheCat()">
         <svg width="88" height="76"><use href="#svg-cat"/></svg>
         <div class="cat-label">Kitty Companion 🐱✨</div>
     </div>
@@ -467,6 +474,35 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
                 osc.start(now); osc.stop(now + 0.35);
             }
+        }
+
+        /* Synthesized Cute Cat Meow Sound */
+        function playCatSound() {
+            if (!audioCtx) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            // Meow pitch contour: rise then fall like a real meow
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(480, now);
+            osc.frequency.linearRampToValueAtTime(720, now + 0.12);
+            osc.frequency.linearRampToValueAtTime(380, now + 0.38);
+
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.linearRampToValueAtTime(0.14, now + 0.12);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+
+            osc.start(now);
+            osc.stop(now + 0.4);
+        }
+
+        function petTheCat() {
+            playCatSound();
+            showAchievement('🐱 Meow~!', 'Your kitty purred happily from your headpat!');
         }
 
         /* Draggable Music Player Logic */
@@ -573,7 +609,7 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
                 <div class="q-text">${introQuestions[introIndex]}</div>
                 <div style="display:flex; gap: 16px; width: 100%; justify-content: center; align-items: center; margin-top: 16px;">
                     <button class="pixel-btn" style="flex:1;" onclick="answerIntro('Yes! ✨')">Yes! ✨</button>
-                    <button class="pixel-btn" id="noBtn" style="flex:1; background-color: #551a38;" onclick="handleNoClick()">No 😢</button>
+                    <button class="pixel-btn" id="noBtn" style="flex:1; background-color: #581c87;" onclick="handleNoClick()">No 😢</button>
                 </div>
             `;
         }
