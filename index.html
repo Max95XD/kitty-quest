@@ -40,7 +40,6 @@
             position: relative;
         }
 
-        /* Ambient overlay matching the deep purple/magenta tones of bg.jpg */
         .bg-overlay {
             position: absolute;
             top: 0;
@@ -52,7 +51,6 @@
             pointer-events: none;
         }
 
-        /* Background Scattered Hearts */
         .bg-heart {
             position: absolute;
             z-index: 2;
@@ -66,7 +64,6 @@
             100% { transform: scale(1.2); opacity: 0.8; filter: drop-shadow(0 0 8px var(--accent-pink)); }
         }
 
-        /* Interactive Fun Pixel Cat Companion Widget (Left) */
         .cat-companion-widget {
             position: absolute;
             bottom: 25px;
@@ -97,15 +94,6 @@
             box-shadow: 10px 10px 0px var(--accent-pink);
         }
 
-        .cat-companion-widget:hover svg {
-            animation: catWiggle 0.35s infinite alternate ease-in-out;
-        }
-
-        @keyframes catWiggle {
-            0% { transform: rotate(-6deg) scale(1.05); }
-            100% { transform: rotate(6deg) scale(1.05); }
-        }
-
         .cat-label {
             font-size: 8px;
             color: var(--lavender);
@@ -114,7 +102,6 @@
             text-shadow: 1px 1px 0px #000;
         }
 
-        /* Start Screen Window */
         #start-screen {
             position: absolute;
             display: flex;
@@ -187,7 +174,6 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Draggable Music Player Widget */
         .music-player {
             position: absolute;
             top: 25px;
@@ -230,7 +216,6 @@
             background-color: var(--bg-deep);
         }
 
-        /* Main Chamber Window */
         #question-window {
             display: none;
             position: absolute;
@@ -345,7 +330,6 @@
             box-shadow: 2px 2px 0px #0b051c;
         }
 
-        /* Chaotic Varied Love Spam Overlays */
         .love-spam-box {
             position: fixed;
             z-index: 300;
@@ -361,7 +345,6 @@
             animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        /* Achievement Popup */
         #achievement-popup {
             position: fixed;
             bottom: -130px;
@@ -384,7 +367,6 @@
 
     <div class="bg-overlay"></div>
 
-    <!-- Crisp Pixel Art SVGs -->
     <svg style="display:none;">
         <g id="svg-bat">
             <svg width="64" height="48" viewBox="0 0 20 14" shape-rendering="crispEdges">
@@ -400,7 +382,6 @@
                 <rect x="4" y="3" width="3" height="3" fill="#ffd166"/>
             </svg>
         </g>
-        <!-- Fun Pixel Art Cat Sprite -->
         <g id="svg-cat">
             <svg width="88" height="76" viewBox="0 0 22 19" shape-rendering="crispEdges">
                 <path d="M4,4 h3 v1 h2 v1 h4 v-1 h2 v-1 h3 v1 h1 v3 h-1 v1 h-1 v1 h-1 v1 h-1 v1 h-1 v1 h-2 v1 h-6 v-1 h-2 v-1 h-1 v-1 h-1 v-1 h-1 v-1 h-1 v-3 h1 v-1 z" fill="#ffd166"/>
@@ -417,7 +398,6 @@
         </g>
     </svg>
 
-    <!-- Scattered Hearts Everywhere -->
     <div class="bg-heart" style="top: 15%; left: 10%;"><svg width="30" height="28"><use href="#svg-heart"/></svg></div>
     <div class="bg-heart" style="top: 25%; right: 12%; animation-delay: 1s;"><svg width="24" height="22"><use href="#svg-heart"/></svg></div>
     <div class="bg-heart" style="bottom: 18%; left: 28%; animation-delay: 0.5s;"><svg width="32" height="30"><use href="#svg-heart"/></svg></div>
@@ -425,13 +405,11 @@
     <div class="bg-heart" style="top: 50%; left: 5%; animation-delay: 0.8s;"><svg width="28" height="26"><use href="#svg-heart"/></svg></div>
     <div class="bg-heart" style="top: 45%; right: 6%; animation-delay: 1.2s;"><svg width="30" height="28"><use href="#svg-heart"/></svg></div>
 
-    <!-- Interactive Pixel Cat Companion Widget (Left) with Meow Sound -->
     <div class="cat-companion-widget" onclick="petTheCat()">
         <svg width="88" height="76"><use href="#svg-cat"/></svg>
         <div class="cat-label">Kitty Companion 🐱✨</div>
     </div>
 
-    <!-- Draggable Start Screen Window -->
     <div id="start-screen">
         <div class="start-header" id="startHeader">
             <span>🌟 Welcome Screen</span>
@@ -449,7 +427,6 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
         </div>
     </div>
 
-    <!-- Draggable Spotify Music Player -->
     <div class="music-player" id="musicPlayer">
         <div class="player-header" id="playerHeader">
             <span>🎵 Starlight Playlist</span>
@@ -460,7 +437,6 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
         </div>
     </div>
 
-    <!-- Draggable Question Window -->
     <div id="question-window">
         <div class="q-header" id="questionHeader">
             <span id="chamberTitle">Our Little Game</span>
@@ -486,6 +462,8 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
 
     <script>
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const player = document.getElementById('musicPlayer'); // Defined properly here!
+
         function playSound(type) {
             if (!audioCtx) return;
             if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -513,7 +491,6 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
             }
         }
 
-        /* Synthesized Cute Cat Meow Sound */
         function playCatSound() {
             if (!audioCtx) return;
             if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -541,7 +518,6 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
             showAchievement('🐱 Meow~!', 'Your kitty purred happily from your headpat!');
         }
 
-        /* Universal Draggable Helper with Precise Centering */
         function makeDraggable(elm, handle, isCentered = false) {
             let isDragging = false, startX, startY, initialX, initialY;
 
@@ -580,12 +556,10 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
             function dragEnd() { isDragging = false; }
         }
 
-        // Apply draggability to Start Screen, Question Window, and Music Player
         makeDraggable(id('start-screen'), id('startHeader'), true);
         makeDraggable(id('question-window'), id('questionHeader'), true);
-        makeDraggable(id('musicPlayer'), id('playerHeader'), false);
+        makeDraggable(player, id('playerHeader'), false);
 
-        /* First 3 Yes/No Intro Questions with Shrinking & Disappearing 'No' Button */
         const introQuestions = [
             "Are you ready to play my little game and answer honestly, Hun Bun?",
             "Do you promise to take your time and answer every question truthfully?",
@@ -594,7 +568,6 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
         let introIndex = 0;
         let noClickCount = 0;
 
-        /* All 29 of Your Questions */
         const gameSequence = [
             { text: "1. Before we start... I hope none of these questions make you upset or uncomfortable. Please take your time and answer every question honestly. I promise I'll appreciate the truth more than the answer I want to hear." },
             { text: "2. Let's start with something simple...\nHow do you honestly feel about me right now, at this point in our relationship?" },
@@ -727,7 +700,6 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
             loadStep();
         }
 
-        /* Love Spam Storm Triggered after every 4 questions with Varied Sentences */
         const spamPhrases = [
             "💖 I love you! 💖",
             "✨ You're the love of my life! ✨",
@@ -788,7 +760,6 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
             body.style.display = body.style.display === 'none' ? 'block' : 'none';
         }
 
-        /* Close / Go Back Button logic */
         function previousStep() {
             playSound('click');
             if (introIndex < introQuestions.length) {
@@ -797,7 +768,6 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
                     userResponses.pop();
                     loadIntroStep();
                 } else {
-                    // Go back to start screen
                     id('question-window').classList.remove('fade-in');
                     id('question-window').style.display = 'none';
                     id('start-screen').style.display = 'flex';
@@ -809,7 +779,6 @@ Don't worry—this isn't a test you can fail. I just want to understand you bett
                     userResponses.pop();
                     loadStep();
                 } else {
-                    // Go back to the last intro step
                     introIndex = introQuestions.length - 1;
                     userResponses.pop();
                     loadIntroStep();
